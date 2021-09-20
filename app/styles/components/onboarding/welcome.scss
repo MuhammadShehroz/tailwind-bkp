@@ -1,0 +1,44 @@
+& {
+  color: $slate;
+  height: rem(524);
+  text-align: center;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+  }
+
+  &::before {
+    background: url(/assets/images/onboarding-welcome-bg.png) no-repeat center top;
+    background-size: cover;
+    height: rem(264);
+    width: 100%;
+  }
+
+  &::after {
+    background: url(/assets/images/onboarding-dashboard-illustration.png) no-repeat center top;
+    background-size: cover;
+    height: rem(130);
+    left: 50%;
+    position: absolute;
+    top: rem(175);
+    transform: translate(-50%, 0);
+    width: rem(202);
+  }
+}
+
+h1 {
+  font-size: rem(32);
+  line-height: 125%;
+  margin-top: rem(104);
+}
+
+button {
+  background: url(arrow-right-icon($cyan, 16, 16)) no-repeat top rem(9) right rem(24);
+  font-size: rem(16);
+  line-height: rem(24);
+  margin-top: rem(16);
+  padding-right: rem(48);
+  text-transform: none;
+}

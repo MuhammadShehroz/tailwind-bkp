@@ -1,0 +1,62 @@
+<Layouts::PageHeader @resourceType='units' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Units Of Measurements</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <button type='button' {{action 'addUnit'}} class='tw-button'>
+        <Icons::Plus/>
+        Add New Unit
+      </button>
+      {{#if unitPresent}}
+        <div class='tw-table-wrapper bordered'>
+          <table>
+            <thead>
+              <tr>
+                <th scope='col' class='w-full'>Name</th>
+                <th scope='col' class='w-auto'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each model as |unit|}}
+              <tr>
+                <td>
+                  <div class='tw-label'>Name</div>
+                  {{unit.name}}
+                </td>
+                <td>
+                  <div class='tw-label'>Actions</div>
+                  <button type='button' class='tw-link' {{action 'editUnit' unit}}>
+                    Edit
+                  </button>
+                  <button type='button' class='tw-link' {{action 'destroyUnit' unit}} disabled={{delete.isRunning}}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <Layouts::PageHeader @resourceType='units' @pageType='list'>
+          <Layouts::ColumnsGrid>
+            <Layouts::GridColumn>
+              <h2 class='text-center font-extrabold'>
+                Create custom units of measurement for your products and services to fit the needs of your business.
+              </h2>
+            </Layouts::GridColumn>
+          </Layouts::ColumnsGrid>
+        </Layouts::PageHeader>
+      {{/if}}
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

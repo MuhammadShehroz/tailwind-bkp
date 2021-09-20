@@ -1,0 +1,37 @@
+<div class='toggler {{if visibleFilters 'expanded'}}'>
+  <a href='#' {{action 'showFilters'}}>
+    <span class='client-summary'>{{clientFilterSummary.name}}</span>
+    <span class='date-summary'>{{dateFilterSummary}}</span>
+    <span class='status-summary'>{{statusFilterSummary}}</span>
+    <span class='currency-summary'>{{currencyFilterSummary}}</span>
+  </a>
+</div>
+
+{{#if visibleFilters}}
+  <h3>Filters</h3>
+
+  <form>
+    <DateInput @model={{this}} @valuePath='startDate' @label='Start Date' @class='not-floating start-date' />
+    <DateInput @model={{this}} @valuePath='endDate' @label='End Date' @class='end-date' />
+    <FormElements::ClientSelect
+      @label='Client'
+      @model={{this}}
+      @placeholder='All'
+      @showPlaceholderOnBlank={{true}}
+      @valuePath='client'
+    />
+    <CurrencySelect @model={{this}} @valuePath='currency' @label='Currency' @allowClear={{true}} />
+
+    <div class='fields-collection checkboxes-collection'>
+      <label>Estimate Types</label>
+      <CheckboxInput @model={{this}} @valuePath='statusDraft' @label='Draft' />
+      <CheckboxInput @model={{this}} @valuePath='statusOpen' @label='Open' />
+      <CheckboxInput @model={{this}} @valuePath='statusApproved' @label='Approved' />
+      <CheckboxInput @model={{this}} @valuePath='statusDeclined' @label='Declined' />
+      <CheckboxInput @model={{this}} @valuePath='statusConverted' @label='Converted' />
+    </div>
+  </form>
+
+  <a href='#' class='apply' {{action 'apply'}}>Apply Filters</a>
+  <a href='#' class='reset' {{action 'reset'}}>Reset Filters</a>
+{{/if}}

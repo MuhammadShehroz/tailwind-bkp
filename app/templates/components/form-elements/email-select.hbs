@@ -1,0 +1,34 @@
+<label for='{{elementId}}' class='tw-label'>
+  {{label}}
+  {{#each value as |item|}}
+    <span class='tw-badge'>
+      {{get item displayField}}
+      <button type='button' class='flex-shrink-0 ml-0.5 h-6 sm:h-4 w-6 sm:w-4 rounded-full inline-flex items-center justify-center text-indigo-400 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white' {{action 'removeItem' item}}>
+        <span class='sr-only'>Remove</span>
+        <Icons::Times/>
+      </button>
+    </span>
+  {{/each}}
+</label>
+<div class='mt-1 relative'>
+  <PowerSelect
+    @options={{filteredOptions}}
+    @searchField={{optionLabel}}
+    @searchEnabled={{searchEnabled}}
+    @placeholder={{placeholder}}
+    @searchPlaceholder={{searchPlaceholder}}
+    @selected={{selected}}
+    @noMatchesMessage={{noMatchesMessage}}
+    @triggerClass={{if showErrors 'error'}}
+    @dropdownClass={{if showErrors 'error'}}
+    @defaultHighlighted={{this.highlightItem}}
+    @selectedItemComponent={{selectedItemComponent}}
+    @triggerComponent='form-elements/power-trigger'
+    @onChange={{action 'onChange'}} as |name|>
+      {{get name optionLabel}}
+  </PowerSelect>
+</div>
+
+{{#if showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}

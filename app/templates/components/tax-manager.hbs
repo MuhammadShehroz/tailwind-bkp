@@ -1,0 +1,78 @@
+{{#if tax.all.content.isLoaded}}
+  <div class='mt-6 grid gap-y-4 gap-x-4 grid-cols-6 sm:pt-5'>
+    {{#if selectedItem}}
+      <div class='col-span-6 sm:col-span-4'>
+        <FormElements::TextInput
+          @value={{selectedItem.name}}
+          @label='Tax name'
+          @allowClear={{true}}
+          @trailingIcon={{true}}
+          @showErrors={{selectedItem.validations.attrs.name.isInvalid}}
+          @errorMessage={{selectedItem.validations.attrs.name.message}}
+          as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+        >
+          <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+        </FormElements::TextInput>
+      </div>
+
+      <div class='col-span-6 sm:col-span-2'>
+        <FormElements::NumberInput
+          min='0.0'
+          max='100.0'
+          step='0.01'
+          @value={{selectedItem.percent}}
+          @label='Rate'
+          @leadingIcon='%'
+          @allowClear={{true}}
+          @showErrors={{selectedItem.validations.attrs.percent.isInvalid}}
+          @errorMessage={{selectedItem.validations.attrs.percent.message}}
+          as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+        >
+          <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+          <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+        </FormElements::NumberInput>
+      </div>
+
+      <div class='col-span-6 sm:col-span-6'>
+        <button {{action 'cancelEdit'}} type='button' class='tw-button white mb-4 sm:mb-0'>Cancel</button>
+        <button {{action 'save'}} type='button' class='tw-button white'>Save</button>
+      </div>
+    {{/if}}
+
+    {{#if sortedItems}}
+      {{#each sortedItems as |item|}}
+        {{#unless (eq item selectedItem)}}
+          <div class='flex'>
+            <button type='button' class='tw-button white self-center' {{action 'edit' item pc}}>Edit</button>
+          </div>
+
+          <div class='col-span-3 flex'>
+            <span class='self-center'>{{item.name}}</span>
+          </div>
+
+          <div class='flex'>
+            <span class='self-center'>{{item.percent}}</span>
+          </div>
+
+          <div class='flex justify-end'>
+            <button type='button' class='tw-button white square self-center' {{action 'delete' item}}>
+              <Icons::Times/>
+            </button>
+          </div>
+        {{/unless}}
+      {{/each}}
+    {{else}}
+      <div class='sm:col-span-6'>
+        <p class='empty-message'>{{emptyMessage}}</p>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
+
+<div class='flex-column mt-5 space-y-4'>
+  <button type='button' {{action 'newItem'}} class='tw-button create text-center items-center justify-center w-full'>
+    <Icons::Plus/>
+    {{newButtonLabel}}
+  </button>
+  <button type='button' class='tw-button w-full items-center justify-center' {{action 'cancel'}}>Done</button>
+</div>

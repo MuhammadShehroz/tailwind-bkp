@@ -1,0 +1,41 @@
+{{#if invoices}}
+<Layouts::PageHeader>
+  <nav class='tw-context-menu hidden lg:py-2 lg:flex lg:space-x-8' aria-label='Global'>
+    <div>
+      <LinkTo
+        @route='invoices.index'
+        @activeClass='active'
+        @class='text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium'
+      >
+        Overview
+      </LinkTo>
+    </div>
+
+    <div>
+      <LinkTo
+        @route='invoices.payments'
+        @activeClass='active'
+        @class='text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium'
+      >
+        Payments
+      </LinkTo>
+    </div>
+
+    <a href='#'
+       class='text-gray-900 hover:bg-gray-50 hover:text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium'>
+      Recurring
+    </a>
+
+    <div>
+      <LinkTo
+        @route='invoices.settings'
+        @activeClass='active'
+        @class='text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium'
+      >
+        Settings
+      </LinkTo>
+    </div>
+  </nav>
+</Layouts::PageHeader>
+{{/if}}
+{{yield}}

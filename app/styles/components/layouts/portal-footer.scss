@@ -1,0 +1,15 @@
+& {
+  align-items: center;
+  color: $slate-50;
+  display: flex;
+  font-size: rem(10);
+  font-weight: bold;
+  margin: rem(32) auto rem(64);
+
+  .footer-logo {
+    background: url(logo(78, 32, $slate-50, $slate-50)) no-repeat center;
+    height: rem(32);
+    margin-left: rem(12);
+    width: rem(78);
+  }
+}

@@ -1,0 +1,19 @@
+<Layouts::PageHeader @resourceType='client' @pageType='form'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Client {{model.name}}</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::OneColumn>
+    <Clients::PreferencesForm
+      @model={{model}}
+      @currencies={{currencies}}
+      @taxes={{taxes}}
+      @units={{units}}
+      @createTax={{createTax}}
+      @createUnit={{createUnit}}
+    />
+  </Layouts::OneColumn>
+</Layouts::PageBody>

@@ -1,0 +1,24 @@
+<div class='col-span-6 sm:col-span-4'>
+  <FormElements::TextInput
+    @value={{model.name}}
+    @label='Unit name'
+    @allowClear={{true}}
+    @trailingIcon={{true}}
+    @showErrors={{validations.name.isInvalid}}
+    @errorMessage={{validations.name.message}}
+    as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+  >
+    <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+  </FormElements::TextInput>
+</div>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>
+      Cancel
+    </button>
+    <button type='submit' class='tw-button' disabled={{save.isRunning}}>
+      Save
+    </button>
+  </div>
+</div>

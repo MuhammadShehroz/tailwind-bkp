@@ -1,0 +1,23 @@
+& > input[type='submit'] {
+  display: none;
+}
+
+.form-actions button[type='submit']:disabled {
+  background-color: $slate-20;
+  border-color: $slate-20;
+}
+
+@media (min-width: $bp-768px) {
+  &:not(.fluid) .field {
+    float: left;
+    width: calc(50% - #{rem(12)});
+
+    &:nth-child(even) {
+      margin-left: rem(12);
+    }
+
+    &:nth-child(odd) {
+      margin-right: rem(12);
+    }
+  }
+}

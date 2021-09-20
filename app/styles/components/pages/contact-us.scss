@@ -1,0 +1,41 @@
+& {
+  color: $slate;
+  height: 100%;
+  margin: rem(80) auto;
+  max-width: rem(327);
+  text-align: center;
+  width: 100%;
+}
+
+h2 {
+  font-size: rem(32);
+  line-height: 125%;
+
+  &::after {
+    background-color: $slate-20;
+    content: '';
+    display: block;
+    height: rem(8);
+    margin: rem(32) auto;
+    width: rem(40);
+  }
+}
+
+b {
+  font-size: rem(24);
+  font-weight: bold;
+  line-height: 125%;
+  margin-top: rem(32);
+}
+
+a {
+  color: $slate-80;
+  display: block;
+  font-size: rem(16);
+  line-height: 150%;
+}
+
+a:first-of-type {
+  margin-top: rem(16);
+  text-decoration-line: underline;
+}

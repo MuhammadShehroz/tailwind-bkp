@@ -1,0 +1,213 @@
+.add-comment {
+  .comment-form .input-wrapper {
+    border-bottom: hidden;
+    padding-right: 0;
+
+    textarea {
+      border-bottom: rem(1) solid $slate-20;
+
+      &:focus {
+        border-bottom-color: $cyan;
+      }
+    }
+  }
+
+  .error.tooltip {
+    height: rem(20);
+    right: rem(10);
+    top: rem(10);
+  }
+
+  .btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.events {
+  border-top: 1px solid $slate-20;
+  margin-top: rem(24);
+  padding-top: rem(24);
+
+  .event {
+    border-bottom: 1px solid $slate-20;
+    margin-bottom: rem(24);
+    padding-bottom: rem(24);
+
+    &:last-child {
+      border-bottom: hidden;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .event-content {
+      margin-top: rem(16);
+
+      .title {
+        color: $slate;
+        font-size: 16px;
+        line-height: rem(24);
+        padding-left: rem(33);
+      }
+
+      .to,
+      .author {
+        color: $slate;
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: rem(15);
+        margin-top: rem(14);
+        text-transform: uppercase;
+      }
+
+      .to {
+        text-transform: none;
+      }
+
+      .message {
+        color: $slate;
+        font-size: 16px;
+        font-style: italic;
+        line-height: rem(24);
+        margin-top: rem(16);
+      }
+    }
+
+    &.comment-event {
+      .title {
+        background: url(comment-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+
+    &.payment-received-event {
+      .title {
+        background: url(payment-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+
+    &.payment-failed-event {
+      .title {
+        background: url(payment-icon($magenta, 20, 20)) left center no-repeat;
+        color: $magenta;
+      }
+    }
+
+    &.document-sent-event {
+      .title {
+        background: url(send-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+
+    &.reminder-sent-event {
+      .title {
+        background: url(clock-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+
+    &.email-opened-event {
+      .title {
+        background: url(envelope-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+
+    &.email-delivery-failed-event {
+      .title {
+        background: url(alert-icon($sapphire, 20, 20)) left center no-repeat;
+        color: $sapphire;
+      }
+    }
+
+    &.payment-deleted-event {
+      .title {
+        background: url(erased-icon($magenta, 20, 20)) left center no-repeat;
+        color: $magenta;
+      }
+    }
+
+    &.invoice-converted-from-estimate-event,
+    &.estimate-converted-to-invoice-event {
+      .title {
+        background: url(converted-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+
+    &.invoice-spawned-from-template-event {
+      .title {
+        background: url(auto-created-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+
+    &.estimate-approved-event {
+      .title {
+        background: url(thumbs-up-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+
+    &.estimate-declined-event {
+      .title {
+        background: url(thumbs-down-icon($slate-80, 20, 20)) left center no-repeat;
+      }
+    }
+  }
+}
+
+.portal & {
+  .events {
+    border-top-style: dashed;
+  }
+
+  .event .date {
+    font-size: rem(12);
+    letter-spacing: rem(1);
+    line-height: rem(15);
+    text-transform: uppercase;
+  }
+
+  .comment-form {
+    label,
+    .btn-cancel {
+      display: none;
+    }
+
+    .field {
+      flex-grow: 1;
+      margin-bottom: 0;
+    }
+
+    .input-wrapper {
+      height: 100%;
+
+      textarea {
+        border: rem(1) solid $slate-20;
+        box-sizing: border-box;
+        min-height: rem(56);
+      }
+
+      textarea::placeholder {
+        color: $slate;
+      }
+    }
+
+    .btn {
+      border-radius: rem(6);
+      height: rem(56);
+      margin-top: rem(16);
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: $bp-768px) {
+  .portal & {
+    .comment-form {
+      display: flex;
+
+      .btn {
+        margin-left: rem(22);
+        margin-top: 0;
+        width: rem(130);
+      }
+    }
+  }
+}

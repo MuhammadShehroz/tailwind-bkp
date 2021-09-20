@@ -1,0 +1,13 @@
+{{#if discount.lineItem}}
+  Line Item Discount
+  {{#unless discount.isFixedDiscount}}
+    ({{discount.discountValue}}%)
+  {{/unless}}
+{{else}}
+  Discount
+  {{#if discount.isFixedDiscount}}
+    ({{model.currencySymbol}}):
+  {{else}}
+    ({{discount.discountValue}}%):
+  {{/if}}
+{{/if}}

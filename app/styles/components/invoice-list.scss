@@ -1,0 +1,183 @@
+.records {
+  .record-row {
+    .identifier {
+      order: 1;
+    }
+
+    .status {
+      order: 2;
+    }
+
+    .client {
+      order: 3;
+      width: 100%;
+
+      .label {
+        color: $slate-80;
+      }
+
+      .name {
+        color: $slate;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5;
+
+      }
+    }
+
+    .issue-date,
+    .due-date {
+      margin-top: rem(34);
+
+      .date {
+        color: $slate;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+    }
+
+    .issue-date {
+      order: 3;
+      width: rem(137);
+    }
+
+    .due-date {
+      margin-left: calc(100% - #{rem(280)});
+      order: 4;
+      width: rem(143);
+    }
+
+    .amounts {
+      order: 5;
+
+      .paid,
+      .due {
+        display: block;
+        font-size: 11px;
+        margin-top: rem(2);
+        padding: rem(4);
+      }
+    }
+
+    &.draft {
+      .status {
+        color: $slate-80;
+      }
+    }
+
+    &.open {
+      .status {
+        border-color: $indigo;
+        color: $indigo;
+      }
+    }
+
+    &.closed {
+      .status {
+        border-color: $slate;
+        color: $slate;
+      }
+    }
+
+    &.past_due { /* stylelint-disable-line selector-class-pattern */
+      .status {
+        border-color: $magenta;
+        color: $magenta;
+      }
+
+      .due-date {
+        .date {
+          color: $magenta;
+          font-weight: bold;
+        }
+
+        .past-due-days {
+          color: $magenta;
+          display: block;
+          font-size: 12px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          line-height: 1.25;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
+
+.summary-table {
+  margin: rem(16);
+}
+
+@media (min-width: rem(768)) {
+  .records {
+    .record-row {
+      .client {
+        width: calc(100% - #{rem(500)});
+      }
+
+      .issue-date,
+      .due-date,
+      .amounts {
+        margin-left: rem(30);
+        margin-top: 0;
+      }
+
+      .issue-date {
+        width: rem(122);
+      }
+
+      .due-date {
+        width: rem(147);
+      }
+
+      .amounts {
+        width: rem(141);
+      }
+    }
+  }
+}
+
+@media (min-width: rem(1280)) {
+  .listing-header,
+  .records .record-row {
+    .client {
+      width: rem(265);
+    }
+
+    .issue-date {
+      width: rem(112);
+    }
+
+    .due-date {
+      width: rem(132);
+    }
+  }
+
+  .records {
+    .record-row {
+      .status,
+      .identifier,
+      .client,
+      .issue-date,
+      .due-date,
+      .amounts {
+        margin: 0 rem(17);
+
+        .label {
+          display: none;
+        }
+      }
+
+      .status {
+        margin-left: 0;
+        order: 0;
+      }
+
+      .amounts {
+        margin-left: rem(18);
+        margin-right: 0;
+      }
+    }
+  }
+}

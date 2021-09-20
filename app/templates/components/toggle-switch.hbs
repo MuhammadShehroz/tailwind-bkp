@@ -1,0 +1,20 @@
+<div class='flex mt-1 leading-5'>
+  {{#if toggleOffLabel}}
+    <span class='mr-3'>
+      <span class='tw-label'>{{toggleOffLabel}}</span>
+    </span>
+  {{/if}}
+  <button type='button' disabled={{disabled}} class='switch-button {{if value 'enabled'}}' role='switch' aria-checked='{{value}}' aria-labelledby='' {{action 'toggle'}}>
+    <span class='sr-only'>{{toggleOnLabel}}</span>
+    <span aria-hidden='true' class='switcher'></span>
+  </button>
+  {{#if toggleOnLabel}}
+    <span class='ml-3'>
+      <span class='tw-label'>{{toggleOnLabel}}</span>
+    </span>
+  {{/if}}
+</div>
+
+{{#if hint}}
+  <p class='validation-message hint'>{{hint}}</p>
+{{/if}}

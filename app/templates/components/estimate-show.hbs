@@ -1,0 +1,39 @@
+{{yield}}
+
+<div class='sm:p-4 space-y-4'>
+  <div class='flex justify-between'>
+    <div class='text-sm'>
+      <div>{{if model.lastSentAt 'Sent to' 'Client'}}</div>
+      <TransactorInfo @transactor={{client}}>
+        <LinkTo @route='clients.show' @model={{client}}>{{client.name}}</LinkTo>
+      </TransactorInfo>
+    </div>
+   <div>
+      <div class='text-sm'>Created</div>
+      <div><FormatDate @date={{model.issuedOn}}/></div>
+    </div>
+  </div>
+</div>
+
+<LineItemList class='sm:px-4' @model={{model}} />
+
+{{#if model.notes}}
+  <Forms::Divider />
+  <div>
+    <div>Note</div>
+    <div>{{custom-html-sanitize model.notes}}</div>
+  </div>
+{{/if}}
+
+<div class='sm:p-4'>
+  <Forms::Divider />
+  <HistoryEvents
+    @id='history'
+    @header='History &amp; Comments'
+    @events={{historyEvents}}
+    @model={{model}}
+    @reloadEvents={{reloadEvents}}
+    @newComment={{newComment}}
+    @isCommentFormExpanded={{isCommentFormExpanded}}
+  />
+</div>

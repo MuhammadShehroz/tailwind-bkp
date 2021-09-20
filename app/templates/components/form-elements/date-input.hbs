@@ -1,0 +1,26 @@
+{{#if label}}
+  <label for={{fieldId}} class='tw-label'>{{label}}</label>
+{{/if}}
+<div class='tw-input-wrapper'>
+  <div class='relative flex items-stretch flex-grow focus-within:z-10'>
+    <PikadayInput ...attributes
+      @format={{format}}
+      @value={{internalValue}}
+      @useUTC={{useUTC}}
+      @minDate={{minDate}}
+      @maxDate={{maxDate}}
+      @showErrors={{showErrors}}
+      @classNames={{_classNames}}
+      @classNameBindings={{_classNameBindings}}
+      @onSelection={{action 'setDate'}}
+    />
+  </div>
+</div>
+
+{{#if showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}
+
+{{#if hint}}
+  <p class='validation-message hint'>{{hint}}</p>
+{{/if}}

@@ -1,0 +1,137 @@
+<Forms::GroupedGrid
+  @title='Defaults'
+  @description="You've made selections in this section that differ from the onces defined at your Business level. That’s okay! If you’d like to go back to your Business defaults, though, clicking Reset button will do that."
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::CurrencyInput
+      placeholder={{currentOrganization.unitPrice}}
+      @label='Default Unit Price'
+      @value={{model.unitPrice}}
+      @decimals={{currentOrganization.decimals}}
+      @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+      @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+      @leadingIcon={{currencySymbol}}
+      @allowClear={{true}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::PowerSelectMenu
+      @label='Default Unit'
+      @placeholder={{currentOrganization.unitOfMeasurement.name}}
+      @options={{units}}
+      @optionKey='id'
+      @optionLabel='name'
+      @searchEnabled={{false}}
+      @selected={{model.unitOfMeasurement}}
+      @value={{model.unitOfMeasurement}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <div class='col-span-3 sm:col-span-1 sm:pt-8'>
+      <button type='button' class='tw-button' {{action 'openUnitManager'}}>Add or edit a unit</button>
+    </div>
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::PowerSelectMenu
+      @label='Currency'
+      @placeholder={{currentOrganization.currency}}
+      @options={{currencies}}
+      @optionKey='code'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{currency}}
+      @onChange={{action 'onCurrencySelect'}}
+    />
+  </div>
+
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::CurrencyInput
+      placeholder={{currentOrganization.shipping}}
+      @label='Shipping'
+      @value={{model.shipping}}
+      @decimals={{currentOrganization.decimals}}
+      @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+      @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+      @leadingIcon={{currencySymbol}}
+      @allowClear={{true}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::PowerSelectMenu
+      @label='Payment Due Date'
+      @placeholder={{currentOrganization.netTermsLabel}}
+      @options={{paymentTerms}}
+      @optionKey='value'
+      @optionLabel='dropdownLabel'
+      @searchEnabled={{false}}
+      @selected={{dueDate}}
+      @onChange={{action 'onDueDateSelect'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::PowerSelectMenu
+      @label='Tax Distribution'
+      @placeholder={{currentOrganization.taxDistributionLabel}}
+      @options={{taxDistributionOptions}}
+      @optionKey='value'
+      @optionLabel='label'
+      @searchEnabled={{false}}
+      @selected={{taxDistribution}}
+      @onChange={{action 'onTaxDistributionSelect'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::SelectMenu
+      @label='Default Tax'
+      @placeholder={{currentOrganization.tax.nameAndPercent}}
+      @emptyPlaceholder='Create the first tax'
+      @options={{taxes}}
+      @optionKey='id'
+      @optionLabel='nameAndPercent'
+      @selected={{model.tax}}
+      @value={{model.tax}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <div class='col-span-3 sm:col-span-1 sm:pt-8'>
+      <button type='button' class='tw-button' {{action 'openTaxManager'}}>Add or edit a tax</button>
+    </div>
+  </div>
+
+  <LateFeeGroup
+    @label='Late Fee'
+    @lateFeePlaceholder={{currentOrganization.lateFeeLabel}}
+    @model={{model}}
+    @currencySymbol={{currencySymbol}}
+  />
+
+  <div class='col-span-6'>
+    <ToggleSwitch
+      @value={{model.pdfAttached}}
+      @toggleOnLabel='Attach invoices and estimates as PDFs to emails'
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<div class='py-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <LinkTo @route='clients.show' @model={{model}} class='tw-button white'>Cancel</LinkTo>
+    <button type='button' class='tw-button secondary' {{action 'reset'}}>Reset to Business defaults</button>
+    <button type='submit' class='tw-button'>Save Changes</button>
+  </div>
+</div>

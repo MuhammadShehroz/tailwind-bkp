@@ -1,0 +1,92 @@
+& {
+  margin-bottom: rem(32);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.left-field,
+.right-field {
+  display: inline-block;
+  width: calc((100% - #{rem(24)}) / 2);
+}
+
+.right-field {
+  float: right;
+  margin-left: rem(24);
+}
+
+.total {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+
+  > * {
+    width: calc((100% - #{rem(24)}) / 2);
+  }
+
+  label {
+    color: $slate-80;
+    cursor: pointer;
+    display: block;
+    font-size: rem(12);
+    letter-spacing: 1px;
+    line-height: rem(16);
+    text-transform: uppercase;
+  }
+
+  .currency {
+    color: $slate;
+    display: block;
+    font-size: 16px;
+    line-height: rem(24);
+    padding-bottom: rem(8);
+
+    label {
+      margin-bottom: rem(8);
+    }
+  }
+}
+
+.description {
+  width: 100%;
+
+  textarea {
+    padding: rem(8) 0;
+  }
+}
+
+&.with-tax {
+  .field.tax-field {
+    width: 100%;
+
+    .input-wrapper > div {
+      white-space: nowrap;
+    }
+  }
+
+  .total > * {
+    width: calc((100% - #{rem(24)}) / 2);
+  }
+}
+
+@media (min-width: $bp-768px) {
+  & {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &.with-tax {
+    .field.tax-field {
+      margin-left: 0;
+    }
+
+    .total {
+      > * {
+        width: calc((100% - #{rem(48)}) / 3);
+      }
+    }
+  }
+}

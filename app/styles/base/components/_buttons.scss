@@ -1,0 +1,548 @@
+.btn {
+  background-color: $cyan;
+  border: 1px solid $cyan;
+  border-radius: 6px;
+  color: $slate;
+  cursor: pointer;
+  display: inline-block;
+  font-size: rem(12);
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: rem(40);
+  margin: 0;
+  padding: 0 rem(24);
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $cyan-hl;
+    border-color: $cyan-hl;
+  }
+
+  &:active {
+    background-color: $slate;
+    border-color: $slate;
+    color: #fff;
+  }
+
+  &.btn-secondary {
+    background-color: transparent;
+    border-color: $cyan;
+    color: $slate;
+
+    &:hover {
+      background-color: $cyan-hl;
+      border-color: $cyan-hl;
+    }
+
+    &:active {
+      background-color: $slate;
+      border-color: $slate;
+      color: $cyan-hl;
+    }
+  }
+
+  &.btn-royal {
+    background-color: $royal-blue;
+    border: transparent;
+    color: #fff;
+
+    &:hover {
+      background-color: $royal-blue-hl;
+    }
+
+    &:active {
+      background-color: $royal-blue-hl;
+    }
+  }
+
+  &.btn-ghost {
+    background-color: transparent;
+    border-color: $cyan;
+
+    &-text {
+      color: #fff;
+    }
+
+    &:active {
+      border-color: transparent;
+      color: $cyan;
+    }
+  }
+
+  &.btn-tertiary {
+    background-color: transparent;
+    border-color: $slate-30;
+    font-weight: 400;
+
+    &:hover {
+      background-color: $slate-10;
+      border-color: $slate-10;
+    }
+
+    &:active {
+      background-color: $slate;
+      border-color: $slate;
+      color: #fff;
+    }
+  }
+
+  &.btn-disabled,
+  &:disabled {
+    background-color: $slate-10;
+    border-color: $slate-10;
+    color: $slate-80;
+    cursor: not-allowed;
+
+    &:hover,
+    &:active {
+      background-color: $slate-10;
+      border-color: $slate-10;
+      color: $slate-80;
+    }
+  }
+
+  &.btn-large {
+    font-size: rem(16);
+    line-height: rem(56);
+    padding: 0 rem(32);
+  }
+
+  &.btn-cancel {
+    background-color: transparent;
+    background-image: url(close-icon($slate, 12, 12));
+    background-position: left rem(5);
+    background-repeat: no-repeat;
+    border-color: transparent;
+    border-radius: 0;
+    color: $slate;
+    display: block;
+    font-weight: 400;
+    line-height: rem(21);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: rem(19);
+    padding-bottom: rem(3);
+    padding-left: rem(21);
+    padding-right: 0;
+    position: relative;
+    width: auto;
+
+    &.btn-large {
+      background-position: left rem(10);
+      line-height: rem(32);
+      margin-top: rem(24);
+    }
+
+    &::after {
+      bottom: 0;
+      content: '';
+      height: rem(2);
+      left: rem(21);
+      position: absolute;
+      right: 0;
+    }
+
+    &:hover {
+      &::after {
+        background-color: $slate-20;
+      }
+    }
+
+    &:active {
+      &::after {
+        background-color: $slate-60;
+      }
+    }
+
+    &.dark-mode {
+      background-image: url(close-icon($slate-20));
+      color: $slate-20;
+    }
+  }
+
+  &.btn-approve {
+    border: 1px solid $cyan;
+  }
+
+  &.btn-decline {
+    border-color: #fff;
+    color: #fff;
+
+    &:hover {
+      background-color: $slate-60;
+    }
+
+    &:active {
+      background-color: $slate-80;
+    }
+  }
+
+  &.btn-danger {
+    background-color: $magenta;
+    border: 0;
+    color: #fff;
+
+    &:hover {
+      background-color: $magenta-hl;
+    }
+
+    &:active {
+      background-color: $slate;
+    }
+  }
+
+  &.btn-icon {
+    &-plus {
+      &.btn-secondary,
+      &.btn-ghost {
+        background-image: url(plus-icon($cyan, 20, 20));
+        background-position: rem(14) rem(10);
+        background-repeat: no-repeat;
+        padding-left: rem(43);
+
+        &:hover {
+          background-color: $cyan-hl;
+          background-image: url(plus-icon(#fff, 20, 20));
+        }
+
+        &:active {
+          background-color: $slate;
+          background-image: url(plus-icon($cyan-hl, 20, 20));
+        }
+      }
+
+      &.btn-primary {
+        background-image: url(plus-icon(#fff, 20, 20));
+        background-position: rem(14) rem(10);
+        background-repeat: no-repeat;
+        padding-left: rem(43);
+
+      }
+    }
+  }
+
+  &.btn-reset {
+    background-color: inherit;
+    border: 0;
+    display: inline-block;
+    font-size: rem(14);
+    letter-spacing: inherit;
+    line-height: inherit;
+    min-height: 0;
+    padding: 0;
+    text-decoration: inherit;
+    text-transform: none;
+    vertical-align: inherit;
+  }
+}
+
+.lnk {
+  border: hidden;
+  color: $slate;
+  cursor: pointer;
+  display: inline-block;
+  font-size: rem(12);
+  line-height: rem(32);
+  margin: 0;
+  min-height: rem(32);
+  padding: 0 rem(24);
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: middle;
+
+  &.lnk-icon-circle-plus {
+    background: url(circle-plus-icon($cyan, transparent, $cyan, 32, 32)) left center no-repeat;
+    letter-spacing: 1px;
+    padding-left: rem(40);
+
+    &:hover {
+      background: url(circle-plus-icon($cyan, $cyan, #fff, 32, 32)) left center no-repeat;
+    }
+
+    &:active {
+      background: url(circle-plus-icon($slate, $slate, $cyan, 32, 32)) left center no-repeat;
+    }
+
+    &:disabled {
+      background: url(circle-plus-icon($slate-20, transparent, $slate-20, 32, 32)) left center no-repeat;
+      color: $slate-20;
+    }
+  }
+
+  &.lnk-icon-remove {
+    background: url(remove-icon($slate-80, 16, 16)) left rem(8) no-repeat;
+  }
+
+  &.lnk-undo {
+    background: url(undo-icon($slate-80, 24, 24)) no-repeat left center;
+    letter-spacing: 1px;
+  }
+
+  &.lnk-icon-send {
+    background: url(send-icon($slate-80, 16, 16)) left rem(8) no-repeat;
+  }
+}
+
+.btn-icon {
+  display: block;
+  float: right;
+  height: rem(16);
+  position: relative;
+  text-indent: -9999px;
+  width: rem(16);
+
+  &.remove {
+    background: url(remove-icon($slate-80, 20, 20)) center center no-repeat;
+
+    &:hover {
+      background: url(remove-icon($slate, 20, 20)) center center no-repeat;
+    }
+  }
+
+  &.clear {
+    background: url(close-icon($slate-80, 10, 10)) center center no-repeat;
+  }
+}
+
+.actions {
+  li a,
+  li button {
+    background-color: transparent;
+    border: hidden;
+    color: $slate;
+    cursor: pointer;
+    display: block;
+    font-size: rem(14);
+    line-height: rem(24);
+    margin: 0;
+    padding: 0 rem(16) 0 rem(24);
+    position: relative;
+    text-align: left;
+
+    &::before {
+      background-position: center center;
+      background-repeat: no-repeat;
+      content: '';
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: rem(1);
+      width: rem(24);
+    }
+
+    &.add {
+      &::before {
+        background-image: url(plus-icon($slate-80, 16, 16));
+      }
+    }
+
+    &.edit {
+      &::before {
+        background-image: url(edit-icon($slate-80, 16, 16));
+      }
+    }
+
+    &.invoice,
+    &.invoices {
+      &::before {
+        background-image: url(invoice-icon($slate-80, 16, 16));
+      }
+    }
+
+    &.estimate,
+    &.estimates {
+      &::before {
+        background-image: url(estimate-icon($slate-80, 16, 16));
+      }
+    }
+
+    &.archive {
+      &::before {
+        background-image: url(archive-icon($slate-80, 12, 12));
+      }
+    }
+
+    &.unarchive {
+      &::before {
+        background-image: url(unarchive-icon($slate-80, 12, 12));
+      }
+    }
+
+    &.remove {
+      &::before {
+        background-image: url(remove-icon($slate-80, 16, 16));
+      }
+    }
+
+    &.save-to-library {
+      &::before {
+        background-image: url(save-to-library-icon($slate-80, 16, 16));
+      }
+    }
+
+    &.send {
+      &::before {
+        background-image: url(send-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.print {
+      &::before {
+        background-image: url(print-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.download {
+      &::before {
+        background-image: url(export-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.preview {
+      &::before {
+        background-image: url(eye-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.duplicate {
+      &::before {
+        background-image: url(duplicate-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.thanks {
+      &::before {
+        background-image: url(thank-you-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.convert {
+      &::before {
+        background-image: url(convert-icon($slate-80, 16, 14));
+      }
+    }
+
+    &.open {
+      &::before {
+        background-image: url(envelope-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.view {
+      &::before {
+        background-image: url(client-view-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.comment {
+      &::before {
+        background-image: url(comment-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.payment {
+      &::before {
+        background-image: url(payment-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.reminder {
+      &::before {
+        background-image: url(clock-icon($slate-80, 18, 16));
+      }
+    }
+
+    &.preferences {
+      &::before {
+        background-image: url(preferences-icon($slate-80, 16, 16));
+      }
+    }
+  }
+
+  &.inline {
+    li {
+      padding-left: rem(16);
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+
+    li a,
+    li button {
+      line-height: rem(40);
+      padding: 0 0 0 rem(24);
+
+      &::after {
+        bottom: 0;
+        content: '';
+        height: rem(2);
+        left: rem(24);
+        position: absolute;
+        right: 0;
+      }
+
+      &:hover {
+        &::after {
+          background-color: $slate-20;
+        }
+      }
+
+      &:active {
+        &::after {
+          background-color: $slate-60;
+        }
+      }
+    }
+  }
+
+  &.pc {
+    li a,
+    li button {
+      &:hover {
+        background-color: $cyan-10;
+      }
+
+      &:active {
+        background-color: $cyan;
+      }
+    }
+  }
+
+  &.dark-mode {
+    li a,
+    li button {
+      color: #fff;
+
+      &:hover {
+        background-color: $slate-80;
+      }
+
+      &:active {
+        background-color: $slate;
+      }
+
+      &.comment {
+        &::before {
+          background-image: url(comment-icon($slate-60, 18, 16));
+        }
+      }
+
+      &.print {
+        &::before {
+          background-image: url(print-icon($slate-60, 18, 16));
+        }
+      }
+
+      &.download {
+        &::before {
+          background-image: url(export-icon($slate-60, 18, 18));
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@media (min-width: rem(768)) {
+  & {
+    .info-details {
+      display: flex;
+
+      .to-transactor {
+        display: inline-block;
+        width: 100%;
+      }
+
+      .info {
+        display: flex;
+        margin-left: rem(23);
+        width: 100%;
+
+        .created {
+          display: inline-block;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{{#bs-modal 'item-library'
+  title='Line Item Library'
+  supraTitle='Manage'
+  as |modal|
+}}
+  <SavedItemManager
+    @delegate={{this}}
+    @modal={{modal}}
+    @document={{document}}
+    @loadSelectedItems={{loadItems}}
+  />
+{{/bs-modal}}

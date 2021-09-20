@@ -1,0 +1,59 @@
+<div class='px-4 py-4'>
+  <h2 class='text-lg font-bold'>Receive Payment</h2>
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <FormElements::CurrencyInput
+        @value={{model.amount}}
+        @label='Payment Amount'
+        @decimals={{currentOrganization.decimals}}
+        @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+        @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+        @leadingIcon={{currencySymbol}}
+        @allowClear={{true}}
+        @showErrors={{validations.amount.isInvalid}}
+        @errorMessage={{validations.amount.message}}
+        as |leadingIcon|
+      >
+        <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+      </FormElements::CurrencyInput>
+    </Layouts::GridColumn>
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <FormElements::DateInput
+        @value={{model.date}}
+        @label='Payment Date'
+        @showErrors={{validations.date.isInvalid}}
+        @errorMessage={{validations.date.message}}
+      />
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <FormElements::SelectMenu
+        @value={{model.medium}}
+        @label='Payment method'
+        @options={{paymentMethodOptions}}
+        @optionKey='id'
+        @optionLabel='name'
+      />
+    </Layouts::GridColumn>
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <FormElements::TextInput
+        @value={{model.reference}}
+        @label='Reference number'
+        @allowClear={{true}}
+        @trailingIcon={{true}}
+        @showErrors={{validations.reference.isInvalid}}
+        @errorMessage={{validations.reference.message}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <button class='tw-button' type='button' {{ action 'save'}}>Receive Payment</button>
+      <button class='tw-button white' type='button' {{ action 'cancel'}}>Cancel</button>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</div>

@@ -1,0 +1,18 @@
+<BsModal
+  @name='message-form'
+  @class='modal-template-form'
+  @title='Edit Template'
+>
+  <Modals::MessageForm
+    @model={{model}}
+    @templateName={{templateName}}
+    @instanceName={{instanceName}}
+    @messageType={{messageType}}
+    @message={{message}}
+    @appendTag={{action 'appendTag'}}
+    @setCursorPosition={{action 'setCursorPosition'}}
+    @resetDefault={{action 'resetDefault'}}
+    @close={{action 'close'}}
+    @preview={{preview}}
+  />
+</BsModal>

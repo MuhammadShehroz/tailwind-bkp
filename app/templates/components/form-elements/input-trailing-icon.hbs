@@ -1,0 +1,13 @@
+{{#if hasBlock}}
+<button type='button' class='tw-icon right active' aria-hidden='true' tabindex='-1' onclick={{onTrailingIconClick}}>
+  {{yield}}
+</button>
+{{else if showClear}}
+  <button type='button' class='tw-icon right active clear' aria-hidden='true' tabindex='-1' onclick={{onTrailingIconClick}}>
+    <Icons::XCircle/>
+  </button>
+{{else if showErrors}}
+  <button type='button' class='tw-icon right error'>
+    <Icons::Exclamation/>
+  </button>
+{{/if}}

@@ -1,0 +1,154 @@
+{{#if model.lineItems}}
+  <table>
+    <thead>
+      <tr class='item-header'>
+        <th class='qty'>Qty</th>
+        <th class='unit'>Unit</th>
+        <th class='desc'>Description</th>
+        <th class='price'>Price</th>
+        <th class='total'>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model.lineItems as |line|}}
+        <tr class='item-row {{if line.calculatedTax.id 'has-tax'}}'>
+          <td>
+            <span class='md:hidden font-bold uppercase text-sm'>Qty</span>
+            <FormatQuantity @class='qty' @value={{line.quantity}} />
+          </td>
+          <td>
+            <span class='md:hidden font-bold uppercase text-sm'>Unit</span>
+            <span>{{line.unitOfMeasurement.name}}</span>
+          </td>
+          <td class='whitespace-normal'>
+            <span class='md:hidden font-bold uppercase text-sm'>Description</span>
+            <span class='leading-7'>{{custom-html-sanitize line.name}}</span>
+          </td>
+          <td>
+            <span class='md:hidden font-bold uppercase text-sm'>Price</span>
+            <FormatCurrency @value={{line.price}} @isoCode={{model.currency}} />
+          </td>
+          <td class='total'>
+            <span class='md:hidden font-bold uppercase text-sm'>Total</span>
+            <span>
+              <FormatCurrency @value={{line.total}} @isoCode={{model.currency}} />
+              {{#if line.calculatedTax.id}}
+                <span class='line-item-tax'>
+                  <span class='tax-name'>+{{line.calculatedTax.percent}}% {{line.calculatedTax.name}}:</span>
+                  <FormatCurrency @value={{line.taxAmount}} @isoCode={{model.currency}} />
+                </span>
+              {{/if}}
+            </span>
+          </td>
+        </tr>
+      {{/each}}
+      <tr class='py-4 md:py-0 subtotal'>
+        <td class='text-right' colspan='4'>{{if (or model.taxes.length model.hasDocumentTax) 'Pre-Tax Total' 'Subtotal'}}:</td>
+        <td class='text-right md:text-left'>
+          <FormatCurrency
+            @value={{model.subtotal}}
+            @isoCode={{model.currency}}
+          />
+          <div class='summary-divider' />
+        </td>
+      </tr>
+
+      {{#if model.hasDocumentTax}}
+        <tr class='py-4 md:py-0 tax'>
+          <td class='text-right' colspan='4'>{{model.calculatedTax.nameAndPercent}}:</td>
+          <td class='text-right md:text-left'>
+            <FormatCurrency
+              @value={{model.totalTaxAmount}}
+              @isoCode={{model.currency}}
+            />
+          </td>
+        </tr>
+      {{else}}
+        {{#each model.taxes as |tax|}}
+          <tr class='py-4 md:py-0 tax'>
+            <td class='text-right' colspan='4'>{{tax.name}} ({{tax.percent}}%):</td>
+            <td class='text-right md:text-left'>
+              <FormatCurrency
+                @value={{tax.amount}}
+                @isoCode={{model.currency}}
+              />
+            </td>
+          </tr>
+        {{/each}}
+      {{/if}}
+      {{!-- This produces CYCLES NOT TAGS errors --}}
+      {{!-- {{#if model.discount}}
+        {{#each model.discounts as |discount|}}
+          <tr class='py-4 md:py-0 discount'>
+            <td class='text-right' colspan='4'>
+              <Documents::DiscountLabel @model={{model}} @discount={{discount}} />:
+            </td>
+            <td class='text-right md:text-left'>
+              -<FormatCurrency
+                @value={{discount.total}}
+                @isoCode={{model.currency}}
+              />
+            </td>
+          </tr>
+        {{/each}}
+      {{/if}} --}}
+
+      {{#if model.shipping}}
+        <tr class='py-4 md:py-0 shipping'>
+          <td class='text-right' colspan='4'>Shipping:</td>
+          <td class='text-right md:text-left'> 
+            <FormatCurrency
+              @value={{model.shipping}}
+              @isoCode={{model.currency}}
+            />
+          </td>
+        </tr>
+      {{/if}}
+
+      {{#if model.cachedLateFee}}
+        <tr class='py-4 md:py-0 late-fee'>
+          <td class='text-right' colspan='4'>Late fee:</td>
+          <td class='text-right md:text-left'>
+            <FormatCurrency
+              @value={{model.cachedLateFee}}
+              @isoCode={{model.currency}}
+            />
+          </td>
+        </tr>
+      {{/if}}
+      {{#if model.isEstimate}}
+      <tr class='py-4 md:py-0 subtotal font-bold'>
+        <td colspan='4' class='text-right'>Estimate Total:</td>
+        <td class='text-right md:text-left'>
+          <FormatCurrency
+            @class='summary-total'
+            @value={{model.cachedTotal}}
+            @isoCode={{model.currency}}
+          />
+        </td>
+      </tr>
+      {{else}}
+        <tr class='py-4 md:py-0 subtotal'>
+          <td class='text-right' colspan='4'>Invoice Total:</td>
+          <td class='text-right md:text-left'>
+            <FormatCurrency
+                    @value={{model.cachedTotal}}
+                    @isoCode={{model.currency}}
+            />
+          </td>
+        </tr>
+      {{/if}}
+      {{#if model.hasPayments}}
+      <tr class='py-4 md:py-0 subtotal'>
+        <td class='text-right' colspan='4'>Total Payments:</td>
+        <td>
+          <FormatCurrency
+            @value={{model.cachedTotalPaid}}
+            @isoCode={{model.currency}}
+          />
+        </td>
+      </tr>
+      {{/if}}
+    </tbody>
+  </table>
+{{/if}}

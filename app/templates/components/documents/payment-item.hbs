@@ -1,0 +1,19 @@
+<td class='date'>
+  <span class='md:hidden font-bold uppercase text-sm'>Date</span>
+  <span class='date'><FormatDate @date={{payment.date}} /></span>
+</td>
+<td class='desc whitespace-normal'>
+  <span class='md:hidden font-bold uppercase text-sm'>Description</span>
+  <span class='whitespace-normal leading-6'>
+    <StatusPill @label={{payment.title}} class={{payment.statusClass}} />
+    {{#if payment.failureMessage}}
+      <p class='inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800 md:col-span-2'>{{payment.failureMessage}}</p>
+    {{/if}}
+    {{#if payment.medium}}<p>Payment Method: {{payment.medium}}</p>{{/if}}
+    {{#if payment.reference}}<p class='inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800'>Reference Number: {{payment.reference}}</p>{{/if}}
+  </span>
+</td>
+<td class='amount'>
+  <span class='md:hidden font-bold uppercase text-sm'>Amount</span>
+  <FormatCurrency @class='amount' @value={{payment.amount}} @isoCode={{model.currency}} />
+</td>

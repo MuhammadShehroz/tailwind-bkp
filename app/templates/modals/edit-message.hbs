@@ -1,0 +1,13 @@
+<BsModal
+  @name='edit-message'
+  @accept={{action 'accept'}}
+  @acceptLabel='Save'
+  @dismissLabel='Cancel'
+  @dismiss={{action 'close'}}
+>
+  <FormElements::TextArea
+    @model={{this}}
+    @valuePath='message'
+    {{auto-focus 'textarea'}}
+  />
+</BsModal>

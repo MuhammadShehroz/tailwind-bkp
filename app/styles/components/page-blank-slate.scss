@@ -1,0 +1,63 @@
+& {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+
+  &.invoice {
+    background-color: $indigo;
+
+    .icon {
+      background-image: url(/assets/images/invoice-eclipse-icon.png);
+    }
+  }
+
+  &.invoice-template {
+    background-color: $sapphire;
+
+    .icon {
+      background-image: url(/assets/images/invoice-template-eclipse-icon.png);
+    }
+  }
+
+  &.estimate {
+    background-color: $royal-blue;
+
+    .icon {
+      background-image: url(/assets/images/estimate-eclipse-icon.png);
+    }
+  }
+
+  &.client {
+    background-color: $amethyst;
+
+    .icon {
+      background-image: url(/assets/images/client-eclipse-icon.png);
+    }
+  }
+}
+
+.icon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: rem(200);
+  width: rem(200);
+}
+
+h2 {
+  color: #fff;
+  font-size: rem(32);
+  margin: rem(32) 0;
+  text-align: center;
+  width: rem(320);
+}
+
+@media (min-width: 768px) {
+  .page-icon {
+    height: rem(320);
+    width: rem(320);
+  }
+}

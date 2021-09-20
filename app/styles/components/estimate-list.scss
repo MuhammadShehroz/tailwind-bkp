@@ -1,0 +1,157 @@
+.records {
+  .record-row {
+    .identifier {
+      order: 1;
+    }
+
+    .status {
+      order: 2;
+    }
+
+    .client {
+      order: 3;
+      width: 100%;
+
+      .label {
+        color: $slate-80;
+      }
+
+      .name {
+        color: $slate;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5;
+
+      }
+    }
+
+    .issue-date {
+      margin-top: rem(34);
+      order: 3;
+      width: rem(127);
+
+      .date {
+        color: $slate;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+    }
+
+    .amounts {
+      margin-left: calc(100% - #{rem(257)});
+      margin-top: rem(34);
+      order: 4;
+      width: rem(130);
+    }
+
+    &.draft {
+      .status {
+        color: $slate-80;
+      }
+    }
+
+    &.open {
+      .status {
+        border-color: $indigo;
+        color: $indigo;
+      }
+    }
+
+    &.approved {
+      .status {
+        border-color: $cyan;
+        color: $cyan;
+      }
+    }
+
+    &.declined {
+      .status {
+        border-color: $magenta;
+        color: $magenta;
+      }
+    }
+  }
+}
+
+@media (min-width: rem(768)) {
+  .records {
+    .record-row {
+      .client {
+        width: calc(100% - #{rem(450)});
+      }
+
+      .issue-date,
+      .amounts {
+        margin-left: rem(30);
+        margin-top: 0;
+      }
+
+      .issue-date {
+        width: rem(234);
+      }
+
+      .amounts {
+        width: rem(156);
+      }
+    }
+  }
+}
+
+@media (min-width: rem(1280)) {
+  .listing-header,
+  .records .record-row {
+    .identifier {
+      width: rem(125);
+    }
+
+    .client {
+      width: rem(325);
+    }
+
+    .issue-date {
+      width: rem(158);
+    }
+
+    .amounts {
+      width: rem(176);
+    }
+  }
+
+  .records {
+    .record-row {
+      .status,
+      .identifier,
+      .client,
+      .issue-date,
+      .amounts {
+        margin: 0 rem(17);
+      }
+
+      .status {
+        margin-left: 0;
+        order: 0;
+      }
+
+      .amounts {
+        margin-left: rem(18);
+        margin-right: 0;
+      }
+    }
+  }
+
+  .summary {
+    .summary-row {
+      display: inline-flex;
+      margin: rem(16) 0 0 0;
+      width: rem(505);
+
+      &:nth-child(even) {
+        margin-left: rem(8);
+      }
+
+      &:last-child:not(:nth-child(even)) {
+        width: 100%;
+      }
+    }
+  }
+}

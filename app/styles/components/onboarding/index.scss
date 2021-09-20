@@ -1,0 +1,75 @@
+& {
+  color: $slate;
+  font-size: rem(16);
+  line-height: 150%;
+}
+
+form {
+  width: 100%;
+}
+
+.field.text-field {
+  padding: 0 rem(12);
+  width: 100%;
+}
+
+.segmented-control {
+  width: rem(254);
+}
+
+.client-name.individual > section > form {
+  display: flex;
+}
+
+section > form > input[type='submit'] {
+  display: none;
+}
+
+%icon {
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.confirmed > section {
+  & > i {
+    @extend %icon;
+    background-color: $cyan;
+    background-image: url(check-icon(#fff, 20, 20));
+    border-radius: 50%;
+    height: rem(40);
+    width: rem(40);
+  }
+
+  h2 {
+    font-weight: bold;
+    margin-top: rem(16);
+  }
+
+  a {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    margin-top: rem(16);
+    margin-top: rem(40);
+    position: relative;
+    width: rem(300);
+
+    span {
+      padding-right: rem(28);
+      text-align: left;
+    }
+
+    &::after {
+      @extend %icon;
+      background-image: url(arrow-right-icon($cyan, 16, 16));
+      background-position: top;
+      content: '';
+      display: block;
+      height: 100%;
+      margin-top: rem(4);
+      position: absolute;
+      right: 0;
+      width: rem(16);
+    }
+  }
+}

@@ -1,0 +1,49 @@
+<div class='mt-6 grid grid-cols-1 col-span-2 gap-y-6 gap-x-4 sm:grid-cols-4 sm:border-t sm:border-gray-200 sm:pt-5'>
+  <div class='sm:col-span-4 text-center'>
+    <p>For best results, use PNG files (but we&apos;ll accept JPG or JPEG assets as well)</p>
+  </div>
+
+  <div class='sm:col-span-4'>
+    <label for='cover_photo' class='block text-sm font-medium text-gray-700'>
+      Cover photo
+    </label>
+    <BsDropZone
+      class='px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md'
+      @accept={{array 'image/png' 'image/jpeg' 'image/jpg'}}
+      @onDropFiles={{action 'addLogo'}}
+    >
+      <div class='flex justify-between'>
+        {{#if logoUrl}}
+          <div class='image-preview'>
+            <img src={{logoUrl}} alt='Preview' />
+          </div>
+        {{else}}
+          <div class='image-preview'>
+            <span class='inline-flex items-center justify-center self-center sm:self-start flex-shrink h-40 w-40 rounded-full bg-gray-300'>
+              <span class='text-8xl font-medium leading-none text-white'>
+                {{first-letter organization.name}}
+              </span>
+            </span>
+          </div>
+        {{/if}}
+        <div class='space-y-1 text-center self-center flex-grow'>
+          <Icons::Picture class='mx-auto h-12 w-12 text-gray-400' aria-hidden='true'/>
+          <div class='text-sm text-gray-600'>
+            Drop your images here or
+            <BsFilePicker class='tw-link cursor-pointer' @accept='.jpeg,.png,.jpg' @onSelect={{action 'addLogo'}}>&nbsp;browse files</BsFilePicker>
+            {{#if logoUrl}}
+              <div role='button' class='tw-link cursor-pointer' {{action 'cleanLogo'}}>Remove image</div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </BsDropZone>
+  </div>
+</div>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>Cancel</button>
+    <button type='button' class='tw-button' disabled={{save.isRunning}} {{action 'update'}}>Save</button>
+  </div>
+</div>

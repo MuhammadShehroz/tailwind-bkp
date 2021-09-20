@@ -1,0 +1,127 @@
+<Layouts::PageHeader @resourceType='messages' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Automated Messaging</h2>
+    <p class='text-blue-gray-500'><span>Run Your Business Like a Well-Oiled Machine</span>
+      <br>Set up custom response messages, personalized reminders for overdue invoices and more.</p>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <div class='bg-white shadow overflow-hidden sm:rounded-md'>
+        <h3 class='text-2xl px-4 py-4 sm:px-6'>Invoice Messages</h3>
+        <ul class='divide-y divide-gray-200'>
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Subject</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'invoiceSubject' 'invoice' 'subject' 'Default Subject'}}><Icons::Pencil class='mr-2' />Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.invoiceSubject}}
+            </div>
+          </li>
+
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Message</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'invoiceMessage' 'invoice' 'message' 'Default message'}}><Icons::Pencil class='mr-2'/>Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.invoiceMessage}}
+            </div>
+          </li>
+
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Reminder Subject</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'reminderSubject' 'reminder' 'subject' 'Default reminder subject'}}><Icons::Pencil class='mr-2'/>Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.reminderSubject}}
+            </div>
+          </li>
+
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Reminder Message</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'reminderMessage' 'invoice' 'reminder' 'Default reminder'}}><Icons::Pencil class='mr-2'/>Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.reminderMessage}}
+            </div>
+          </li>
+
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Note</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'invoiceNotes' 'invoice' 'notes' 'Default note'}}><Icons::Pencil class='mr-2'/>Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.invoiceNotes}}
+            </div>
+          </li>
+
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Thank You Message</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'thankYouMessage' 'thankYou' 'message' 'Default Thank You Message'}}><Icons::Pencil class='mr-2'/>Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.thankYouMessage}}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class='bg-white shadow overflow-hidden sm:rounded-md mt-6'>
+        <h3 class='text-2xl px-4 py-4 sm:px-6'>Estimate Messages</h3>
+        <ul class='divide-y divide-gray-200'>
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Subject</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'estimateSubject' 'estimate' 'subject' 'Default Subject'}}><Icons::Pencil class='mr-2'/>Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.estimateSubject}}
+            </div>
+          </li>
+
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Message</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'estimateMessage' 'estimate' 'message' 'Estimate message'}}><Icons::Pencil class='mr-2'/>Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.estimateMessage}}
+            </div>
+          </li>
+
+          <li class='px-4 py-4 sm:px-6'>
+            <div class='flex justify-between items-center'>
+              <span>Default Notes</span>
+              <button type='button' class='tw-button secondary' {{action 'editMessage' 'estimateNotes' 'estimate' 'notes' 'Estimate note'}}><Icons::Pencil class='mr-2'/>Edit</button>
+            </div>
+
+            <div class='rounded-md bg-gray-100 p-4 mt-2 font-light'>
+              {{custom-html-sanitize model.estimateNotes}}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

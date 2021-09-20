@@ -1,0 +1,38 @@
+{{#if label}}
+  <label for='{{elementId}}' class='tw-label'>{{label}}</label>
+{{/if}}
+<div class='mt-1 relative'>
+  <button type='button' id='{{elementId}}' class='tw-select-button {{if hasLeadingIcon 'with-leading-icon'}} {{if showErrors 'error'}}' aria-haspopup='listbox' aria-labelledby='listbox-label' aria-expanded='{{isOpen}}' onclick={{action 'toggle'}} onblur={{action 'close'}}>
+    {{yield leadingIcon}}
+    <span class='w-full inline-flex truncate'>
+      {{#if selected}}
+        {{get selected optionLabel}}
+      {{else}}
+        {{defaultPlaceholder}}
+      {{/if}}
+    </span>
+    <span class='tw-icon right'>
+      <Icons::Selector/>
+    </span>
+  </button>
+  {{#if options}}
+    <ul class='tw-select-list {{if isOpen 'open'}} {{if isHidden 'hidden'}}' tabindex='-1' role='listbox' aria-labelledby='listbox-label' {{on 'transitionend' (fn (mut isHidden) (not isOpen))}}>
+      {{#each options as |option|}}
+        <li class='tw-select-item {{if (eq (get option optionKey) (get selected optionKey)) 'selected'}}' id='{{option.id}}' role='option' {{action 'select' option}}>
+          <span class='block truncate'>
+            {{get option optionLabel}}
+          </span>
+          {{#if (eq (get option optionKey) (get selected optionKey))}}
+            <span class='tw-select-checkmark'>
+              <Icons::Check/>
+            </span>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</div>
+
+{{#if showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}

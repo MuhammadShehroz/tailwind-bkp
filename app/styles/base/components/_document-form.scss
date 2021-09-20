@@ -1,0 +1,219 @@
+.document.form {
+  padding-bottom: rem(27);
+
+  .field:last-child {
+    margin-bottom: 0;
+  }
+
+  .client-with-address {
+    padding-top: 0;
+  }
+
+  .btn-new-client {
+    display: block;
+    margin: rem(24) auto 0 auto;
+  }
+
+  .identifier-form .field {
+    flex: 1;
+  }
+
+  .payment-due-date {
+    .date-selector {
+      height: 0;
+      position: absolute;
+      visibility: hidden;
+    }
+  }
+
+  .lines-actions {
+    display: flex;
+    justify-content: center;
+    padding: rem(32) rem(8);
+    width: 100%;
+
+    .lnk {
+      line-height: rem(15);
+      max-width: calc(50% - #{rem(6)});
+      padding-left: rem(48);
+
+      &.lnk-new-line,
+      &.lnk-load-item {
+        padding-right: 0;
+      }
+
+      &.lnk-load-item {
+        margin-left: rem(32);
+      }
+    }
+  }
+
+  .line-item {
+    li {
+      list-style-type: none;
+      position: relative;
+    }
+
+    .expandable-area {
+      background-color: #fff;
+    }
+
+    .handle {
+      background: url(drag-icon($slate, 24, 24)) no-repeat center rem(-2);
+      display: inline-block;
+      height: rem(12);
+      margin-left: rem(13);
+      width: rem(12);
+    }
+
+    .more-actions {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .lines-actions {
+      padding: 0;
+    }
+  }
+
+  .summary {
+    border-top: 1px dashed $slate-20;
+    margin-top: rem(24);
+    padding: rem(24);
+
+    .tr {
+      margin-bottom: rem(8);
+
+      &:nth-last-child(2) {
+        margin-bottom: rem(24);
+      }
+
+      .th {
+        color: $slate-80;
+        display: inline-block;
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: rem(30);
+        text-transform: uppercase;
+        width: calc((100% - #{rem(14)}) / 2);
+      }
+
+      .td {
+        color: $slate;
+        display: inline-block;
+        float: right;
+        font-size: 24px;
+        line-height: rem(30);
+        text-align: right;
+        width: calc((100% - #{rem(14)}) / 2);
+      }
+
+      &.total {
+        border-top: 2px solid $slate-20;
+        margin-bottom: 0;
+        padding-top: rem(24);
+
+        .th,
+        .td {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .form-section {
+    &.notes {
+      label {
+        color: $slate;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: rem(24);
+        margin-left: auto;
+        margin-right: auto;
+        max-width: rem(285);
+        text-align: center;
+        text-transform: none;
+      }
+
+      textarea {
+        border: 1px solid $slate-20;
+        margin-top: rem(24);
+        min-height: rem(128);
+        resize: vertical;
+      }
+
+      .input-wrapper {
+        border-bottom: hidden;
+      }
+    }
+  }
+}
+
+.client-row {
+  margin-bottom: rem(24);
+
+  .field {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .btn {
+    margin: 0;
+  }
+}
+
+.client-selected {
+  border-bottom: 1px solid $slate-20;
+  color: $slate;
+  font-size: 16px;
+  line-height: rem(24);
+  margin-top: rem(8);
+  padding-bottom: rem(8);
+}
+
+@media (min-width: $bp-768px) {
+  .document.form {
+    padding-bottom: rem(56);
+  }
+
+  .form-section {
+    .left-field,
+    .right-field {
+      display: inline-block;
+      width: calc((100% - #{rem(24)}) / 2);
+    }
+
+    .last-field {
+      margin-bottom: 0;
+    }
+
+    .right-field {
+      float: right;
+      margin-left: rem(24);
+    }
+  }
+}
+
+@media (min-width: $bp-480px) {
+  .client-row {
+    align-items: flex-end;
+    display: flex;
+
+    .field {
+      margin-right: rem(32);
+    }
+  }
+
+  .identifier-form.right-field {
+    display: flex;
+
+    .field {
+      margin-bottom: 0;
+
+      &.number {
+        margin-left: rem(24);
+      }
+    }
+  }
+}

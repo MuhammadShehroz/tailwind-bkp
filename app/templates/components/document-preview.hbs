@@ -1,0 +1,9 @@
+{{#if previewDoc.isFulfilled}}
+  {{#unless isLoaded}}
+    <div class='loader'><i class='spinner'></i></div>
+  {{/unless}}
+
+  <IframeSandbox @content={{previewDoc.content}} @onLoad={{action 'previewLoaded'}} @show={{isLoaded}} />
+{{else}}
+  <div class='loader'><i class='spinner'></i></div>
+{{/if}}

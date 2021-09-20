@@ -1,0 +1,19 @@
+<div class='mt-10 sm:mt-0 mb-4'>
+  <div class='md:gap-6' ...attributes>
+    <div class='md:col-span-1'>
+      <div class='px-0'>
+        <h3>{{@title}}</h3>
+        <p class='mt-1 text-sm text-gray-600'>{{@description}}</p>
+      </div>
+    </div>
+    <div class='mt-5 md:mt-0 md:col-span-2'>
+      <div class='sm:shadow sm:rounded-md bg-white'>
+        <div class='sm:px-4 sm:py-5 sm:p-6'>
+          <div class='grid grid-cols-6 gap-6'>
+            {{yield}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

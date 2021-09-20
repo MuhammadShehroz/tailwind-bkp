@@ -1,0 +1,171 @@
+<div class='sm:p-4 space-y-4'>
+  <div class='flex justify-between'>
+    <div class='text-lg'>
+      <div>Sent to</div>
+      <div>{{pluralize model.recurringSchedulesCount 'Client' 'Clients'}}</div>
+    </div>
+  </div>
+</div>
+
+<div class='sm:px-4 py-4'>
+  <ul class='divide-y divide-gray-200'>
+    <li class='bg-gray-50'>
+      <div class='px-4 py-2 sm:px-6'>
+        <div class='flex items-center justify-between'>
+          <span class='text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Quantity</span>
+          <span class='text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Unit</span>
+          <span class='text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Description</span>
+          <span class='text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Price</span>
+          {{#unless model.isTaxDistributionDocument}}
+          <span class='text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Tax</span>
+          {{/unless}}
+          <span class='text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Total</span>
+        </div>
+      </div>
+    </li>
+    {{#each model.lineItems as |lineItem|}}
+      <li>
+        <div class='px-4 py-4 sm:px-6'>
+          <div class='flex items-center justify-between'>
+            <FormatQuantity @value={{lineItem.quantity}}/>
+            <span>{{lineItem.unitOfMeasurement.name}}</span>
+            <span>{{custom-html-sanitize lineItem.name}}</span>
+            <FormatCurrency
+              @value={{lineItem.price}}
+              @isoCode={{model.currency}}
+            />
+            {{#if lineItem.calculatedTax.id}}
+              <div>
+                <label>{{lineItem.calculatedTax.name}} ({{lineItem.calculatedTax.percent}}%)</label>
+                <FormatCurrency
+                  @value={{lineItem.taxAmount}}
+                  @isoCode={{model.currency}}
+                />
+              </div>
+            {{/if}}
+            <FormatCurrency
+              @value={{lineItem.total}}
+              @isoCode={{model.currency}}
+            />
+          </div>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+
+  <div class='flex flex-col items-end px-4 sm:px-6 space-y-4'>
+    <div class='text-right'>
+      <div class='text-xs font-bold tracking-wide uppercase'>Subtotal</div>
+      <div>
+        <FormatCurrency
+          @value={{model.subtotal}}
+          @isoCode={{model.currency}}
+        />
+      </div>
+    </div>
+
+    {{#if model.hasDocumentTax}}
+      <div class='text-right'>
+        <div class='text-xs font-bold tracking-wide uppercase'>{{model.calculatedTax.nameAndPercent}}</div>
+        <div>
+          <FormatCurrency
+            @value={{model.totalTaxAmount}}
+            @isoCode={{model.currency}}
+          />
+        </div>
+      </div>
+    {{else}}
+      {{#each model.taxes as |tax|}}
+        <div class='text-right'>
+          <div class='text-xs font-bold tracking-wide uppercase'>{{tax.name}} ({{tax.percent}}%)</div>
+          <div>
+            <FormatCurrency
+              @value={{tax.amount}}
+              @isoCode={{model.currency}}
+            />
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+
+    {{#if model.discount}}
+      {{#each model.discounts as |discount|}}
+        <div class='text-right'>
+          <div class='text-xs font-bold tracking-wide uppercase'>
+            <Documents::DiscountLabel @model={{model}} @discount={{discount}} />
+          </div>
+          <div>
+            -<FormatCurrency
+              @value={{discount.total}}
+              @isoCode={{model.currency}}
+            />
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+
+    {{#if model.cachedLateFee}}
+      <div class='text-right'>
+        <div class='text-xs font-bold tracking-wide uppercase'>Late fee</div>
+        <div>
+          <FormatCurrency
+            @value={{model.cachedLateFee}}
+            @isoCode={{model.currency}}
+          />
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if model.shipping}}
+      <div class='text-right'>
+        <div class='text-xs font-bold tracking-wide uppercase'>Shipping</div>
+        <div>
+          <FormatCurrency
+            @value={{model.shipping}}
+            @isoCode={{model.currency}}
+          />
+        </div>
+      </div>
+    {{/if}}
+
+    <div class='text-right'>
+      <div class='text-xs font-bold tracking-wide uppercase'>Total</div>
+      <div>
+        <FormatCurrency
+          @value={{model.cachedTotal}}
+          @isoCode={{model.currency}}
+        />
+      </div>
+    </div>
+
+    {{#if model.hasPayments}}
+    <div class='text-right'>
+      <div class='text-xs font-bold tracking-wide uppercase'>Total Paid</div>
+      <div>
+        <FormatCurrency
+          @value={{model.cachedTotalPaid}}
+          @isoCode={{model.currency}}
+        />
+      </div>
+    </div>
+
+    <div class='text-right'>
+      <div class='text-xs font-bold tracking-wide uppercase'>Total Due</div>
+      <div>
+        <FormatCurrency
+          @value={{model.cachedTotalDue}}
+          @isoCode={{model.currency}}
+        />
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#if model.notes}}
+  <Forms::Divider />
+  <div>
+    <div>Note</div>
+    <div>{{custom-html-sanitize model.notes}}</div>
+  </div>
+{{/if}}

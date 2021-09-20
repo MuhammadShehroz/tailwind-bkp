@@ -1,0 +1,28 @@
+<dl class='mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3'>
+  <div class='px-4 py-5 bg-white sm:shadow rounded-lg overflow-hidden'>
+    <dt class='text-sm font-medium text-gray-500 truncate'>
+      Total
+    </dt>
+    <dd class='mt-1 text-3xl font-semibold text-gray-900'>
+      <FormatCurrency @value={{@total}} @isoCode={{@currency}} />
+    </dd>
+  </div>
+
+  <div class='px-4 py-5 bg-white sm:shadow rounded-lg overflow-hidden'>
+    <dt class='text-sm font-medium text-gray-500 truncate'>
+      Total Due
+    </dt>
+    <dd class='mt-1 text-3xl font-semibold text-gray-900'>
+      <FormatCurrency @value={{@total_due}} @isoCode={{@currency}} />
+    </dd>
+  </div>
+
+  <div class='px-4 py-5 bg-white sm:shadow rounded-lg overflow-hidden'>
+    <dt class='text-sm font-medium text-gray-500 truncate'>
+      Total Paid
+    </dt>
+    <dd class='mt-1 text-3xl font-semibold text-gray-900'>
+      <FormatCurrency @value={{@total_paid}} @isoCode={{@currency}} />
+    </dd>
+  </div>
+</dl>

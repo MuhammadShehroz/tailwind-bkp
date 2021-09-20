@@ -1,0 +1,27 @@
+@media (min-width: $bp-768px) {
+  #settings.form.account-preferences {
+    fieldset {
+      > .field {
+        float: left;
+        width: calc(50% - #{rem(12)});
+
+        &:nth-child(even) {
+          margin-left: rem(12);
+        }
+
+        &:nth-child(odd) {
+          margin-right: rem(12);
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .late-fee-group {
+      float: left;
+      width: calc(50% - #{rem(12)});
+    }
+  }
+}

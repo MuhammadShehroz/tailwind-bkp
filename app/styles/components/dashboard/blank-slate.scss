@@ -1,0 +1,32 @@
+.group-header {
+  color: $slate-80;
+  font-size: rem(12);
+  letter-spacing: rem(1);
+  margin-bottom: rem(10);
+  text-transform: uppercase;
+}
+
+.actions-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.rich-quote {
+  color: $slate-80;
+  font-size: rem(16);
+  line-height: 150%;
+  margin: rem(16) auto 0;
+  text-align: center;
+  width: rem(240);
+}
+
+.quote-author {
+  color: $slate-80;
+  font-size: rem(12);
+  letter-spacing: rem(1);
+  line-height: 125%;
+  margin: rem(24) 0;
+  text-align: center;
+  text-transform: uppercase;
+}

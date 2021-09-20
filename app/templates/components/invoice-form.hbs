@@ -1,0 +1,362 @@
+<Forms::GroupedGrid
+  @title='Invoice Info'
+  @description='Basic information about the invoice.'
+  class='md:grid md:grid-cols-3'
+>
+  {{#if model.isOpen}}
+    <div class='col-span-6'>
+      <label class='tw-label'>Client</label>
+      <div class='text-sm font-medium sm:leading-10'>{{model.client.name}}</div>
+    </div>
+  {{else}}
+    <div class='col-span-6 sm:col-span-4'>
+      <FormElements::PowerSelectMenu
+        @label='Client Name'
+        @options={{clients}}
+        @optionKey='id'
+        @optionLabel='name'
+        @searchEnabled={{true}}
+        @selected={{client}}
+        @showErrors={{validations.client.isInvalid}}
+        @errorMessage={{validations.client.message}}
+        @onChange={{action 'onClientChange'}}
+      />
+    </div>
+    <div class='col-span-6 sm:col-span-2 sm:pt-8'>
+      <button type='button' class='tw-button' {{action 'newClient'}}>
+        <Icons::Plus/>
+        <span>New Client</span>
+      </button>
+    </div>
+  {{/if}}
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::DateInput
+      @value={{model.issuedOn}}
+      @label='Invoice Date'
+      @maxDate={{otherTermDate}}
+      @showErrors={{validations.issuedOn.isInvalid}}
+      @errorMessage={{validations.issuedOn.message}}
+      @onChange={{action 'onInvoiceDateChange'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Payment Due'
+      @options={{paymentTerms}}
+      @optionKey='value'
+      @optionLabel='dropdownLabel'
+      @value={{model.netTerms}}
+      @selected={{netTerm}}
+      @showErrors={{validations.dueOn.isInvalid}}
+      @errorMessage={{validations.dueOn.message}}
+      @onChange={{action 'setDueDate'}}
+    />
+  </div>
+
+  {{#if @model.hasLegacyIdentifier}}
+    <div class='col-span-6 sm:col-span-2 sm:col-start-1'>
+      <FormElements::TextInput
+        @value={{model.legacyIdentifier}}
+        @label='Number'
+        @allowClear={{true}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+    </div>
+  {{else}}
+    <div class='col-span-6 sm:col-span-2 sm:col-start-1'>
+      <FormElements::TextInput
+        @value={{model.prefix}}
+        @label='Prefix (Optional)'
+        @allowClear={{true}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+    </div>
+
+    <div class='col-span-6 sm:col-span-2'>
+      <FormElements::NumberInput
+        @value={{model.number}}
+        @label='Invoice Number'
+        @allowClear={{true}}
+        @showErrors={{validations.number.isInvalid}}
+        @errorMessage={{validations.number.message}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::NumberInput>
+    </div>
+  {{/if}}
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Invoice Tax and Currency'
+  @description='Tax and currency of the invoice.'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Currency'
+      @options={{currencies}}
+      @optionKey='code'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{currency}}
+      @showErrors={{validations.currency.isInvalid}}
+      @errorMessage={{validations.currency.message}}
+      @onChange={{action 'onCurrencyChange'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2 sm:col-start-1'>
+    <FormElements::TextInput
+      @value={{model.poNumber}}
+      @label='PO Number (Optional)'
+      @allowClear={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::CurrencyInput
+      @value={{model.shipping}}
+      @label='Shipping (Optional)'
+      @decimals={{currentOrganization.decimals}}
+      @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+      @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+      @leadingIcon={{currencySymbol}}
+      @allowClear={{true}}
+      @showErrors={{validations.shipping.isInvalid}}
+      @errorMessage={{validations.shipping.message}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </div>
+
+  <div class='col-span-6 grid grid-cols-3 gap-6'>
+    <TaxInputGroup
+      @model={{model}}
+      @onChange={{action 'lock' 'tax'}}
+      @createTax={{createTax}}
+      @beforeChange={{action 'storeTaxesBasedOnTaxDistribution'}}
+      @onStoredTaxChange={{action 'onStoredTaxChange'}}
+      @onStoredLineItemTaxesChange={{action 'onStoredLineItemTaxesChange'}}
+    />
+  </div>
+
+  <LateFeeGroup
+    @model={{model}}
+    @currencySymbol={{currencySymbol}}
+    @decimals={{currentOrganization.decimals}}
+    @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+    @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+    @validationsEnabled={{validationsEnabled}}
+  />
+</Forms::GroupedGrid>
+
+{{#if hasLineItems}}
+  <div class='tw-table-wrapper'>
+    <table>
+      <thead>
+        <tr>
+          <th scope='col' class='w-12'></th>
+          <th scope='col' class='w-48'>Item Type</th>
+          <th scope='col'>Description</th>
+          <th scope='col' class='w-32'>Quantity</th>
+          <th scope='col' class='w-48'>Unit Price</th>
+          {{#if model.isTaxDistributionLineItem}}
+            <th scope='col' class='w-32'>Tax</th>
+          {{/if}}
+          <th scope='col' class='w-24'>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each sortedLineItems as |lineItem|}}
+          <Documents::LineItemForm
+            @model={{lineItem}}
+            @isDraggable={{isDraggable}}
+            @id={{lineItem.domId}}
+            @document={{model}}
+            @isoCode={{model.currency}}
+            @currencySymbol={{currencySymbol}}
+            @decimals={{currentOrganization.decimals}}
+            @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+            @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+            @move={{action 'move'}}
+            @fromPosition={{action 'fromPosition'}}
+            @toPosition={{action 'toPosition'}}
+            @remove={{action 'removeLineItem'}}
+          />
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{/if}}
+
+<div class='flex justify-start flex-wrap gap-3 mt-6 mb-6'>
+  <button type='submit' class='tw-button white' {{action 'addLineItem'}}>
+    <Icons::Plus/>
+    <span>Add Item</span>
+  </button>
+  {{#if itemsPresentOnLibrary}}
+    <button type='button' class='tw-button secondary' {{action 'openItemLibrary'}}>Add line item from library</button>
+  {{/if}}
+  <span class='text-sm sm:pt-2'>
+    <a href='#' class='tw-link' {{action (mut isDraggable) (not isDraggable)}}>
+      {{#if isDraggable}}Done Re-ordering{{else}}Re-order Rows{{/if}}
+    </a>
+  </span>
+  <span class='text-sm sm:pt-2'><a href='#' class='tw-link' {{action 'openUnitOfMeasurementManager'}}>Manage Units</a></span>
+</div>
+
+<div class='grid grid-cols-2 gap-y-2 gap-x-4 sm:grid-cols-12 sm:border-t sm:border-gray-200 mt-6 sm:pt-5'>
+  <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+    <span class='text-sm'>Subtotal</span>
+  </div>
+  <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+    <span class='text-sm'><FormatCurrency @value={{model.subtotal}} @isoCode={{model.currency}} /></span>
+  </div>
+
+  {{#if model.shipping}}
+    <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+      <span class='text-sm'>Shipping</span>
+    </div>
+    <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+      <span class='text-sm'><FormatCurrency @value={{model.shipping}} @isoCode={{model.currency}} /></span>
+    </div>
+  {{/if}}
+
+  {{#if model.hasDocumentTax}}
+    <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+      <span class='text-sm'>{{model.calculatedTax.nameAndPercent}}:</span>
+    </div>
+    <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+      <span class='text-sm'><FormatCurrency @value={{model.totalTaxAmount}} @isoCode={{model.currency}} /></span>
+    </div>
+  {{else}}
+    {{#if isLineTaxSingle}}
+      <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+        <span class='text-sm'>{{lineTaxes.0.name}} ({{lineTaxes.0.percent}}%)</span>
+      </div>
+      <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+        <span class='text-sm'><FormatCurrency @value={{lineTaxes.0.amount}} @isoCode={{model.currency}} /></span>
+      </div>
+    {{else}}
+      {{#each lineTaxes as |tax|}}
+        <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+          <span class='text-sm'>({{tax.count}}) {{tax.name}} ({{tax.percent}}%)</span>
+        </div>
+        <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+          <span class='text-sm'><FormatCurrency @value={{tax.amount}} @isoCode={{model.currency}} /></span>
+        </div>
+      {{/each}}
+
+      {{#if model.totalTaxAmount}}
+        <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+          <span class='text-sm'>Taxes</span>
+        </div>
+        <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+          <span class='text-sm'><FormatCurrency @value={{tax.totalTaxAmount}} @isoCode={{model.currency}} /></span>
+        </div>
+      {{/if}}
+    {{/if}}
+  {{/if}}
+
+  {{#if model.discount}}
+    {{#if model.multipleDiscounts}}
+      <div class='discounts'>
+        {{#each model.discounts as |discount|}}
+          <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+            <span class='text-sm'>
+              {{#if discount.lineItem}}
+                Line Item Discount
+                {{#unless discount.isFixedDiscount}}
+                  ({{discount.discountValue}}%)
+                {{/unless}}
+              {{else}}
+                Discount
+                {{#if discount.isFixedDiscount}}
+                  ({{model.currencySymbol}}):
+                {{else}}
+                  ({{discount.discountValue}}%):
+                {{/if}}
+              {{/if}}
+            </span>
+          </div>
+          <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+            <span class='text-sm'><FormatCurrency @value={{discount.total}} @isoCode={{model.currency}} /></span>
+          </div>
+        {{/each}}
+        <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+          <span class='text-sm font-medium'>Discounts</span>
+        </div>
+        <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+          <span class='text-sm font-medium'><FormatCurrency @value={{model.discount}} @isoCode={{model.currency}} /></span>
+        </div>
+      </div>
+    {{else}}
+      <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+        <span class='text-sm font-medium'>
+          {{#if discount.lineItem}}
+            Line Item Discount
+            {{#unless discount.isFixedDiscount}}
+              ({{discount.discountValue}}%)
+            {{/unless}}
+          {{else}}
+            Discount
+            {{#if discount.isFixedDiscount}}
+              ({{model.currencySymbol}}):
+            {{else}}
+              ({{discount.discountValue}}%):
+            {{/if}}
+          {{/if}}
+        </span>
+      </div>
+      <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+        <span class='text-sm font-medium'><FormatCurrency @value={{model.discount}} @isoCode={{model.currency}} /></span>
+      </div>
+    {{/if}}
+  {{/if}}
+
+  <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+    <span class='text-sm font-medium'>Total</span>
+  </div>
+  <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+    <span class='text-sm font-medium'><FormatCurrency @value={{model.total}} @isoCode={{model.currency}} /></span>
+  </div>
+</div>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Note to client'
+  @description='Notes of the invoice.'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6'>
+    <FormElements::TextArea
+      rows='3'
+      @value={{model.notes}}
+      @label='Add details to your invoice. Visible to clients.'
+      @showErrors={{validations.notes.isInvalid}}
+      @errorMessage={{validations.notes.message}}
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <LinkTo @route='invoices' class='tw-button white'>Cancel</LinkTo>
+    <button type='button' class='tw-button secondary' {{action 'save'}} disabled={{saveTask.isRunning}}>Save{{#if model.isDraft}} as Draft{{/if}}</button>
+    <button type='submit' class='tw-button' disabled={{saveTask.isRunning}}>Preview and Send</button>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<BsModal
+  @name='edit-subscribe-card'
+  @title='Edit Payment Method'
+>
+  <Modals::CardDetails
+    @cardElements={{cardElements}}
+    @model={{model}}
+    @stripe={{stripe}}
+    @close={{action 'cancel'}}
+  />
+</BsModal>

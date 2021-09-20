@@ -1,0 +1,49 @@
+<Forms::GroupedGrid
+  @title='Subscription'
+  @description='Subscription options'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-6'>
+    {{#if model.isComped}}
+      <div class='mt-1 text-sm text-gray-600'>Your subscription is comped. Please contact support for any changes.</div>
+    {{else}}
+      <p>Renewal:
+        {{#if model.payMonthly}}
+          <span>Monthly (${{ model.planPrice }}/mo)</span>
+        {{else}}
+          <span>Annually (${{ model.planPrice }}/yr)</span>
+        {{/if}}
+      </p>
+      <div class='mt-1 text-sm text-gray-600'>Your subscription will automatically renew on <FormatDate @date={{model.validUntil}}/>.</div>
+
+      <div class='pt-5'>
+        <div class='flex justify-end flex-wrap gap-3'>
+          <button type='button' {{action 'showSubcriptionEditModal'}} class='tw-button secondary'>Change</button>
+          <button type='button' {{action 'removeSubscription'}} class='tw-button danger'>Remove subscription</button>
+        </div>
+      </div>
+  {{/if}}
+  </div>
+</Forms::GroupedGrid>
+
+{{#unless model.isComped}}
+<Forms::Divider />
+
+  <Forms::GroupedGrid
+    @title='Payment method'
+    @description='Edit payment options'
+    class='md:grid md:grid-cols-1'
+  >
+    <div class='col-span-6'>
+      <p>**** **** **** {{model.cardNumber}}</p>
+      <div class='text-gray-500'>
+        Expires {{model.cardExpirationMonthTwoDigits}}/{{model.cardExpirationYear}}
+      </div>
+      <div class='pt-5'>
+        <div class='flex justify-end flex-wrap gap-3'>
+          <button type='button' {{action 'showPaymentEditModal'}} class='tw-button secondary'>Change</button>
+        </div>
+      </div>
+    </div>
+  </Forms::GroupedGrid>
+{{/unless}}

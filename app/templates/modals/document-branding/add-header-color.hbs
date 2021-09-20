@@ -1,0 +1,10 @@
+<BsModal
+  @title='Select Header Color'
+>
+  <DocumentBranding::AddHeaderColor
+    @model={{model}}
+    @logoUrl={{model.logoUrl}}
+    @close={{action 'close'}}
+    @onSave={{action 'onSave'}}
+  />
+</BsModal>

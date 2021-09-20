@@ -1,0 +1,6 @@
+{{#bs-modal 'tax-form'
+  title='Tax Edit'
+  as |modal|
+}}
+  <Modals::TaxForm @modal={{modal}} @model={{model}} @close={{action 'close'}} />
+{{/bs-modal}}

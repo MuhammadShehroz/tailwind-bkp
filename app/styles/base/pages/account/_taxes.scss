@@ -1,0 +1,14 @@
+.tax-manager-item {
+  display: inline-block;
+  width: 100%;
+
+  .field {
+    display: inline-block;
+    width: 60%;
+  }
+
+  .rate {
+    float: right;
+    width: calc(40% - #{rem(12)});
+  }
+}

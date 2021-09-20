@@ -1,0 +1,114 @@
+.records {
+  .record-row {
+    .identifier,
+    .template-total {
+      width: rem(135);
+    }
+
+    .clients,
+    .recurring-total {
+      margin-left: calc(100% - #{rem(267)});
+      width: rem(130);
+    }
+
+    .frequency {
+      width: 100%;
+    }
+
+    .clients {
+      margin-top: rem(2);
+    }
+  }
+}
+
+@media (min-width: rem(768)) {
+  .records {
+    .record-row {
+      .clients {
+        margin-left: calc(100% - #{rem(355)});
+        width: rem(220);
+      }
+
+      .frequency {
+        width: calc(100% - #{rem(500)});
+      }
+
+      .template-total,
+      .recurring-total {
+        margin-left: rem(30);
+        margin-top: 0;
+        width: rem(220);
+      }
+    }
+  }
+}
+
+@media (min-width: rem(1280)) {
+  .listing-header,
+  .records .record-row {
+    .identifier {
+      margin-left: rem(2);
+      width: rem(199);
+    }
+
+    .clients {
+      width: rem(96);
+    }
+
+    .frequency {
+      width: rem(182);
+    }
+
+    .template-total,
+    .recurring-total {
+      width: rem(182);
+    }
+  }
+
+  .records {
+    .record-row {
+      .identifier,
+      .clients,
+      .frequency,
+      .template-total,
+      .recurring-total {
+        margin: 0 rem(17);
+
+        .label {
+          display: none;
+        }
+      }
+
+      .identifier {
+        margin-left: rem(2);
+        order: 0;
+      }
+
+      .template-total,
+      .recurring-total {
+        margin-left: rem(18);
+      }
+
+      .recurring-total {
+        margin-left: rem(18);
+        margin-right: 0;
+      }
+    }
+  }
+
+  .summary {
+    .summary-row {
+      display: inline-flex;
+      margin: rem(16) 0 0 0;
+      width: rem(505);
+
+      &:nth-child(even) {
+        margin-left: rem(8);
+      }
+
+      &:last-child:not(:nth-child(even)) {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<Layouts::PageHeader @resourceType='invoice' @pageType='form'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2 class='leading-normal'>Preview Invoice {{model.identifier}}</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::OneColumn>
+    
+    <Pages::DocumentPreview
+      @kind={{kind}}
+      @logo={{logo}}
+      @model={{model}}
+      @showPaymentOptions={{true}}
+      @backRoute={{backRoute}}
+      @removeLogo={{removeLogo}}
+    />
+  </Layouts::OneColumn>
+</Layouts::PageBody>

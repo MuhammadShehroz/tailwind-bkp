@@ -1,0 +1,43 @@
+{{#if label}}
+  <label for={{fieldId}} class='tw-label'>{{label}}</label>
+{{/if}}
+<div class='tw-input-wrapper'>
+  <div class='relative flex items-stretch flex-grow focus-within:z-10'>
+    {{yield (hash leadingIcon = (component 'form-elements/input-leading-icon' isLeadingIcon=true))}}
+    <Input ...attributes
+      id={{fieldId}}
+      @type={{type}}
+      @value={{value}}
+      @isNumber={{isNumber}}
+      @showErrors={{showErrors}}
+      @hasLeadingIcon={{hasLeadingIcon}}
+      @hasTrailingButton={{hasTrailingButton}}
+      @classNames={{_classNames}}
+      @classNameBindings={{_classNameBindings}}
+    />
+  </div>
+  {{yield (hash trailingButton = (component 'form-elements/icon-button' isTrailingButton=true label=trailingButton onButtonClick=(action 'onButtonClick')))}}
+  {{#if showErrors}}
+    {{#unless hasTrailingButton}}
+    <button type='button' class='tw-icon right error'>
+      <Icons::Exclamation/>
+    </button>
+    {{/unless}}
+  {{/if}}
+
+  {{#if showClear}}
+    {{#unless hasTrailingButton}}
+      <button type='button' class='tw-icon right active clear' aria-hidden='true' onclick={{action 'clear'}}>
+        <Icons::XCircle/>
+      </button>
+    {{/unless}}
+  {{/if}}
+</div>
+
+{{#if showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}
+
+{{#if hint}}
+  <p class='validation-message hint'>{{hint}}</p>
+{{/if}}

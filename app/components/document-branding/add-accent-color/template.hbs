@@ -1,0 +1,33 @@
+<div class='mt-6 grid grid-cols-1 col-span-2 gap-y-6 gap-x-4 sm:grid-cols-4 sm:border-t sm:border-gray-200 sm:pt-5'>
+  <div class='sm:col-span-4 text-center'>
+    <p>Enter a hex color value or use the color swatches sampled from your logo.</p>
+  </div>
+
+  <div class='sm:col-span-4 py-8 text-center'>
+    <button type='button' class='tw-button px-6 py-3 text-4xl' style={{html-safe (concat 'background-color: ' model.buttonColor ';')}}>Button</button>
+  </div>
+
+  <div class='sm:col-span-2'>
+    <FormElements::ColorInput
+      @label='Accent Color'
+      @value={{model.buttonColor}}
+      @onColorChange={{action 'changeAccentColor'}}
+    />
+  </div>
+
+  <div class='sm:col-span-2'>
+    <label class='tw-label'>Sampled From Logo</label>
+    <ColorPalette
+      @colors={{extractedColors}}
+      @defaultColor={{defaultColor}}
+      @onClickColor={{action 'changeAccentColor'}}
+    />
+  </div>
+</div>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>Cancel</button>
+    <button type='button' class='tw-button' disabled={{save.isRunning}} {{action 'save'}}>Save</button>
+  </div>
+</div>

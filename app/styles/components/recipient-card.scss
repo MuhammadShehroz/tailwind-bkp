@@ -1,0 +1,65 @@
+.recipient-pii {
+  display: none;
+}
+
+.recipient-contact {
+  .contact:not(:last-of-type) {
+    margin-bottom: rem(32);
+  }
+}
+
+p {
+  margin-top: rem(16);
+}
+
+.title {
+  font-size: rem(12);
+  letter-spacing: rem(1);
+  line-height: rem(15);
+  text-transform: uppercase;
+}
+
+.name {
+  font-size: rem(16);
+  font-weight: bold;
+  line-height: rem(24);
+}
+
+.tax-number {
+  font-size: rem(12);
+  height: rem(18);
+  line-height: rem(18);
+  overflow-wrap: break-word;
+}
+
+.contact span {
+  display: block;
+  font-size: rem(16);
+  line-height: rem(24);
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: $bp-768px) {
+  .recipient-pii,
+  .recipient-contact {
+    display: flex;
+    justify-content: space-between;
+    
+    > * {
+      width: calc((100% - #{rem(24)}) / 2);
+    }
+  }
+
+  .recipient-contact {
+    .pii {
+      display: none;
+    }
+
+    .contact:not(:last-of-type) {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+<Forms::GroupedGrid
+  @title='Subscription'
+  @description='Subscription options'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-6'>
+    {{#if model.trialEnded}}
+      <p class='mt-1 text-sm text-gray-600'>Thanks for trying Blinksale! Your trial has expired.</p>
+      <p class='mt-1 text-sm text-gray-600'>To continue using Blinksale, subscribe now!</p>
+    {{else if showTrialMessage}}
+      <p class='mt-1 text-sm text-gray-600'>Your trial is set to expire in {{model.remainingDays}} days. To continue using Blinksale, subscribe now!</p>
+      <p class='mt-1 text-sm text-gray-600'>You’ll get to complete your free trial before your subscription kicks in. Thanks for trying Blinksale!</p>
+  {{/if}}
+  </div>
+  <div class='col-span-6'>
+    <h3>Choose your plan</h3>
+    <label class='tw-label'>Billing frequency</label>
+    <FormElements::RadioInput
+      @name='plan-id'
+      @label={{monthlyLabel}}
+      @value={{model.planId}}
+      @option={{monthly}}
+    />
+    <FormElements::RadioInput
+      @name='plan-id'
+      @label='Annually ($150/yr) — save $30'
+      @value={{model.planId}}
+      @option={{annually}}
+    />
+  </div>
+
+  {{#if model.applicableCoupon}}
+    <div class='col-span-3'>
+      <FormElements::TextInput
+        @value={{model.coupon}}
+        @label='Coupon Code'
+        @allowClear={{true}}
+        @showErrors={{validations.couponId.isInvalid}}
+        @errorMessage={{validations.couponId.message}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+    </div>
+    <div class='flex items-center gap-3'>
+      <button type='button' class='tw-button secondary self-end' {{action 'verifyCoupon'}} disabled={{validCoupon}}>
+        {{if validCoupon 'Applied!' 'Apply'}}
+      </button>
+    </div>
+  {{/if}}
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Payment method'
+  @description='Edit payment options'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-4'>
+    <h3>Billing Details</h3>
+    <Payment::CardDetails @cardElements={{cardElements}}/>
+  </div>
+</Forms::GroupedGrid>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='submit' class='tw-button' disabled={{subscribeDisabled}}>Subscribe now</button>
+  </div>
+</div>

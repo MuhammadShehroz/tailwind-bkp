@@ -1,0 +1,19 @@
+{{#unless hidePayView}}
+<div class='pay-view'>
+    <ClientPayment
+      @invoice={{model}}
+      @paymentOptions={{paymentOptions}}
+      @accept={{action closePayment}}
+      @cancel={{action closePayment}}
+      @reloadEvents={{reloadEvents}}
+      @startProcessing={{startProcessing}}
+      @processingFinished={{processingFinished}}
+      @showPaypal={{showPaypal}}
+      @showCardPayment={{showCardPayment}}
+      @showAchPayment={{showAchPayment}}
+      @plaidLinkToken={{plaidLinkToken}}
+      @multiPayment={{multiPayment}}
+      @singlePayment={{singlePayment}}
+    />
+  </div>
+  {{/unless}}

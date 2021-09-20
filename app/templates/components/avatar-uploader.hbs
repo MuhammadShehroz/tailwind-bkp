@@ -1,0 +1,27 @@
+<BsDropZone
+  class='px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md'
+  @accept={{array 'image/png' 'image/jpeg' 'image/jpg'}}
+  @onDropFiles={{action 'addImage'}}
+>
+  <div class='flex justify-between'>
+    {{#if hasImage}}
+    <div class='image-preview'>
+      <img src={{url}} alt='Preview' />
+    </div>
+    {{else}}
+      <div class='image-preview'>
+        {{yield}}
+      </div>
+    {{/if}}
+    <div class='space-y-1 text-center self-center flex-grow'>
+      <Icons::Picture class='mx-auto h-12 w-12 text-gray-400' aria-hidden='true'/>
+      <div class='text-sm text-gray-600'>
+        Drop your images here or
+        <BsFilePicker class='tw-link cursor-pointer' @accept='.jpeg,.png,.jpg' @onSelect={{action 'addImage'}}>&nbsp;browse files</BsFilePicker>
+        {{#if hasImage}}
+          <div role='button' class='tw-link cursor-pointer' {{action 'removeImage'}}>Remove image</div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</BsDropZone>

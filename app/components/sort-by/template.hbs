@@ -1,0 +1,13 @@
+<span {{on 'click' this.sortUpdate}} class='relative' role='button'>
+  {{yield}}
+  {{#if (eq this.sortOrder 'asc')}}
+    <span class='tw-icon -right-4'>
+      <Icons::ChevronDown/>
+    </span>
+  {{/if}}
+  {{#if (eq this.sortOrder 'desc')}}
+    <span class='tw-icon -right-4'>
+      <Icons::ChevronUp/>
+    </span>
+  {{/if}}
+</span>

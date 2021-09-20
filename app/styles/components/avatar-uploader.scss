@@ -1,0 +1,63 @@
+& {
+  height: rem(120);
+  margin: 0 auto;
+  position: relative;
+  width: rem(120);
+}
+
+.image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 50%;
+  height: rem(120);
+  margin: 0 auto;
+  width: rem(120);
+}
+
+.no-image {
+  background-color: $slate-05;
+  border: 1px dashed $slate-20;
+  border-radius: 50%;
+  box-sizing: border-box;
+  color: $slate-80;
+  font-size: 56px;
+  height: 100%;
+  line-height: rem(70);
+  padding: rem(25) rem(4);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.file-picker {
+  cursor: pointer;
+}
+
+.ctu,
+.ctd {
+  border-radius: 50%;
+  bottom: rem(-4);
+  font-size: 16px;
+  font-size: 28px;
+  height: rem(40);
+  line-height: rem(34);
+  position: absolute;
+  text-align: center;
+  width: rem(40);
+}
+
+.ctu {
+  background: $cyan;
+  left: rem(86);
+}
+
+.ctd {
+  background: $magenta;
+  right: rem(90);
+}
+
+.errors {
+  left: rem(145);
+  position: absolute;
+  top: rem(85);
+}

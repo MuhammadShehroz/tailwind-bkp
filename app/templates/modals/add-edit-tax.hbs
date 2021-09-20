@@ -1,0 +1,7 @@
+{{#bs-modal 'tax-library'
+  title='Tax Library'
+  supraTitle='Manage'
+  as |modal|
+}}
+  <TaxManager @delegate={{this}} @modal={{modal}} @onClose={{action 'close'}} />
+{{/bs-modal}}

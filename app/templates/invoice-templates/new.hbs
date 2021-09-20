@@ -1,0 +1,26 @@
+<Layouts::PageHeader @resourceType='recurring-invoice' @pageType='form'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2 class='leading-normal'>Create New Recurring Invoice</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::OneColumn>
+    <RecurringInvoiceForm
+      @model={{model}}
+      @clients={{clients}}
+      @currency={{currency}}
+      @currencies={{currencies}}
+      @currencySymbol={{currencySymbol}}
+      @fetchCountries={{fetchCountries}}
+      @fetchSubregions={{fetchSubregions}}
+      @createTax={{createTax}}
+      @createUnit={{createUnit}}
+      @fetchUnits={{fetchUnits}}
+      @cancel={{action 'cancel'}}
+      @saveTask={{save}}
+      @save={{action 'save'}}
+    />
+  </Layouts::OneColumn>
+</Layouts::PageBody>

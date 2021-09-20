@@ -1,0 +1,15 @@
+{{#bs-modal 'new-client'
+  class='modal-new-client'
+  supraTitle='Create'
+  title='New Client'
+  closeOnAccept=false
+}}
+  <Clients::Form
+    @model={{client}}
+    @countries={{countries}}
+    @subregions={{subregions}}
+    @save={{action 'save'}}
+    @cancel={{action 'cancel'}}
+    @fetchSubregions={{action 'fetchSubregions'}}
+  />
+{{/bs-modal}}

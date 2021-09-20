@@ -1,0 +1,86 @@
+<Layouts::PageHeader @resourceType='taxes' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Accounts Hub</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      {{#if hasInvitations}}
+        {{#each model.invitations as |invitation|}}
+          <div class='tw-card'>
+            {{#if invitation.logoUrl}}
+              <div class='image-preview'>
+                <img src={{invitation.logoUrl}} alt='Preview' />
+              </div>
+            {{else}}
+              <div class='image-preview'>
+                <span class='inline-flex items-center justify-center self-center sm:self-start flex-shrink h-40 w-40 rounded-full bg-gray-300'>
+                  <span class='text-8xl font-medium leading-none text-white'>
+                    {{first-letter invitation.organizationName}}
+                  </span>
+                </span>
+              </div>
+            {{/if}}
+            <div class='content'>
+              <div class='text'>
+                {{invitation.organizationName}}
+              </div>
+              {{#if invitation.isInvalid}}
+                <div class='text-gray-500'>Invitation expired</div>
+              {{/if}}
+              <div class='action'>
+                <button type='button' {{action 'declineInvitation' invitation}} class='tw-button white' disabled={{invitation.isInvalid}}>Decline</button>
+                <button type='button' {{action 'acceptInvitation' invitation}} class='tw-button' disabled={{invitation.isInvalid}}>Accept</button>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      {{/if}}
+
+      {{#if hasOrganizations}}
+        {{#each model.organizations as |organization|}}
+          <div class='tw-card'>
+            {{#if organization.logoUrl}}
+              <div class='image-preview'>
+                <a href='#' {{action 'loadOrganization' organization}}>
+                  <img src={{organization.logoUrl}} alt='Preview' />
+                </a>
+              </div>
+            {{else}}
+              <a href='#' {{action 'loadOrganization' organization}}>
+                <div class='image-preview'>
+                  <span class='inline-flex items-center justify-center self-center sm:self-start flex-shrink h-40 w-40 rounded-full bg-gray-300'>
+                    <span class='text-8xl font-medium leading-none text-white'>
+                      {{first-letter organization.name}}
+                    </span>
+                  </span>
+                </div>
+              </a>
+            {{/if}}
+            <div class='content'>
+              <div class='text'>
+                {{organization.name}}
+                <ToggleSwitch
+                  @toggleOnLabel='Load as default'
+                  @value={{eq defaultOrganizationId organization.id}}
+                  @onChange={{action 'makeDefault' organization}}
+                />
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      {{/if}}
+      <LinkTo @route='accounts.new' class='tw-button'>
+        <Icons::Plus/>
+        {{if hasCards 'Add New Business' 'Create your business'}}
+      </LinkTo>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

@@ -1,0 +1,20 @@
+<FormElements::TextArea
+  rows='5'
+  placeholder={{if isPortal 'Your comment'}}
+  @value={{model.message}}
+  @autoresize={{true}}
+  @label='Add comment message'
+  @showErrors={{validations.message.isInvalid}}
+  @errorMessage={{validations.message.message}}
+/>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    {{#unless isPortal}}
+    <button type='button' class='tw-button secondary' {{action @close}}>Cancel</button>
+    {{/unless}}
+    <button type='submit' class='tw-button' disabled={{save.isRunning}}>
+      {{unless isPortal 'Add'}} Comment
+    </button>
+  </div>
+</div>

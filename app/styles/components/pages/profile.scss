@@ -1,0 +1,107 @@
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: rem(1024);
+  padding: rem(16);
+  width: 100%;
+}
+
+.container > .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: rem(16);
+}
+
+.content > section {
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .field {
+    .input-wrapper {
+      padding: rem(8) 0;
+
+      span,
+      a {
+        font-size: rem(16);
+        line-height: rem(24);
+      }
+
+      a {
+        color: $slate;
+      }
+    }
+  }
+
+  .field:last-child {
+    margin-bottom: 0;
+  }
+
+  .btn {
+    width: 100%;
+
+    &.btn-cancel {
+      width: auto;
+    }
+  }
+}
+
+.card {
+  border-radius: rem(4);
+  padding: rem(24) rem(16);
+
+  a.lnk {
+    background: url(remove-icon($magenta, 16, 16)) left rem(4) no-repeat;
+    color: $magenta;
+    display: block;
+    font-size: rem(14);
+    line-height: 150%;
+    margin-bottom: rem(24);
+    min-height: 0;
+    text-transform: none;
+  }
+
+  a.lnk:last-of-type {
+    margin-bottom: rem(0);
+  }
+}
+
+.profile-info {
+  text-align: center;
+
+  .file-field {
+    margin-bottom: rem(24);
+  }
+
+  .creation-date {
+    color: $slate-50;
+    font-size: rem(12);
+    letter-spacing: rem(1);
+    line-height: rem(15);
+    margin-bottom: rem(8);
+    text-transform: uppercase;
+  }
+
+  .fullname {
+    @include long-text-ellipsis;
+    color: $slate;
+    font-size: rem(20);
+    line-height: rem(25);
+  }
+}
+
+@media (min-width: $bp-768px) {
+  .container > .content {
+    flex-direction: row;
+  }
+
+  .content > section {
+    width: rem(377);
+  }
+
+  .content > section:first-of-type {
+    margin-right: rem(16);
+  }
+}

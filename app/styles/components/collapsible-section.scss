@@ -1,0 +1,11 @@
+.expander-header {
+  position: relative;
+
+  button {
+    padding-left: rem(16);
+    padding-right: rem(16);
+    position: absolute;
+    right: 0;
+    top: rem(3);
+  }
+}

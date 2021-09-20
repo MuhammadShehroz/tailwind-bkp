@@ -1,0 +1,22 @@
+& {
+  border-radius: 50%;
+  height: rem(88);
+  width: rem(88);
+}
+
+&.image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+&.no-image {
+  align-items: center;
+  background-color: $slate-05;
+  border: rem(1) dashed $slate-20;
+  color: $slate-80;
+  display: flex;
+  font-size: rem(40);
+  justify-content: center;
+  white-space: nowrap;
+}

@@ -1,0 +1,15 @@
+& {
+  position: relative;
+  text-align: left;
+}
+
+label {
+  color: $slate-80;
+  cursor: pointer;
+  display: block;
+  font-size: rem(12);
+  letter-spacing: rem(1);
+  line-height: rem(16);
+  margin-bottom: rem(16);
+  text-transform: uppercase;
+}

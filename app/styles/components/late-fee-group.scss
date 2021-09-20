@@ -1,0 +1,24 @@
+.field {
+  margin-bottom: 0;
+}
+
+.custom-late-fee {
+  display: block;
+
+  .fields {
+    @include clearfix;
+
+    .number-field,
+    .select-field {
+      display: block;
+      float: left;
+      margin-bottom: 0;
+      width: calc((100% - #{rem(29)}) / 2);
+    }
+
+    .select-field {
+      float: right;
+      margin-left: rem(24);
+    }
+  }
+}

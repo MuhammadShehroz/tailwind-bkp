@@ -1,0 +1,7 @@
+<div {{component-class 'form-control/index'}} class='{{if this.hasBottomBorder 'has-bottom-border'}}' ...attributes>
+  {{#if @label}}
+    <label for={{this.fieldId}} onclick={{@onClickLabel}}>{{@label}}</label>
+  {{/if}}
+
+  {{yield (hash id=this.fieldId)}}
+</div>

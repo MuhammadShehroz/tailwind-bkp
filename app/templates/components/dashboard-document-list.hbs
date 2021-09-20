@@ -1,0 +1,45 @@
+<thead>
+  <tr>
+    <th class='identifier'>ID</th>
+    <th class='client'>Client</th>
+    <th class='client'>Date</th>
+    <th class='client'>Due Date</th>
+    <th class='client'>Total</th>
+  </tr>
+</thead>
+
+<tbody class='records'>
+  {{#each documents as |document|}}
+    <tr class={{document.statusSymbol}} id={{document.domId}}>
+      <td class='identifier ltf'>
+        <LinkTo @route={{concat (pluralize document.modelName) '.show' }} @model={{document}} class='identifier'>{{document.identifier}}</LinkTo>
+        <span class='status'>{{document.statusLabel}}</span>
+      </td>
+
+      <td class='client ltf'>
+        <LinkTo @route='clients.show' @model={{document.client}} class='client'>{{document.client.name}}</LinkTo>
+      </td>
+
+      <td class='date issue-date'>
+        <FormatDate @date={{document.issuedOn}}/>
+      </td>
+
+      {{#if document.dueOn}}
+        <td class='date due-date'>
+          <FormatDate @date={{document.dueOn}}/>
+        </td>
+      {{else}}
+        <td>&nbsp;</td>
+      {{/if}}
+
+      <td class='amounts'>
+        <span class='total'><FormatCurrency @value={{document.cachedTotal}} @isoCode={{document.currency}} /></span>
+
+        {{#if document.hasPaid}}
+          <span class='paid'>Paid: -<FormatCurrency @value={{document.cachedTotalPaid}} @isoCode={{document.currency}} /></span>
+          <span class='due'>Due: <FormatCurrency @value={{document.cachedTotalDue}} @isoCode={{document.currency}} /></span>
+        {{/if}}
+      </td>
+    </tr>
+  {{/each}}
+</tbody>

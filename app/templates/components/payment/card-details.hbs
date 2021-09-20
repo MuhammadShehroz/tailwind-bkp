@@ -1,0 +1,35 @@
+<div class='flex flex-col space-y-2'>
+  
+  <div>
+    <label class='tw-label'>Card Number</label>
+    <StripeCardNumber @options={{cardNumberOptions}} @elements={{cardElements}} @onChange={{action (mut cardElements)}} as |stripeElement stripeError|>
+      {{#if stripeError}}
+        <p class='text-xs text-red-600 text-red-600 bg-red-200 p-2 border-l-2 border-red-700 mt-1 absolute'>{{stripeError.message}}</p>
+        <div class='mb-6'></div>
+      {{/if}}
+    </StripeCardNumber>
+  </div>
+  
+
+  <div class='grid grid-cols-2 gap-4'>
+    <div>
+      <label class='tw-label'>Expiration</label>
+      <StripeCardExpiry @options={{cardExpiryOptions}} @elements={{cardElements}} @onChange={{action (mut cardElements)}} as |stripeElement stripeError|>
+        {{#if stripeError}}
+          <p class='text-xs text-red-600 text-red-600 bg-red-200 p-2 border-l-2 border-red-700 mt-1 absolute'>{{stripeError.message}}</p>
+          <div class='mb-6'></div>
+        {{/if}}
+      </StripeCardExpiry>
+    </div>
+
+    <div>
+      <label class='tw-label'>CVV</label>
+      <StripeCardCvc @options={{cardCvcOptions}} @elements={{cardElements}} @onChange={{action (mut cardElements)}} as |stripeElement stripeError|>
+        {{#if stripeError}}
+          <p class='text-xs text-red-600 text-red-600 bg-red-200 p-2 absolute border-l-2 border-red-700 mt-1'>{{stripeError.message}}</p>
+          <div class='mb-6'></div>
+        {{/if}}
+      </StripeCardCvc>
+    </div>
+  </div>
+</div>

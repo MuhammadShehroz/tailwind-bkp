@@ -1,0 +1,107 @@
+<div class='absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0'>
+  <div class='rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden'>
+    <div class='relative grid gap-4 bg-white px-4 py-4'>
+      <a href='#' class='-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 transition ease-in-out duration-150'>
+        <div class='ml-4'>
+          <p class='text-base font-medium text-gray-900'>
+            Notifications
+          </p>
+        </div>
+      </a>
+
+      {{#if hasNoContent}}
+        <div class='flex flex-col text-xs py-4 px-4'>
+          <span>No notifications</span>
+        </div>
+      {{else}}
+        <ul class='divide-y divide-gray-300 max-h-48 overflow-y-auto'>
+          {{#each @notifications as |notification|}}
+            <li class='px-6 py-4 text-xs {{if notification.readAt 'notification-read' 'notification-unread'}}'>
+              <a href='#'
+                {{action 'readMessage' notification @popupControl}}
+                class='flex flex-col '
+              >
+                <span class='font-medium text-sm'>{{notification.message}}</span>
+                <span class='timestamp'>{{moment-from-now notification.createdAt}}</span>
+              </a>
+            </li>
+          {{/each}}
+          </ul>
+      {{/if}}
+
+      <div class='text-sm flex justify-between'>
+        <a href='#' class='underline hover:no-underline' {{action 'viewSettings' @popupControl}}>Settings</a>
+        {{#if @notifications}}<a href='#' class='underline hover:no-underline' {{action @markAllRead}}>Mark all as read</a>{{/if}}
+      </div>
+      
+    </div>
+  </div>
+</div>
+{{!-- <div class='origin-top-right absolute right-8 mt-2 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none' role='menu' aria-orientation='vertical' aria-labelledby='menu-button' tabindex='-1'>
+  <div class='bg-white'>
+    <h3 class='text-base font-medium text-gray-900'>Notifications</h3>
+    <div class='flex justify-between text-xs py-4 px-4'>
+      <a href='#' class='underline hover:no-underline' {{action 'viewSettings' @popupControl}}>Settings</a>
+      {{#if @notifications}}<a href='#' class='underline hover:no-underline' {{action @markAllRead}}>Mark all as read</a>{{/if}}
+    </div>
+    {{#if @notifications}}
+    <ul class='divide-y divide-gray-300 max-h-48 overflow-y-auto'>
+    {{#each @notifications as |notification|}}
+      <li class='px-6 py-4 text-xs {{if notification.readAt 'notification-read' 'notification-unread'}}'>
+        <a href='#'
+          {{action 'readMessage' notification @popupControl}}
+          class='flex flex-col '
+        >
+          <span class='font-medium text-sm'>{{notification.message}}</span>
+          <span class='timestamp'>{{moment-from-now notification.createdAt}}</span>
+        </a>
+      </li>
+    {{/each}}
+    </ul>
+    {{/if}}
+
+    {{#if hasNoContent}}
+    <div class='flex flex-col text-xs py-4 px-4'>
+      <span>No notifications</span>
+    </div>
+    {{/if}}
+  </div>
+</div> --}}
+
+{{!-- <div>
+  <div>
+    <h6>Notifications</h6>
+    {{#if unreadCount}}<span>{{if (gt unreadCount 9) '9+' unreadCount}}</span>{{/if}}
+  </div>
+  <div>
+    <a href='#' {{action 'viewSettings' @popupControl}}>Settings</a>
+    <a href='#' {{action @markAllRead}}>Mark all as read</a>
+  </div>
+</div>
+<div>
+  {{#each @notifications as |notification|}}
+    <a href='#'
+      {{action 'readMessage' notification @popupControl}}
+      class='notification-item {{if notification.readAt 'is-read' 'is-unread'}}'
+    >
+      <span class='message'>{{notification.message}}</span>
+      <span class='timestamp'>{{moment-from-now notification.createdAt}}</span>
+    </a>
+  {{/each}}
+  {{#if @notifications.isFulfilled}}
+    <InfinityLoader
+      @infinityModel={{notifications}}
+      @loadedText=''
+      @loadingText='Loading...'
+      @hideOnInfinity={{true}}
+    />
+  {{/if}}
+  {{#if @notifications.isPending}}
+    <div class='loading-text'>Loading...</div>
+  {{/if}}
+</div>
+<a href='#' {{action 'viewAll' @popupControl}} class='panel-footer'>View All</a>
+<h6 class='no-content {{unless hasNoContent 'hide'}}'>
+  <span>No notifications</span>
+  <a href='#' {{action 'viewSettings' @popupControl}}>View settings</a>
+</h6> --}}

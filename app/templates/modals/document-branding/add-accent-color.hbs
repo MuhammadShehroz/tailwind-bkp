@@ -1,0 +1,10 @@
+<BsModal
+  @title='Select Accent Color'
+>
+  <DocumentBranding::AddAccentColor
+    @model={{model}}
+    @logoUrl={{model.logoUrl}}
+    @close={{action 'close'}}
+    @onSave={{action 'onSave'}}
+  />
+</BsModal>

@@ -1,0 +1,69 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  @include font-smoothing;
+  background-color: $default-bg-color;
+  color: $default-text-color;
+  font-family: $default-font-family;
+  font-size: 100%;
+  font-weight: 400;
+  line-height: 1;
+}
+
+a,
+button {
+  color: $default-link-color;
+  font-family: $default-font-family;
+  outline: none;
+  text-decoration: none;
+}
+
+input {
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* stylelint-disable-line property-no-vendor-prefix */
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
+  -webkit-appearance: textfield; /* stylelint-disable-line property-no-vendor-prefix */
+  margin: 0;
+}
+
+input::-ms-clear {
+  height: 0;
+  width: 0;
+}
+
+.lte {
+  @include long-text-ellipsis;
+}
+
+.ltw {
+  @include long-text-wrap;
+}
+
+.ltf {
+  @include long-text-fade($default-bg-color);
+}
+
+#print-iframe {
+  position: fixed;
+}
+
+iframe {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}

@@ -1,0 +1,105 @@
+<div class='mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-4 sm:border-t sm:border-gray-200 sm:pt-5'>
+  {{#if hasSearch}}
+    <div class='sm:col-span-4'>
+      <FormElements::TextInput
+        placeholder='Keyword search'
+        @value={{searchText}}
+        @allowClear={{true}}
+        @leadingIcon={{true}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputLeadingIcon>
+          <Icons::Search/>
+        </FormElements::InputLeadingIcon>
+      </FormElements::TextInput>
+    </div>
+  {{/if}}
+
+  {{#if isConflictSliderDisplayed}}
+    <div class='sm:col-span-4'>
+      <ToggleSwitch
+        @disabled={{inEditMode}}
+        @value={{this.isConflictHidden}}
+        @toggleOnLabel='Hide conflicting items'
+        @hint='You have some saved Line Items whose currency differs from the one used on this invoice. You may view & add these Line Items to your invoice, but you will have to re-enter the Price in the invoice’s currency.'
+      />
+    </div>
+  {{/if}}
+</div>
+
+<div class='grid grid-cols-1 col-span-2 gap-y-6 gap-x-4 sm:grid-cols-6 sm:border-t sm:border-gray-200 sm:pt-5'>
+  {{#if items.content.isLoaded}}
+    {{#if items}}
+      {{#each items as |item|}}
+        {{#if isEmbedded}}
+          <SavedItemManagerItem
+            @model={{item}}
+            @isSelectable={{if modal true}}
+            @selectedItems={{selectedItems}}
+            @toggleSelection={{toggleSelectedItem}}
+            @delete={{action 'delete'}}
+            @documentCurrency={{document.currency}}
+            @documentTaxDistribution={{document.taxDistribution}}
+            @documentName={{document.modelName}}
+          />
+        {{else}}
+          <div id={{item.domId}} class='saved-line-item-card card'>
+            <div class='header'>
+              Line item
+              <div class='more-actions'>
+                <PopupControl @class='actions'>
+                  <ul>
+                    <li><LinkTo @route='account.saved-items.edit' @model={{item}} class='edit'>Edit</LinkTo></li>
+                    <li><button type='button' class='remove' {{action 'delete' item}}>Delete</button></li>
+                  </ul>
+                </PopupControl>
+              </div>
+            </div>
+            <div class='content'>
+              <SavedItemManagerItem
+                @model={{item}}
+                @showRemove={{false}}
+                @showConflict={{false}}
+                @isSelectable={{if modal true}}
+                @selectedItems={{selectedItems}}
+                @toggleSelection={{toggleSelectedItem}}
+                @delete={{action 'delete'}}
+                @documentCurrency={{document.currency}}
+                @documentTaxDistribution={{document.taxDistribution}}
+                @documentName={{document.modelName}} />
+            </div>
+          </div>
+        {{/if}}
+      {{/each}}
+    {{else}}
+      <div class='sm:col-span-6'>
+        <h3>Saved Line Items</h3>
+        <p class='text-sm text-gray-900'>You may save line items on an invoice or estimate and view them here.</p>
+      </div>
+    {{/if}}
+  {{/if}}
+
+  {{#unless isEmbedded}}
+    <div class='sm:col-span-6'>
+      <LinkTo @route='account.saved-items.new' class='tw-button secondary'>
+        <Icons::Plus /> New Saved Item
+      </LinkTo>
+    </div>
+  {{/unless}}
+
+  {{#if items}}
+    <div class='sm:col-span-6'>
+      <PaginationControls @pagination={{pagination}} @nextPage={{action 'next'}} @previousPage={{action 'previous'}} @pageNumber={{action 'pageNumber'}} @otherRoute={{true}} />
+    </div>
+  {{/if}}
+
+</div>
+{{#if isEmbedded}}
+<div class='flex justify-end mt-5'>
+  <button type='button' {{action 'load'}} class='tw-button secondary' disabled={{selectionIsEmpty}}>
+    <Icons::Plus/>
+    Insert Line Items
+  </button>
+  <button type='button' class='tw-button white ml-3' {{action 'cancel'}}>Close</button>
+</div>
+{{/if}}

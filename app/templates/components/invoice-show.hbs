@@ -1,0 +1,77 @@
+{{yield}}
+
+{{#if showClientPayment}}
+  <ClientPayment
+    @header='Pay Invoice'
+    @invoice={{model}}
+    @accept={{action 'payInvoice'}}
+    @cancel={{action 'hideActions'}}
+    @reloadEvents={{reloadEvents}}
+    @startProcessing={{startProcessing}}
+    @processingFinished={{processingFinished}}
+  />
+{{/if}}
+
+<div class='sm:p-4 space-y-4'>
+  <div class='flex justify-between'>
+    <div class='text-lg'>
+      <div class='text-sm'>{{if model.lastSentAt 'Sent to' 'Client'}}</div>
+      <TransactorInfo @transactor={{client}}>
+        <LinkTo @route='clients.show' @model={{client}}>{{client.name}}</LinkTo>
+      </TransactorInfo>
+    </div>
+  </div>
+</div>
+
+<LineItemList class='sm:px-4' @model={{model}} />
+
+{{#if model.notes}}
+  <div class='sm:px-4 py-4'>
+    <Forms::Divider />
+    <div>
+      <div class='font-bold uppercase'>Note</div>
+      <div class='text-sm'>{{custom-html-sanitize model.notes}}</div>
+    </div>
+  </div>
+{{/if}}
+
+{{#if model.hasPayments}}
+  <Forms::Divider />
+  <div class='sm:px-4 py-4'>
+    <h5 class='text-lg font-bold mb-2'>Payments</h5>
+    {{#each payments as |payment|}}
+      <div class='flex items-center justify-between text-sm border-b border-gray-100 pb-2 mb-2'>
+        <div class='flex-shrink-0'>
+          <a href='#' {{action 'removePayment' payment}} class='tw-button square white'><Icons::Times /></a>
+        </div>
+        <div class='min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4 items-center'>
+          {{#if payment.failureMessage}}
+            <div class='inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800 md:col-span-2'>{{payment.failureMessage}}</div>
+          {{/if}}
+          <div>{{payment.title}} on <FormatDate @date={{payment.date}}/></div>
+          {{#if payment.medium}}<p><span>Payment Method:</span> {{payment.medium}}</p>{{/if}}
+          {{#if payment.reference}}<p class='md:col-span-2'><span class='inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800'>Reference Number: {{payment.reference}}</span></p>{{/if}}
+        </div>
+        <div class='flex-shrink-0'>
+          <FormatCurrency
+            @value={{payment.amount}}
+            @isoCode={{model.currency}}
+          />
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{/if}}
+
+<div class='sm:p-4'>
+  <Forms::Divider />
+  <HistoryEvents
+    @id='history'
+    @events={{historyEvents}}
+    @model={{model}}
+    @reloadEvents={{reloadEvents}}
+    @newComment={{newComment}}
+    @isCommentFormExpanded={{isCommentFormExpanded}}
+    @header='History &amp; Comments'
+  />
+</div>

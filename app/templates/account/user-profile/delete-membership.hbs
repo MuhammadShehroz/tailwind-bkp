@@ -1,0 +1,68 @@
+<Layouts::PageHeader @resourceType='email' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Delete {{user.name}}' Membership</h2>
+    {{#if memberSinceDate}}
+      <p class='text-blue-gray-500'>Member since <FormatDate @date={{memberSinceDate}}/></p>
+    {{/if}}
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <Forms::GroupedGrid
+        @title={{user.name}}
+        @description='Delete Membership.'
+        class='md:grid md:grid-cols-1'
+      >
+        <div class='col-span-6 sm:col-span-2'>
+          {{#if user.hasAvatar}}
+            <div class='image-preview'>
+              <img src={{user.avatarWebUrl}} alt='Preview' />
+            </div>
+          {{else}}
+            <div class='image-preview'>
+              <span class='inline-flex items-center justify-center self-center sm:self-start flex-shrink h-40 w-40 rounded-full bg-gray-300'>
+                <span class='text-8xl font-medium leading-none text-white'>
+                  {{first-letter user.name}}
+                </span>
+              </span>
+            </div>
+          {{/if}}
+        </div>
+        <div class='col-span-6 sm:col-span-4'>
+          <h3>You are about to delete your "{{organizationName}}" membership.</h3>
+          <p>Your access to this business will be immediately and permanently revoked.</p>
+        </div>
+
+        {{#if isWarningConfirmed}}
+          <div class='col-span-6 sm:col-span-3'>
+            <FormElements::PasswordInput
+              @value={{confirm.password}}
+              @label='Password'
+              @hint='Enter your password to confirm'
+              @showErrors={{confirm.validations.attrs.password.isInvalid}}
+              @errorMessage={{confirm.validations.attrs.password.message}}
+            />
+          </div>
+        {{/if}}
+      </Forms::GroupedGrid>
+
+      <div class='py-5'>
+        <div class='flex justify-end flex-wrap gap-3'>
+          <LinkTo @route='account.user-profile' class='tw-button white'>Cancel</LinkTo>
+          {{#if isWarningConfirmed}}
+            <button type='submit' class='tw-button danger' disabled={{delete.isRunning}} {{action 'delete'}}>Delete Membership</button>
+          {{else}}
+            <button type='submit' class='tw-button danger' {{action 'confirmWarning'}}>Continue</button>
+          {{/if}}
+        </div>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

@@ -1,0 +1,115 @@
+#settings.members-permissions.form {
+  .lnk-icon-circle-plus {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pending-members {
+    border-bottom: 1px dashed $slate-20;
+    margin-bottom: rem(24);
+    padding-bottom: rem(24);
+
+    .email {
+      color: $slate;
+      font-size: 16px;
+      line-height: rem(24);
+      margin-bottom: rem(8);
+      text-decoration-line: underline;
+    }
+
+    .invited-date {
+      color: $slate-80;
+      font-size: 16px;
+      font-style: italic;
+      line-height: rem(24);
+      margin-bottom: rem(8);
+    }
+
+    .lnk-icon-send {
+      color: $slate;
+      font-size: 14px;
+      line-height: rem(21);
+      text-transform: none;
+    }
+  }
+
+  .pending-member,
+  .active-member {
+    border-bottom: 1px solid $slate-20;
+    padding: rem(24) 0;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      border-bottom: hidden;
+      padding-bottom: 0;
+    }
+  }
+
+  .active-members .active-member {
+    .member-email {
+      color: $slate;
+      font-size: 16px;
+      line-height: rem(24);
+      margin-bottom: rem(8);
+      position: relative;
+      text-decoration-line: underline;
+    }
+
+    .actions {
+      position: absolute;
+      right: rem(-24);
+      top: rem(-8);
+
+      .popup-dropdown {
+        padding-left: rem(12);
+      }
+    }
+  }
+}
+
+@media (min-width: $bp-768px) {
+  #settings.members-permissions.form {
+    .members {
+      margin-left: auto;
+      margin-right: auto;
+      width: rem(730);
+
+      &.invitations-only {
+        .form-section {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
+        }
+      }
+    }
+
+    .form-section {
+      display: inline-block;
+      max-width: rem(352);
+      width: calc(100% - #{rem(352)});
+    }
+
+    .pending-members-form {
+      margin-right: rem(24);
+    }
+
+    .active-members {
+      float: right;
+
+      .active-member {
+        .field {
+          display: inline-block;
+
+          &:last-child {
+            float: right;
+          }
+        }
+      }
+    }
+  }
+}

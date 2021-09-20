@@ -1,0 +1,213 @@
+{{#if showRecords}}
+  <Layouts::PageHeader @resourceType='invoice' @pageType='list'>
+    <Breadcrumbs @segments={{routeSegments}} />
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='md:col-span-5'>
+        <h2 class='leading-normal'>Invoices</h2>
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='md:col-span-5'>
+        <div class='flex justify-end space-x-2'>
+          <FormElements::NativeSelectMenu
+              @options={{searchFields}}
+              @value={{searchField}}
+              @optionKey='key'
+              @optionLabel='label'
+              @onChange={{action 'onSearchKeySelect'}}
+            />
+          <FormElements::TextInput
+            placeholder={{searchLabel}}
+            @value={{query}}
+            @allowClear={{true}}
+            @leadingIcon={{true}}
+            @trailingIcon={{true}}
+            as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+          >
+            <FormElements::InputLeadingIcon>
+              <Icons::Search/>
+            </FormElements::InputLeadingIcon>
+            <FormElements::InputTrailingIcon @onTrailingIconClick={{action 'clearSearchParams'}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+          </FormElements::TextInput>
+        </div>
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  </Layouts::PageHeader>
+
+  <Layouts::PageBody>
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='md:col-span-8'>
+        <LinkTo @route='invoices.new'class='tw-button'>
+          <Icons::Plus/>
+          Create New
+        </LinkTo>
+        <p class='text-sm py-2'>Create an invoice to send to a client.</p>
+      </Layouts::GridColumn>
+      {{#if (or model.length)}}
+      <Layouts::GridColumn class='md:col-span-2 md:justify-self-end'>
+        <button type='button' {{action 'exportXls'}} class='tw-button secondary'>Export</button>
+      </Layouts::GridColumn>
+      {{/if}}
+    </Layouts::ColumnsGrid>
+    
+    {{#if displayChart}}
+      {{#each summary as |currencyStat|}}
+        <CurrencyStat
+          @graph={{graph}}
+          @stat={{currencyStat}}
+          @decimals={{decimals}}
+          @decimalsSeparator={{decimalsSeparator}}
+          @thousandsSeparator={{thousandsSeparator}}
+        />
+      {{/each}}
+    {{/if}}
+
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='self-center col-span-10 sm:col-span-2'>
+        <FormElements::SelectMenu
+          @options={{this.filter.statuses}}
+          @optionKey='value'
+          @optionLabel='label'
+          @selected={{selectedStatus}}
+          @onChange={{action 'setStatus'}}
+        />
+      </Layouts::GridColumn>
+
+      <Layouts::GridColumn class='col-span-10 md:col-span-2 col-start-1 md:col-start-9'>
+        <FormElements::SelectMenu
+          @options={{this.filter.dateRanges}}
+          @optionKey='value'
+          @optionLabel='label'
+          @selected={{this.filter.selectedDateRange}}
+          @onChange={{action 'setRange'}}
+        />
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+
+    {{#if invoicesPresent}}
+      <div class='tw-table-wrapper bordered'>
+        <table>
+          <thead>
+            <tr>
+              <th scope='col' class='w-auto'>
+                <SortBy
+                  @field='status'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Status
+                </SortBy>
+              </th>
+              <th scope='col' class='w-auto'>
+                <SortBy
+                  @field='issued_on'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Issue Date
+                </SortBy>
+              </th>
+              <th scope='col' class='w-auto'>
+                <SortBy
+                  @field='due_on'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Due Date
+                </SortBy>
+              </th>
+              <th scope='col'>
+                <SortBy
+                  @field='number'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    ID
+                </SortBy>
+              </th>
+              <th scope='col'>
+                <SortBy
+                  @field='client'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Client
+                </SortBy>
+              </th>
+              <th scope='col' class='w-auto'>
+                <SortBy
+                  @field='total'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Amount
+                </SortBy>
+              </th>
+              <th scope='col' class='w-auto'>
+                <SortBy
+                  @field='total_paid'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Paid
+                </SortBy>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each model as |invoice|}}
+              <tr>
+                <td>
+                  <div class='tw-label'>Status</div>
+                  <StatusPill class={{invoice.statusClass}} @label={{invoice.statusLabel}} @model={{invoice}} @vertical={{true}} />
+                  <LinkTo @route='invoices.show' class='link-clicker' @model={{invoice}} />
+                </td>
+                <td>
+                  <div class='tw-label'>Issue Date</div>
+                  <span class='font-medium'><FormatDate @date={{invoice.issuedOn}}/></span>
+                  <LinkTo @route='invoices.show' class='link-clicker' @model={{invoice}} />
+                </td>
+                <td>
+                  <div class='tw-label'>Due Date</div>
+                  <span class='font-medium'><FormatDate @date={{invoice.dueOn}}/></span>
+                  <LinkTo @route='invoices.show' class='link-clicker' @model={{invoice}} />
+                </td>
+                <td class='max-w-24 whitespace-normal'> 
+                  <div class='tw-label tw-link'>ID</div>
+                  {{invoice.identifier}}
+                  <LinkTo @route='invoices.show' class='link-clicker' @model={{invoice}} />
+                </td>
+                <td class='max-w-24 whitespace-normal'>
+                  <div class='tw-label tw-link'>Client</div>
+                  <span class='font-medium'>{{invoice.client.name}}</span>
+                  <LinkTo @route='invoices.show' class='link-clicker' @model={{invoice}} />
+                </td>
+                <td>
+                  <div class='tw-label'>Amount</div>
+                  <FormatCurrency @value={{invoice.cachedTotal}} @isoCode={{invoice.currency}}/>
+                  <LinkTo @route='invoices.show' class='link-clicker' @model={{invoice}} />
+                </td>
+                <td>
+                  <div class='tw-label'>Paid</div>
+                  <FormatCurrency @value={{invoice.cachedTotalPaid}} @isoCode={{invoice.currency}}/>
+                  <LinkTo @route='invoices.show' class='link-clicker' @model={{invoice}} />
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <PaginationControls @pagination={{pagination}} />
+    {{else}}
+      <div class='pt-6'>
+        <p>No invoices fit this filtering selection.</p>
+      </div>
+    {{/if}}
+  </Layouts::PageBody>
+{{else}}
+  <PageBlankSlate @className='invoice' @description='You haven&#39;t created an invoice yet!' />
+{{/if}}

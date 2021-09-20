@@ -1,0 +1,140 @@
+<div class='px-4 py-4'>
+  <h5>{{title}}</h5>
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-4'>
+      <FormElements::EmailSelect
+        @label='Send to'
+        @placeholder='Select recipient'
+        @options={{contacts}}
+        @optionKey='id'
+        @optionLabel='name'
+        @displayField='name'
+        @searchEnabled={{true}}
+        @value={{model.toRecipients}}
+        @showErrors={{validations.toRecipients.isInvalid}}
+        @errorMessage={{validations.toRecipients.message}}
+      />
+    </Layouts::GridColumn>
+    <Layouts::GridColumn class='sm:col-span-2 sm:flex justify-end flex-wrap gap-3 sm:mt-8'>
+      <div>
+        <button type='button' class='tw-button secondary mr-2' {{action 'toggleCcField'}}>
+          <Icons::Duplicate/>CC
+        </button>
+        <button type='button' class='tw-button secondary mt-4 sm:m-0' {{action 'toggleBccField'}}>
+          <Icons::Duplicate/>BCC
+        </button>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+
+  {{#if (or isShowingCcField model.ccRecipients)}}
+    <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+      <Layouts::GridColumn class='sm:col-span-4'>
+        <FormElements::EmailSelect
+          @label='CC'
+          @placeholder='Select recipient'
+          @options={{members}}
+          @optionKey='id'
+          @optionLabel='name'
+          @displayField='name'
+          @searchEnabled={{true}}
+          @value={{model.ccRecipients}}
+          @showErrors={{validations.ccRecipients.isInvalid}}
+          @errorMessage={{validations.ccRecipients.message}}
+        />
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  {{/if}}
+
+  {{#if (or isShowingBccField model.bccRecipients)}}
+    <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+      <Layouts::GridColumn class='sm:col-span-4'>
+        <FormElements::EmailSelect
+          @label='BCC'
+          @placeholder='Select recipient'
+          @options={{contacts}}
+          @optionKey='id'
+          @optionLabel='name'
+          @displayField='name'
+          @searchEnabled={{true}}
+          @value={{model.bccRecipients}}
+          @showErrors={{validations.bccRecipients.isInvalid}}
+          @errorMessage={{validations.bccRecipients.message}}
+        />
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  {{/if}}
+
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-6'>
+      <FormElements::TextInput
+        @value={{model.subject}}
+        @label='Subject'
+        @allowClear={{true}}
+        @showErrors={{validations.subject.isInvalid}}
+        @errorMessage={{validations.subject.message}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-6'>
+      <ToggleSwitch
+        @value={{model.pdfAttached}}
+        @toggleOnLabel='Add attachment of PDF invoice'
+      />
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-6'>
+      <FormElements::TextArea
+        rows='6'
+        autoresize={{true}}
+        @value={{model.message}}
+        @label='Note to recipient'
+        @hint='Brief description for your profile. URLs are hyperlinked.'
+        @showErrors={{validations.message.isInvalid}}
+        @errorMessage={{validations.message.message}}
+      />
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+
+  {{#if showPaymentOptions}}
+    <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+      <Layouts::GridColumn class='sm:col-span-3'>
+        {{#if isOrganizationStripeConnected}}
+          <ToggleSwitch
+            @value={{model.includeStripe}}
+            @toggleOnLabel='Credit Card'
+          />
+        {{/if}}
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='sm:col-span-3'>
+        {{#if isOrganizationPaypalConnected}}
+          <ToggleSwitch
+            @value={{model.includePaypal}}
+            @toggleOnLabel='Paypal'
+          />
+        {{/if}}
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  {{/if}}
+
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-6'>
+      <div class='flex justify-start flex-wrap gap-3'>
+        <button type='button' class='tw-button white' {{action 'cancel'}}>Cancel</button>
+        <button type='button' {{action 'preview'}} class='tw-button secondary'>
+          Preview {{capitalize document.modelName}}
+        </button>
+        <button type='submit' class='tw-button' {{action 'send'}}>
+          <Icons::Mail class='mr-2'/>Send Now
+        </button>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</div>

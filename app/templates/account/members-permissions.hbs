@@ -1,0 +1,100 @@
+<Layouts::PageHeader @resourceType='permissions' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Members &#38; Permissions</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <div>
+        {{#if members}}
+        <div>
+          <h3>Active Members</h3>
+          <ul class='divide-y divide-gray-200'>
+          {{#each members as |member|}}
+            <li class='py-4 flex flex-col'>
+              <div class='flex justify-between items-center'>
+                <div class='text-sm font-medium text-gray-900'>
+                  {{member.email}}
+                </div>
+                <div>
+                  {{#if member.isTransferAccountOwnership}}
+                    <a href='#' class='tw-button' {{action 'transferAccountOwnership'}}>Transfer ownership</a>
+                  {{/if}}
+                  <a href='#' class='tw-button danger' {{action 'removeMember' member}}>Remove</a>
+                </div>
+              </div>
+              <div class=''>
+                <RadioInput
+                  @radioName={{concat 'permissions' member.id}}
+                  @value={{member.permissions}}
+                  @label='Full Admin'
+                  @radioValue='owner'
+                  @extraLabel='Can make billing changes and user changes across the company'
+                  @onChange={{action 'save' member}}
+                />
+                <RadioInput
+                  @radioName={{concat 'permissions' member.id}}
+                  @value={{member.permissions}}
+                  @label='Default Member'
+                  @extraLabel='Can send invoices and estimates'
+                  @radioValue='member'
+                  @onChange={{action 'save' member}}
+                />
+              </div>
+            </li>
+          {{/each}}
+          </ul>
+        </div>
+      {{/if}}
+      </div>
+      <div>
+        {{#if invitations}}
+        <h3>Pending Members</h3>
+        <ul class='divide-y divide-gray-200'>
+          {{#each invitations as |invitation|}}
+          <li class='py-4 flex justify-between items-center'>
+              <div class='flex-col'>
+                {{#if invitation.user.name}}
+                  <div class='text-sm font-medium text-gray-900'>{{invitation.user.name}} ({{invitation.email}})</div>
+                {{else}}
+                  <div class='text-sm font-medium text-gray-900'>{{invitation.email}}</div>
+                {{/if}}
+                <span class='text-sm text-gray-500'>Invited <FormatDate @date={{invitation.invitedAt}}/></span>
+              </div>
+
+              {{#if invitation.warningStatusLabel}}
+              <div class='text-sm text-gray-500'>
+                  <Icons::ExclamationTriangle /> ({{invitation.warningStatusLabel}})
+              </div>
+              {{/if}}
+
+              <div>
+                <button type='button' class='tw-button white' {{action 'resendInvitation' invitation}}>Re-send invite</button>
+              </div>
+              
+          </li>
+          {{/each}}
+        </ul>
+        {{/if}}
+      </div>
+
+
+      {{#if isInvitationFormExpanded}}
+        <InvitationForm @close={{action 'closeInvitation'}}/>
+      {{else}}
+        <button type='button' class='tw-button' {{action 'inviteNewMember'}}>
+          <Icons::Plus /> Invite a new member
+        </button>
+      {{/if}}
+
+      
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+  </Layouts::PageBody>

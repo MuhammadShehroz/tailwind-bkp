@@ -1,0 +1,71 @@
+<Layouts::ColumnsGrid class='sm:grid-cols-6 sm:pt-0'>
+  <Layouts::GridColumn class='sm:col-span-3'>
+    <ToggleSwitch
+      @value={{previewMode}}
+      @toggleOffLabel='Edit'
+      @toggleOnLabel='Preview'
+      @onChange={{action (perform getTemplatePreview)}}
+    />
+  </Layouts::GridColumn>
+  <Layouts::GridColumn class='sm:col-span-3'>
+    <ToggleSwitch
+      @value={{hideVariables}}
+      @toggleOnLabel='Hide Variables'
+    />
+  </Layouts::GridColumn>
+  <Layouts::GridColumn class='sm:col-span-6'>
+    {{#unless previewMode}}
+      <FormElements::TextArea
+        rows='5'
+        autoresize={{true}}
+        @label={{textLabel}}
+        @value={{get model templateName}}
+        @showErrors={{isTemplateInvalid}}
+        @errorMessage={{templateError}}
+      />
+    {{/unless}}
+    {{model.validations.attrs.base.message}}
+    <div class='transform-gpu origin-top transition-transform rounded-md bg-gray-100 p-4 mt-2 font-light {{if previewMode 'scale-y-100' 'scale-y-0'}}'>
+      {{html-safe (custom-html-sanitize previewTemplate)}}
+    </div>
+  </Layouts::GridColumn>
+
+  {{#if showLateFee}}
+    <Layouts::GridColumn class='sm:col-span-3'>
+      <FormElements::SelectMenu
+        @label='Late Fee'
+        @options={{lateFeeOptions}}
+        @optionKey='value'
+        @optionLabel='label'
+        @onChange={{action 'selectLateFee'}}
+      />
+    </Layouts::GridColumn>
+  {{/if}}
+
+  <Layouts::GridColumn class='sm:col-span-6'>
+    <table class='transform transform-gpu origin-top transition-transform {{if hideVariables 'scale-y-0' 'scale-y-100'}}'>
+      <tbody>
+        {{#each templateTags as |tag|}}
+          <tr>
+            <td>
+              <a href='#' {{action appendTag (or tag.block tag.name)}}>{{tag.name}}</a>
+            </td>
+            <td class='whitespace-normal'>{{html-safe tag.desc}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </Layouts::GridColumn>
+</Layouts::ColumnsGrid>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>
+      Cancel
+    </button>
+    <button type='button' class='tw-button secondary' {{action resetDefault}}>Reset</button>
+    <button type='button' class='tw-button' {{action 'save'}} disabled={{save.isRunning}}>
+      Save
+    </button>
+  </div>
+</div>

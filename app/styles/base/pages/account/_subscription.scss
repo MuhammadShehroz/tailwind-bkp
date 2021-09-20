@@ -1,0 +1,77 @@
+.account-subscription.form {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: rem(377);
+
+  .details,
+  .card-number {
+    border-bottom: 1px solid $slate-20;
+    padding-bottom: rem(8);
+  }
+
+  .expiry {
+    color: $slate-80;
+    font-size: 14px;
+    line-height: rem(21);
+    margin-bottom: rem(32);
+    text-align: center;
+  }
+
+  .card {
+    .annotation,
+    .card-expiry {
+      color: $slate-80;
+      font-size: 14px;
+      line-height: rem(21);
+      margin-top: rem(12);
+    }
+
+    a {
+      background: url(edit-icon($slate, 24, 24)) right rem(-2) no-repeat;
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .subscription-block {
+    .lnk.lnk-icon-remove {
+      background: url(remove-icon($magenta, 16, 16)) left rem(9) no-repeat;
+      color: $magenta;
+      display: block;
+      margin: rem(8) auto 0;
+    }
+  }
+
+  .plan {
+    a {
+      background: none;
+    }
+
+    .radio-field.valid-coupon {
+      span {
+        color: $amethyst;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .coupon {
+    margin-top: rem(24);
+
+    .field,
+    .btn {
+      display: inline-block;
+      margin-bottom: 0;
+      width: calc(100% - #{rem(130)});
+    }
+
+    .btn {
+      margin-left: rem(15);
+      width: rem(110);
+    }
+  }
+}

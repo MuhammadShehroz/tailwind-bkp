@@ -1,0 +1,21 @@
+<BsModal
+  @name='onboarding'
+  @accept={{action 'next'}}
+  @acceptDisabled={{_saveClientTask.isRunning}}
+  @acceptLabel={{unless isOnLastStep 'Next'}}
+  @dismiss={{action 'skipToDashboard'}}
+  @dismissLabel={{unless isOnLastStep 'Skip to dashboard'}}
+  @closeOnAccept={{false}}
+  @singleActionLabel={{if currentStepIndex (if isOnLastStep 'Go to Dashboard' 'Back')}}
+  @singleActionIcon={{if isOnLastStep 'close-icon' 'arrow-left-icon'}}
+  @onClickSingleAction={{action 'floatingActionClicked'}}
+>
+  {{!-- template-lint-disable no-index-component-invocation  --}}
+  <Onboarding::Index
+    @client={{client}}
+    @stepIndex={{currentStepIndex}}
+    @validationsEnabled={{validationsEnabled}}
+    @onNext={{action 'next'}}
+    @onLinkTo={{action 'linkTo'}}
+  />
+</BsModal>

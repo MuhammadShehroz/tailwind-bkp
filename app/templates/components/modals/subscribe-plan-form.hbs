@@ -1,0 +1,42 @@
+<div class='col-span-6'>
+  <label class='tw-label'>Billing frequency</label>
+  <FormElements::RadioInput
+    @name='plan-id'
+    @label={{monthlyLabel}}
+    @value={{model.planId}}
+    @option={{monthly}}
+  />
+  <FormElements::RadioInput
+    @name='plan-id'
+    @label='Annually ($150/yr) — save $30'
+    @value={{model.planId}}
+    @option={{annually}}
+  />
+</div>
+
+{{#if model.applicableCoupon}}
+<div class='flex items-center gap-3'>
+  <div>
+    <FormElements::TextInput
+      @value={{model.coupon}}
+      @label='Coupon Code'
+      @allowClear={{true}}
+      @showErrors={{validations.couponId.isInvalid}}
+      @errorMessage={{validations.couponId.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+    <button type='button' class='tw-button secondary self-end' {{action 'verifyCoupon'}} disabled={{validCoupon}}>
+      {{if validCoupon 'Applied!' 'Apply'}}
+    </button>
+  </div>
+{{/if}}
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>Cancel</button>
+    <button type='submit' class='tw-button' disabled={{save.isRunning}}>Save</button>
+  </div>
+</div>

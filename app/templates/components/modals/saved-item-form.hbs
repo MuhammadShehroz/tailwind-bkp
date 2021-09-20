@@ -1,0 +1,93 @@
+<Layouts::ColumnsGrid class='sm:grid-cols-6 sm:pt-0'>
+  <Layouts::GridColumn class='sm:col-span-3'>
+    <FormElements::NumberInput
+      min='0'
+      @value={{model.quantity}}
+      @label='Quantity'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.quantity.isInvalid}}
+      @errorMessage={{validations.quantity.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::NumberInput>
+  </Layouts::GridColumn>
+  <Layouts::GridColumn class='sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Unit'
+      @options={{units}}
+      @optionKey='id'
+      @optionLabel='name'
+      @selected={{model.unitOfMeasurement}}
+      @value={{model.unitOfMeasurement}}
+      @showErrors={{validations.unitOfMeasurement.isInvalid}}
+      @errorMessage={{validations.unitOfMeasurement.message}}
+    />
+  </Layouts::GridColumn>
+  <Layouts::GridColumn class='sm:col-span-6'>
+    <FormElements::TextArea
+      @label='Name'
+      rows='2'
+      @value={{model.name}}
+      @showErrors={{validations.name.isInvalid}}
+      @errorMessage={{validations.name.message}}
+    />
+  </Layouts::GridColumn>
+
+  <Layouts::GridColumn class='sm:col-span-3'>
+    <FormElements::CurrencyInput
+      @value={{model.price}}
+      @label='Price'
+      @decimals={{currentOrganization.decimals}}
+      @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+      @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+      @leadingIcon={{currencySymbol}}
+      @allowClear={{true}}
+      @showErrors={{validations.price.isInvalid}}
+      @errorMessage={{validations.price.message}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </Layouts::GridColumn>
+
+  <Layouts::GridColumn class='sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Currency'
+      @options={{currencies}}
+      @optionKey='code'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{currency}}
+      @showErrors={{validations.currency.isInvalid}}
+      @errorMessage={{validations.currency.message}}
+      @onChange={{action 'onCurrencyChange'}}
+    />
+  </Layouts::GridColumn>
+
+  <Layouts::GridColumn class='sm:col-span-3'>
+    <TaxSelect
+      @model={{@model}}
+      @label='Tax (Optional)'
+      @isNoTaxOptionEnabled={{true}}
+    />
+  </Layouts::GridColumn>
+</Layouts::ColumnsGrid>
+
+<Layouts::ColumnsGrid>
+  <Layouts::GridColumn class='sm:col-span-3'>
+    <FormatCurrency @label='Item total' @value={{@model.total}} @isoCode={{@model.currency}} class='font-bold' />
+  </Layouts::GridColumn>
+</Layouts::ColumnsGrid>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>
+      Cancel
+    </button>
+    <button type='submit' class='tw-button' disabled={{save.isRunning}}>
+      Save
+    </button>
+  </div>
+</div>

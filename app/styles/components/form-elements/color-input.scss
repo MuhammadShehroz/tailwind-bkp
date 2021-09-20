@@ -1,0 +1,17 @@
+.picker {
+  background: url(filter-icon($slate, 24, 24)) center center no-repeat;
+  height: rem(24) !important;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: rem(24) !important;
+}
+
+input[type='color'] {
+  cursor: pointer;
+  height: 100%;
+  opacity: 0;
+  width: 100%;
+}

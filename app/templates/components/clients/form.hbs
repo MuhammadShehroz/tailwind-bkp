@@ -1,0 +1,305 @@
+<Forms::GroupedGrid
+  @title='Client Information'
+  @description='Basic information about the client.'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-6'>
+    <ToggleSwitch
+      @disabled={{inEditMode}}
+      @value={{model.isCompany}}
+      @toggleOffLabel='Individual'
+      @toggleOnLabel='Company'
+    />
+  </div>
+  {{#if isCompany}}
+    <div class='col-span-6 sm:col-span-3'>
+      <FormElements::TextInput
+        placeholder='Enter client name'
+        @value={{model.companyName}}
+        @label='Client name'
+        @allowClear={{true}}
+        @trailingIcon={{true}}
+        @showErrors={{validations.companyName.isInvalid}}
+        @errorMessage={{validations.companyName.message}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+    </div>
+  {{else}}
+    <div class='col-span-6 sm:col-span-3'>
+      <FormElements::TextInput
+        @value={{model.firstName}}
+        @label='First name'
+        @allowClear={{true}}
+        @trailingIcon={{true}}
+        @showErrors={{validations.firstName.isInvalid}}
+        @errorMessage={{validations.firstName.message}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+    </div>
+    <div class='col-span-6 sm:col-span-3'>
+      <FormElements::TextInput
+        @value={{model.lastName}}
+        @label='Last name'
+        @allowClear={{true}}
+        @trailingIcon={{true}}
+        @showErrors={{validations.lastName.isInvalid}}
+        @errorMessage={{validations.lastName.message}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+    </div>
+  {{/if}}
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::EmailInput
+      @value={{model.email}}
+      @label='Email Address'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.email.isInvalid}}
+      @errorMessage={{validations.email.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::EmailInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='Client ID'
+      @value={{model.identifier}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @value={{model.taxIdNumber}}
+      @label='Tax I.D. number'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @value={{model.taxIdName}}
+      @label='Tax I.D. name'
+      @hint='This is what the Tax ID field is called in the client&#39;s geographic region (i.e., ABN # or VAT #).'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Contact Details'
+  @description='Location and contact information'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='Address'
+      @value={{billingAddress.address1}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='Address 2'
+      @value={{billingAddress.address2}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Country'
+      @options={{countries}}
+      @optionKey='code'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{country}}
+      @onChange={{action 'onCountryChange'}}
+    />
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='City'
+      @value={{billingAddress.city}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='State'
+      @options={{subregions}}
+      @optionKey='id'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{subregion}}
+      @onChange={{action 'onSubregionChange'}}
+    />
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='ZIP / Postal'
+      @value={{billingAddress.zip}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+     <FormElements::TextInput
+        @label='Phone Number'
+        @value={{model.phone}}
+        @allowClear={{true}}
+        @trailingIcon={{true}}
+        as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+      >
+        <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+      </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+   <FormElements::TextInput
+      @label='Fax Number'
+      @value={{model.fax}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+   <FormElements::TextInput
+      @value={{model.website}}
+      @label='Website'
+      @allowClear={{true}}
+      @showErrors={{validations.website.isInvalid}}
+      @errorMessage={{validations.website.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+</Forms::GroupedGrid>
+
+{{#if model.isNew}}
+  {{#each model.contacts as |contact index|}}
+    <Forms::Divider />
+    <div class='shadow sm:rounded-md sm:overflow-hidden'>
+      <div class='bg-white py-6 px-4 space-y-6 sm:p-6'>
+        <div>
+          <h3 class='text-lg leading-6 font-medium text-gray-900'>Add a Contact</h3>
+          <p class='mt-1 text-sm text-gray-500'>Add a contact person to this client.</p>
+        </div>
+        <div class='grid grid-cols-8 gap-6'>
+          <div class='col-span-8 sm:col-span-2'>
+            <FormElements::TextInput
+              @label='First name'
+              @value={{contact.firstName}}
+              @allowClear={{true}}
+              @trailingIcon={{true}}
+              @showErrors={{contact.validations.attrs.firstName.isInvalid}}
+              @errorMessage={{contact.validations.attrs.firstName.message}}
+              as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+            >
+              <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+            </FormElements::TextInput>
+          </div>
+
+          <div class='col-span-8 sm:col-span-2'>
+            <FormElements::TextInput
+              @label='Last name'
+              @value={{contact.lastName}}
+              @allowClear={{true}}
+              @trailingIcon={{true}}
+              @showErrors={{contact.validations.attrs.lastName.isInvalid}}
+              @errorMessage={{contact.validations.attrs.lastName.message}}
+              as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+            >
+              <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+            </FormElements::TextInput>
+          </div>
+
+          <div class='col-span-8 sm:col-span-2'>
+            <FormElements::TextInput
+              @label='Email Address'
+              @value={{contact.email}}
+              @allowClear={{true}}
+              @trailingIcon={{true}}
+              @showErrors={{contact.validations.attrs.email.isInvalid}}
+              @errorMessage={{contact.validations.attrs.email.message}}
+              as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+            >
+              <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+            </FormElements::TextInput>
+          </div>
+
+          <div class='col-span-8 sm:col-span-2'>
+            <FormElements::TextInput
+              @label='Phone Number'
+              @value={{contact.phone}}
+              @allowClear={{true}}
+              @trailingIcon={{true}}
+              @showErrors={{false}}
+              as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+            >
+              <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+            </FormElements::TextInput>
+          </div>
+        </div>
+      </div>
+      <div class='px-4 py-3 bg-gray-50 text-right sm:px-6'>
+        {{#if index}}
+          <button {{action 'removeItem' contact}} type='button' class='tw-button white'>
+            Remove
+          </button>
+        {{/if}}
+        <button {{action 'addContact'}} type='button' class='tw-button'>
+          <svg class='w-4 h-4 mr-2' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6v6m0 0v6m0-6h6m-6 0H6'></path></svg>
+          Add another client contact
+        </button>
+      </div>
+    </div>
+  {{/each}}
+{{/if}}
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>
+      Cancel
+    </button>
+    <button type='submit' class='tw-button' disabled={{save.isRunning}}>
+      Save
+    </button>
+  </div>
+</div>

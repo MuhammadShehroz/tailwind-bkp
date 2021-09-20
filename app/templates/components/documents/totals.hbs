@@ -1,0 +1,64 @@
+<div id='invoice' class='flex flex-col'>
+  <div class='p-4 space-y-2 bg-white flex flex-col'>
+    <div class='flex justify-between items-center'>
+      <span class='font-bold text-2xl'>
+        <FormatCurrency @value={{model.cachedTotal}} @isoCode={{model.currency}} />
+      </span>
+      <span class='text-xs font-gray-100'>
+        {{currency.code}}
+      </span>
+    </div>
+    {{#if model.statusLabel}}
+    <div>
+      <StatusPill class={{model.statusClass}} @label={{model.statusLabel}} @model={{model}} />
+    </div>
+    {{/if}}
+    <div class='text-sm'>
+      Created
+      <FormatDate @date={{model.issuedOn}} />
+    </div>
+    {{#if model.dueOn}}
+    <div class='text-sm'>
+      Due
+      <FormatDate @date={{model.dueOn}} />
+      {{#if model.netTermsLabel}}
+      <span>({{model.netTermsLabel}})</span>
+      {{/if}}
+    </div>
+    {{else}}
+      {{#if model.netTermsLabel}}
+      <span>{{model.netTermsLabel}}</span>
+      {{/if}}
+    {{/if}}
+    {{#if model.hasDocumentTax}}
+    <div class='text-sm'>
+      <span>{{model.taxName}}:</span> {{model.taxPercent}}%
+    </div>
+    {{else}}
+    {{#each model.taxes as |tax|}}
+    <div class='text-sm'>
+      <span>{{tax.name}} ({{tax.percent}}%):</span>
+      <FormatCurrency @value={{tax.amount}} @isoCode={{model.currency}} />
+    </div>
+    {{/each}}
+    {{/if}}
+    {{#if model.shipping}}
+    <div class='text-sm'>
+      <span>Shipping:</span>
+      <FormatCurrency @value={{model.shipping}} @isoCode={{model.currency}} />
+    </div>
+    {{/if}}
+    {{#if model.hasLateFee}}
+    <div class='text-sm'>
+      <span>Late fee:</span> {{model.lateFeeLabel}}
+    </div>
+    {{/if}}
+    {{#if model.frequency}}
+    <div class='text-sm'>
+      {{model.frequency}}
+    </div>
+    {{/if}}
+  </div>
+
+  {{ yield }}
+</div>

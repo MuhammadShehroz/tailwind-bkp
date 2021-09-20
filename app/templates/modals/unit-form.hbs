@@ -1,0 +1,6 @@
+{{#bs-modal 'unit-form'
+  title='Unit Edit'
+  as |modal|
+}}
+  <Modals::UnitForm @modal={{modal}} @model={{model}} @close={{action 'close'}} />
+{{/bs-modal}}

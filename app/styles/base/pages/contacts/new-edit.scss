@@ -1,0 +1,13 @@
+.contact-info {
+  margin: rem(32) auto;
+  width: rem(343);
+}
+
+section.contact-info.form-section {
+  margin-bottom: rem(32);
+
+  a.expander {
+    background-color: $slate-05;
+    letter-spacing: rem(1);
+  }
+}

@@ -1,0 +1,37 @@
+#page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+}
+
+main {
+  background-color: $default-bg-color;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logo {
+  background: url(logo(116, 48)) no-repeat center;
+}
+
+#page.auth.layout,
+#page.error.layout {
+  padding-top: $header-height;
+
+  main {
+    flex-direction: column;
+  }
+}
+
+#page.app.layout {
+  padding-top: $header-height;
+}
+
+#page.accounts-hub.layout {
+  padding-top: $header-height;
+}

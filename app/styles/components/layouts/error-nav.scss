@@ -1,0 +1,28 @@
+& {
+  @include clearfix;
+  background-color: $slate;
+  border: 0;
+  height: $header-height;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: $header-z-index;
+}
+
+.logo {
+  background-size: rem(58) rem(24);
+  display: block;
+  height: 100%;
+  margin: auto;
+  text-indent: -9999px;
+  width: rem(58);
+}
+
+@media (min-width: $bp-1024px) {
+  .logo {
+    background-size: rem(68) rem(28);
+    width: rem(68);
+  }
+}

@@ -1,0 +1,83 @@
+<Layouts::PageHeader @resourceType='email' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Delete {{model.name}}' User Profile</h2>
+    {{#if memberSinceDate}}
+      <p class='text-blue-gray-500'>Member since <FormatDate @date={{memberSinceDate}}/></p>
+    {{/if}}
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <Forms::GroupedGrid
+        @title={{model.name}}
+        @description='Delete business profile.'
+        class='md:grid md:grid-cols-1'
+      >
+        <div class='col-span-6 sm:col-span-2'>
+          {{#if model.avatarWebUrl}}
+            <div class='image-preview'>
+              <a href='#' {{action 'loadOrganization' organization}}>
+                <img src={{model.avatarWebUrl}} alt='Preview' />
+              </a>
+            </div>
+          {{else}}
+            <div class='image-preview'>
+              <span class='inline-flex items-center justify-center self-center sm:self-start flex-shrink h-40 w-40 rounded-full bg-gray-300'>
+                <span class='text-8xl font-medium leading-none text-white'>
+                  {{first-letter model.name}}
+                </span>
+              </span>
+            </div>
+          {{/if}}
+        </div>
+        <div class='col-span-6 sm:col-span-4'>
+          <h3>You are about to delete your Blinksale user profile.</h3>
+          <p>Your access to all Blinksale businesses will be immediately and permanently revoked. To join any Blinksale businesses in the future, you&apos;ll need to create a new user profile.</p>
+        </div>
+        {{#if organizations}}
+          <div class='col-span-6'>
+            <p>Below is an overview of businesses you&apos;ll no longer have access to:</p>
+            {{#each organizations as |organization|}}
+              <div>{{organization.name}}</div>
+            {{/each}}
+          </div>
+        {{/if}}
+
+        {{#if isWarningConfirmed}}
+          <div class='col-span-6'>
+            <p><b>Note:</b> Because we maintain 30 days backup, deleting your profile does not result in immediate deletion of all your data.</p>
+            <a href='https://blinksale.com/terms-of-service/' target='_blank' rel='noopener noreferrer' class='tw-link'>Terms of Service</a>
+          </div>
+
+          <div class='col-span-6 sm:col-span-3'>
+            <FormElements::PasswordInput
+              @value={{confirm.password}}
+              @label='Password'
+              @hint='Enter your password to confirm'
+              @showErrors={{confirm.validations.attrs.password.isInvalid}}
+              @errorMessage={{confirm.validations.attrs.password.message}}
+            />
+          </div>
+        {{/if}}
+      </Forms::GroupedGrid>
+
+      <div class='py-5'>
+        <div class='flex justify-end flex-wrap gap-3'>
+          <LinkTo @route='account.user-profile' class='tw-button white'>Cancel</LinkTo>
+          {{#if isWarningConfirmed}}
+            <button type='submit' class='tw-button danger' disabled={{delete.isRunning}} {{action 'delete'}}>Delete Profile</button>
+          {{else}}
+            <button type='submit' class='tw-button danger' {{action 'confirmWarning'}}>Continue</button>
+          {{/if}}
+        </div>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

@@ -1,0 +1,16 @@
+<input
+  data-test-input
+  id={{for}}
+  type='file'
+  class='sr-only'
+  accept={{accept}}
+  multiple={{multiple}}
+  onchange={{action 'change' value='target.files'}}
+/>
+{{#if allowDragDrop}}
+  <div data-test-dropzone class='bs-file-picker__dropzone'>
+    {{yield}}
+  </div>
+{{else}}
+  {{yield}}
+{{/if}}

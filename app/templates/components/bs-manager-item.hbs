@@ -1,0 +1,6 @@
+<form id={{model.domId}} class='row' {{action 'save' on='submit'}} novalidate>
+  {{yield this}}
+  <button type='submit' disabled={{unless model.validations.isValid true}} class='btn'>Save</button>
+  <button type='button' {{action 'cancelEdit'}} class='btn btn-cancel'>Cancel</button>
+  
+</form>

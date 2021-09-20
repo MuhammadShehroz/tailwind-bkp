@@ -1,0 +1,199 @@
+& {
+  background-color: $slate;
+  margin-bottom: rem(16);
+}
+
+h2 {
+  align-items: center;
+  background-color: $slate-90;
+  color: #fff;
+  display: flex;
+  font-size: rem(12);
+  font-weight: bold;
+  height: rem(40);
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+fieldset {
+  padding: rem(32);
+}
+
+.switch-with-btn {
+  .input-wrapper {
+    border-bottom: transparent;
+  }
+
+  .toggle-switch-container .toggle-switch-label-container {
+    color: $slate-40;
+  }
+}
+
+.input-group,
+.field.message-field,
+.switchbox-group,
+.switch-with-btn,
+.checkbox-group {
+  margin-bottom: rem(32);
+}
+
+.input-group,
+.switch-with-btn {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+
+  .more-text {
+    display: none;
+  }
+
+  .btn {
+    border-color: $cyan;
+    color: #fff;
+    font-weight: normal;
+    height: rem(40);
+    line-height: rem(38);
+    margin-bottom: rem(32);
+
+    &:hover {
+      background-color: $slate-90;
+    }
+
+    &:focus {
+      color: #fff;
+    }
+  }
+}
+
+.field {
+  margin-bottom: 0;
+
+  &.message-field .input-wrapper {
+    border-bottom: unset;
+    margin-top: rem(8);
+  }
+
+  &.message-field textarea {
+    border: 1px solid $slate-60;
+    min-height: rem(126);
+
+    &:focus::placeholder {
+      color: transparent;
+    }
+  }
+
+  &.message-field textarea:focus {
+    border-color: $cyan;
+  }
+}
+
+.group-header {
+  color: $slate-40;
+  display: block;
+  font-size: rem(12);
+  margin-bottom: rem(8);
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.checkbox-group {
+  display: block;
+  position: relative;
+
+  input + span::before {
+    left: 0;
+  }
+
+  .tooltip.error {
+    top: 0;
+  }
+}
+
+.switchbox-group {
+  display: block;
+
+  .field {
+    margin-bottom: rem(16);
+  }
+
+  .input-wrapper {
+    border-bottom: transparent;
+  }
+
+  .toggle-switch-container .toggle-switch-label-container {
+    color: $slate-40;
+  }
+}
+
+.field.select-field {
+  flex-grow: 0.7;
+}
+
+.input-group .btn {
+  flex-grow: unset;
+}
+
+.btn-commit {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-commit {
+  font-size: rem(14);
+  height: rem(56);
+  margin-bottom: rem(16);
+  margin-top: rem(16);
+  width: 100%;
+
+  &:active {
+    background-color: $slate-90;
+  }
+}
+
+.btn-cancel {
+  background-position: left center;
+  background-size: rem(10);
+  padding-left: rem(24);
+  width: rem(80);
+}
+
+@media (min-width: rem(768)) {
+  .switch-with-btn .more-text,
+  .input-group .more-text {
+    display: inline-block;
+  }
+
+  .switchbox-group {
+    display: flex;
+    flex-grow: 0.55;
+
+    .field {
+      margin-bottom: 0;
+      width: 33%;
+    }
+  }
+
+  .btn-commit {
+    width: rem(343);
+  }
+
+  .field.select-field,
+  .input-group .btn {
+    flex-grow: 0.5;
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    .checkbox-field {
+      width: 33%;
+    }
+
+    input + span {
+      display: inline-block;
+      padding-right: rem(10);
+    }
+  }
+}

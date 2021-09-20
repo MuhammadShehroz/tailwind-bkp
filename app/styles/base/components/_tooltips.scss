@@ -1,0 +1,42 @@
+.tooltip.hint {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+
+  .trigger {
+    background: url(info-bubble-icon($slate-80, 21, 21)) no-repeat center;
+    height: rem(40);
+    position: relative;
+    text-indent: -9999px;
+    width: rem(40);
+  }
+
+  .popover {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
+    color: $default-text-color;
+    font-size: rem(16);
+    line-height: rem(24);
+    padding: rem(16);
+    position: absolute;
+    right: rem(4);
+    width: rem(290);
+    z-index: $tooltip-z-index;
+
+    &::before {
+      border-color: #fff transparent transparent #fff;
+      border-style: solid;
+      border-width: rem(8);
+      box-shadow: -4px -4px 8px 0 rgba(0, 0, 0, 0.04);
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: rem(8);
+      top: -#{rem(6)};
+      transform: rotate(45deg);
+      width: 0;
+    }
+  }
+}

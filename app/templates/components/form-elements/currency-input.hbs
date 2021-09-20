@@ -1,0 +1,28 @@
+{{#if label}}
+  <label for={{fieldId}} class='tw-label'>{{label}}</label>
+{{/if}}
+<div class='tw-input-wrapper'>
+  <div class='relative flex items-stretch flex-grow focus-within:z-10'>
+    <Input ...attributes
+      id={{fieldId}}
+      @type={{type}}
+      @isNumber={{isNumber}}
+      @maskOptions={{maskOptions}}
+      @hasLeadingIcon={{hasLeadingIcon}}
+      @classNameBindings={{_classNameBindings}}
+      @classNames={{_classNames}}
+      @focusOut={{action 'focusOut'}}
+      @focusIn={{action 'focusIn'}}
+      {{masked-input value=value options=maskOptions onChange=(fn (mut value))}}
+    />
+  </div>
+  {{yield leadingIcon trailingIcon showClear _showErrors (action 'onTrailingIconClick')}}
+</div>
+
+{{#if _showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}
+
+{{#if hint}}
+  <p class='validation-message hint'>{{hint}}</p>
+{{/if}}

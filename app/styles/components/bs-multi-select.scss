@@ -1,0 +1,38 @@
+.ember-power-select-trigger {
+  height: auto;
+  min-height: rem(42);
+}
+
+.ember-power-select-multiple-option {
+  align-items: center;
+  background-color: $slate-90;
+  border: 0;
+  border-radius: rem(32);
+  color: $slate;
+  color: #fff;
+  display: flex;
+  font-size: rem(12);
+  justify-content: center;
+  line-height: 150%;
+  margin: rem(0) rem(8) rem(8) rem(0);
+  padding: rem(8) rem(12);
+  padding-right: rem(36);
+  position: relative;
+}
+
+.ember-power-select-multiple-remove-btn {
+  background: url(close-icon(#fff, 12, 12)) left rem(0) no-repeat;
+  color: transparent;
+  height: rem(12);
+  position: absolute;
+  right: rem(12);
+  width: rem(12);
+}
+
+.input-wrapper {
+  margin-top: rem(8);
+}
+
+label {
+  color: $slate-40;
+}

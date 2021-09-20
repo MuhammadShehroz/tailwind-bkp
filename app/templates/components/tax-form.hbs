@@ -1,0 +1,42 @@
+<div class='col-span-6 sm:col-span-4'>
+  <FormElements::TextInput
+    @value={{model.name}}
+    @label='Tax name'
+    @allowClear={{true}}
+    @trailingIcon={{true}}
+    @showErrors={{validations.name.isInvalid}}
+    @errorMessage={{validations.name.message}}
+    as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+  >
+    <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+  </FormElements::TextInput>
+</div>
+
+<div class='col-span-6 sm:col-span-1'>
+  <FormElements::NumberInput
+    min='0.0'
+    max='100.0'
+    step='1.00'
+    @value={{model.percent}}
+    @label='Rate'
+    @leadingIcon='%'
+    @allowClear={{true}}
+    @showErrors={{validations.percent.isInvalid}}
+    @errorMessage={{validations.percent.message}}
+    as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+  >
+    <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+  </FormElements::NumberInput>
+</div>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>
+      Cancel
+    </button>
+    <button type='submit' class='tw-button' disabled={{save.isRunning}}>
+      Save
+    </button>
+  </div>
+</div>

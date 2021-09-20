@@ -1,0 +1,81 @@
+{{#if (eq stepIndex 0)}}
+  <Onboarding::Welcome @onNext={{onNext}}/>
+{{else if (eq stepIndex 1)}}
+  <Onboarding::AddClient
+    class='client-type'
+    @title='Is your client a company or individual?'
+  >
+    <SegmentedControl
+      @segments={{segments}}
+      @selectedSegmentIndex={{selectedSegmentIndex}}
+      @onClickSegment={{action 'setClientType'}} as |segment|
+    >
+      {{segment}}
+    </SegmentedControl>
+  </Onboarding::AddClient>
+{{else if (eq stepIndex 2)}}
+  <Onboarding::AddClient
+    class={{concat 'client-name ' (if client.isCompany 'company' 'individual')}}
+    @title={{html-safe (if client.isCompany 'What&apos;s the name of the company?' 'What&apos;s the name of this individual?')}}
+  >
+    <form novalidate {{action onNext on='submit'}}>
+      {{#if client.isCompany}}
+        <FormElements::TextInput
+          @model={{client}}
+          @valuePath='companyName'
+          @placeholder='Acme Corp.'
+          @validationsEnabled={{validationsEnabled}}
+        />
+      {{else}}
+        <FormElements::TextInput
+          @model={{client}}
+          @valuePath='firstName'
+          @placeholder='First name'
+          @validationsEnabled={{validationsEnabled}}
+        />
+        <FormElements::TextInput
+          @model={{client}}
+          @valuePath='lastName'
+          @placeholder='Last name'
+          @validationsEnabled={{validationsEnabled}}
+        />
+      {{/if}}
+      <input type='submit'/>
+    </form>
+  </Onboarding::AddClient>
+{{else if (eq stepIndex 3)}}
+  <Onboarding::AddClient
+    class='client-email'
+    @title={{html-safe (if client.isCompany
+      (concat 'What email address should we use for ' client.companyName '?')
+      (concat 'What&apos;s ' client.firstName ' ' client.lastName '&apos;s email address?')
+    )}}
+  >
+    <form novalidate {{action onNext on='submit'}}>
+      <FormElements::TextInput
+        @model={{client}}
+        @valuePath='email'
+        @placeholder='(this is optional)'
+        @validationsEnabled={{validationsEnabled}}
+      />
+      <input type='submit'/>
+    </form>
+  </Onboarding::AddClient>
+{{else if (eq stepIndex 4)}}
+  <Onboarding::AddClient class='confirmed'>
+    <i></i>
+    <h2>{{client.name}} has been created</h2>
+
+    <a href='#' {{action 'linkTo' 'clients.edit'}}>
+      <span>Add client details</span>
+    </a>
+
+    <a href='#' {{action 'linkTo' 'invoices.new'}}>
+      <span>Create an invoice for {{client.name}}</span>
+    </a>
+
+    <a href='#' {{action 'linkTo' 'estimates.new'}}>
+      <span>Create an estimate for {{client.name}}</span>
+    </a>
+  </Onboarding::AddClient>
+{{/if}}

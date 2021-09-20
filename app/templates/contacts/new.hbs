@@ -1,0 +1,17 @@
+<Layouts::PageHeader @resourceType='contact' @pageType='form'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2 class='leading-normal'>Add Contact for {{model.client.name}}</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::OneColumn>
+    <Contacts::Form
+      @model={{model}}
+      @isFluid={{true}}
+      @onSave={{action 'onSave'}}
+      @onCancel={{action 'cancel'}}
+    />
+  </Layouts::OneColumn>
+</Layouts::PageBody>

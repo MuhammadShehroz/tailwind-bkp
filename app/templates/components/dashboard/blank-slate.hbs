@@ -1,0 +1,13 @@
+<div>
+  <p class='mt-1 text-sm text-gray-500 text-center'>
+    Get started using Blinksale to get paid.
+  </p>
+  <ul role='list' class='mt-6 border-t border-b border-gray-200 py-6 grid grid-cols-1 gap-6 sm:grid-cols-2'>    
+    {{#each dashboardActions as |card i|}}
+      <Dashboard::ActionCard
+        @card={{card}}
+        @index={{i}}
+      />
+    {{/each}}
+  </ul>
+</div>

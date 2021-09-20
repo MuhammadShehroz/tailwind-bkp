@@ -1,0 +1,38 @@
+{{#if label}}
+  <label class='tw-label'>{{label}}</label>
+{{/if}}
+
+<div class='flex items-center gap-2'>
+  <FormElements::NativeSelectMenu
+    class='tw-time-field'
+    @options={{hours}}
+    @optionKey='key'
+    @optionLabel='label'
+    @value={{hour}}
+    @onChange={{action 'setValue'}}
+  />
+
+  <span>:</span>
+
+  <FormElements::NativeSelectMenu
+    class='tw-time-field'
+    @options={{minutes}}
+    @optionKey='key'
+    @optionLabel='label'
+    @value={{minute}}
+    @onChange={{action 'setValue'}}
+  />
+
+  <FormElements::NativeSelectMenu
+    class='tw-time-field'
+    @options={{meridians}}
+    @optionKey='key'
+    @optionLabel='label'
+    @value={{meridian}}
+    @onChange={{action 'setValue'}}
+  />
+</div>
+
+{{#if hint}}
+  <p class='validation-message hint'>{{hint}}</p>
+{{/if}}

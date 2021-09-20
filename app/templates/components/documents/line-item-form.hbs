@@ -1,0 +1,98 @@
+<td>
+  {{#if isDraggable}}
+  <div class='inline-flex'>
+    <Icons::DotsVertical />
+  </div>
+  {{/if}}
+  <button type='button' class='tw-button white square mt-1' {{action 'remove'}}>
+    <Icons::Times/>
+  </button>
+  {{#if model.isLoaded}}
+  <div class='tw-label sm:hidden pt-3'>Actions</div>
+  <button type='button' class='tw-button white square mt-1' {{action (mut buttonArea) (not buttonArea)}}>
+    <Icons::Dots/>
+  </button>
+  {{/if}}
+  {{#if buttonArea}}
+    <div class='flex justify-end flex-wrap sm:flex-nowrap sm:gap-2'>
+      {{#if model.isLoaded}}
+        <button type='button' class='tw-button secondary mt-2' {{action 'saveToLibrary'}}>
+          <Icons::Save/><span class='ml-2'>Save as New</span>
+        </button>
+        <button type='button' class='tw-button secondary mt-2' {{action 'updateSavedItem'}}>
+          <Icons::Save/><span class='ml-2'>Save to Library</span>
+        </button>
+      {{else}}
+        {{#if model.hasName}}
+          <button type='button' class='tw-button secondary mt-2' {{action 'saveToLibrary'}}>
+            <Icons::Save/><span class='ml-2'>Save to Library</span>
+          </button>
+        {{/if}}
+      {{/if}}
+    </div>
+  {{/if}}
+</td>
+<td>
+  <div class='tw-label'>Item Type</div>
+  <FormElements::SelectMenu
+    @options={{units}}
+    @optionKey='id'
+    @optionLabel='name'
+    @selected={{model.unitOfMeasurement}}
+    @value={{model.unitOfMeasurement}}
+    @showErrors={{validations.unitOfMeasurement.isInvalid}}
+    @errorMessage={{validations.unitOfMeasurement.message}}
+  />
+</td>
+<td>
+  <div class='tw-label'>Description</div>
+  <FormElements::TextArea
+    rows='2'
+    @value={{model.name}}
+    @showErrors={{validations.name.isInvalid}}
+    @errorMessage={{validations.name.message}}
+  />
+</td>
+<td>
+  <div class='tw-label'>Quantity</div>
+  <FormElements::NumberInput
+    min='0'
+    @value={{model.quantity}}
+    @allowClear={{true}}
+    @showErrors={{validations.quantity.isInvalid}}
+    @errorMessage={{validations.quantity.message}}
+  />
+</td>
+<td class='sm:text-right'>
+  <div class='tw-label'>Unit Price</div>
+  <FormElements::CurrencyInput
+    min='0.00'
+    @value={{model.price}}
+    @decimals={{decimals}}
+    @decimalsSeparator={{decimalsSeparator}}
+    @thousandsSeparator={{thousandsSeparator}}
+    @leadingIcon={{currencySymbol}}
+    @allowClear={{true}}
+    @showErrors={{validations.price.isInvalid}}
+    @errorMessage={{validations.price.message}}
+    as |leadingIcon|
+    >
+    <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+  </FormElements::CurrencyInput>
+</td>
+{{#if model.document.isTaxDistributionLineItem}}
+  <td class='sm:text-right'>
+    <div class='tw-label'>Tax</div>
+    <TaxSelect
+      @model={{model}}
+      @isNoTaxOptionEnabled={{true}}
+      @document={{document}}
+    />
+  </td>
+{{/if}}
+<td class='sm:text-right'>
+  <div class='sm:mt-3'>
+    <div class='tw-label'>Amount</div>
+    <FormatCurrency @value={{model.total}} @isoCode={{isoCode}} />
+  </div>
+</td>

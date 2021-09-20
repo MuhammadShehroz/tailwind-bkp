@@ -1,0 +1,91 @@
+{{!-- template-lint-disable no-nested-interactive  --}}
+<div class='listing-records'>
+  <div class='listing-header'>
+    <SortBy @field='template_name' @tagName='div' @class='identifier' @defaultOrder='desc' @sort={{sort}} @order={{order}} as |sb|>
+      <a href='#' {{action sb}}>Name</a>
+    </SortBy>
+
+    <SortBy @field='recurring_schedules_count' @tagName='div' @class='clients' @sort={{sort}} @order={{order}} as |sb|>
+      <a href='#' {{action sb}}>Clients</a>
+    </SortBy>
+
+    <SortBy @field='frequency' @tagName='div' @class='frequency' defaultOrder='asc' @sort={{sort}} @order={{order}} as |sb|>
+      <a href='#' {{action sb}}>Frequency</a>
+    </SortBy>
+
+    <SortBy @field='total' @tagName='div' @class='template-total' @sort={{sort}} @order={{order}} as |sb|>
+      <a href='#' {{action sb}}>Total</a>
+    </SortBy>
+
+    <SortBy @field='total_recurring' @tagName='div' @class='recurring-total' @defaultOrder='desc' @sort={{sort}} @order={{order}} as |sb|>
+      <a href='#' {{action sb}}>Recurring Total</a>
+    </SortBy>
+  </div>
+
+  <div class='records'>
+    {{#if (gt model.length 0)}}
+      {{#each model as |invoiceTemplate|}}
+        <a href='#' class='record-row' {{action 'showDocument' invoiceTemplate}}>
+          <div class='identifier'>
+            <SortBy @field='template_name' @tagName='span' @class='label' @defaultOrder='desc' @sort={{sort}} @order={{order}} as |sb|>
+              <a href='#' {{action sb bubbles=false}}>Name:</a>
+            </SortBy>
+
+            <LinkTo @params={{array invoiceTemplate.templateName 'invoice-templates.show' invoiceTemplate}} class='record-id'/>
+          </div>
+
+          <div class='clients'>
+            <SortBy @field='recurring_schedules_count' @tagName='span' @class='label' @sort={{sort}} @order={{order}} as |sb|>
+              <a href='#' {{action sb bubbles=false}}>Clients:</a>
+            </SortBy>
+
+            {{invoiceTemplate.recurringSchedulesCount}}
+          </div>
+
+          <div class='frequency'>
+            <SortBy @field='frequency' @tagName='div' @class='label' defaultOrder='desc' @sort={{sort}} @order={{order}} as |sb|>
+              <a href='#' {{action sb bubbles=false}}>Frequency</a>
+            </SortBy>
+
+            {{invoiceTemplate.frequency}}
+          </div>
+
+          <div class='amounts template-total'>
+            <SortBy @field='total' @tagName='div' @class='label' @sort={{sort}} @order={{order}} as |sb|>
+              <a href='#' {{action sb bubbles=false}}>Total</a>
+            </SortBy>
+
+            <span class='total'><FormatCurrency @value={{invoiceTemplate.cachedTotal}} @isoCode={{invoiceTemplate.currency}}/></span>
+          </div>
+
+          <div class='amounts recurring-total'>
+            <SortBy @field='total_recurring' @tagName='div' @class='label' @defaultOrder='desc' @sort={{sort}} @order={{order}} as |sb|>
+              <a href='#' {{action sb bubbles=false}}>Recurring Total</a>
+            </SortBy>
+
+            <span class='total'><FormatCurrency @value={{invoiceTemplate.cachedTotalRecurring}} @isoCode={{invoiceTemplate.currency}}/></span>
+          </div>
+        </a>
+      {{/each}}
+    {{else}}
+      <div class='no-records'>
+        <span>No invoice templates fit this filtering selection.</span>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+<div class='summary overall'>
+  {{#each summaryPerQuery as |summary|}}
+    <div class='summary-row'>
+      <div class='labels'>
+        <span class='total'>Template Totals</span>
+        <span class='total'>Recurring Totals</span>
+      </div>
+      <div class='amounts'>
+        <span class='total'><FormatCurrency @value={{summary.total}} @isoCode={{summary.currency}}/></span>
+        <span class='total'><FormatCurrency @value={{summary.total_recurring}} @isoCode={{summary.currency}}/></span>
+      </div>
+    </div>
+  {{/each}}
+</div>

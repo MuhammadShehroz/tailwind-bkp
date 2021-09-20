@@ -1,0 +1,9 @@
+import AuthenticatedRoute from 'frontend/routes/authenticated-route';
+
+export default AuthenticatedRoute.extend({
+  titleToken: 'Account',
+
+  beforeModel() {
+    this.transitionTo('account.profile');
+  }
+});

@@ -1,0 +1,12 @@
+<LinkTo @route={{homeRoute}} class='logo'>Blinksale</LinkTo>
+
+<div class='user'>
+  <LinkTo @route='user-profile'>
+    {{#if user.hasAvatar}}
+      <div class='image' style={{html-safe (concat 'background-image: url(' user.avatarWebUrl ')')}} />
+    {{/if}}
+    <span>{{user.initials}}</span>
+  </LinkTo>
+</div>
+
+<a href='#' class='sign-out' {{action 'invalidateSession'}}>Sign Out</a>

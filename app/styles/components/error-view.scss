@@ -1,0 +1,65 @@
+& {
+  align-items: center;
+  color: $slate;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: rem(16);
+  text-align: center;
+
+  &.error-404 .illustration {
+    background-image: url(/assets/images/not-found.png);
+  }
+
+  &.error-500 .illustration {
+    background-image: url(/assets/images/server-down.png);
+  }
+
+  &.payment-required .illustration {
+    background-image: url(/assets/images/payment-required.png);
+  }
+
+  .illustration {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: rem(200);
+    width: rem(200);
+  }
+
+  .title {
+    font-size: rem(12);
+    font-weight: bold;
+    letter-spacing: rem(1);
+    line-height: 125%;
+    margin-top: rem(32);
+    text-transform: uppercase;
+  }
+
+  .description {
+    font-size: rem(32);
+    line-height: 125%;
+    margin-top: rem(4);
+  }
+
+  .message {
+    font-size: rem(16);
+    line-height: 150%;
+    margin-top: rem(16);
+  }
+
+  .btn-tertiary {
+    margin-top: rem(32);
+  }
+
+  @media (min-width: $bp-768px) {
+    max-width: rem(600);
+
+    .illustration {
+      height: rem(320);
+      width: rem(320);
+    }
+  }
+}

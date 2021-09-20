@@ -1,0 +1,43 @@
+<div class='sm:col-span-1 flex items-center justify-start'>
+  {{#if isSelectable}}
+    <CheckboxInput @model={{this}} @valuePath='isSelected' @class='select-checkbox' @change={{action 'check'}} />
+  {{/if}}
+</div>
+
+<div class='sm:col-span-3'>
+  <a href='#' {{action 'check'}} class='info-container'>
+    <div class='quantity-text'>{{model.quantity}} {{model.unitOfMeasurement.name}}</div>
+    <div class='description-text'>{{model.name}}</div>
+
+    {{#if (and showConflict isIncompatibleCurrency)}}
+      <div class='incompatible-row'>
+        <div class='incompatible-text'>Currency does not match {{documentName}}</div>
+        <InfoTip @class='hint' @label='Hint'>
+          You have some saved Line Items whose currency differs from the one used on this invoice. You may view & add these Line Items to your invoice, but you will have to re-enter the Price in the invoice’s currency.
+        </InfoTip>
+      </div>
+    {{/if}}
+
+    <div class='price-total-text'><FormatCurrency @value={{model.priceWithTax}} @isoCode={{model.currency}} /> / <FormatCurrency @value={{model.total}} @isoCode={{model.currency}} /></div>
+
+    {{#if model.calculatedTax}}
+      {{#if (and isIncompatibleTaxDistribution showConflict)}}
+        <div class='incompatible-row'>
+          <div class='incompatible-text'>{{capitalize documentName}} is not using line item tax</div>
+          <InfoTip @class='hint' @label='Hint'>
+            This line item has a tax, but your invoice is not using line item taxes. You may load this line item into your invoice, but the line item tax will be removed.
+          </InfoTip>
+        </div>
+        <div>{{model.calculatedTax.nameAndPercent}}</div>
+      {{else}}
+        <div class='tax-text'>{{model.calculatedTax.nameAndPercent}}</div>
+      {{/if}}
+    {{/if}}
+  </a>
+</div>
+
+<div class='sm:col-span-2 flex items-center justify-end'>
+  {{#if showRemove}}
+    <button type='button' {{action 'delete' model}} class='tw-button secondary '>Remove</button>
+  {{/if}}
+</div>

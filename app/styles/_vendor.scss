@@ -1,0 +1,6 @@
+$ember-power-select-background-color: #ffffff !default;
+$ember-power-select-highlighted-background: rgba(79, 70, 229, var(--tw-bg-opacity));
+$ember-power-select-selected-background: $ember-power-select-background-color;
+$ember-power-select-focus-border-color: rgba(99, 102, 241, var(--tw-border-opacity));;
+
+@import 'ember-power-select';

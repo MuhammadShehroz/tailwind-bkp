@@ -1,0 +1,5 @@
+<div class='flex flex-wrap'>
+  {{#each this.colors as |color|}}
+    <button type='button' class='p-4' style={{html-safe (concat 'background-color: ' color ';')}} {{on 'click' (fn this.onClickColor color)}}></button>
+  {{/each}}
+</div>

@@ -1,0 +1,153 @@
+<Layouts::PageHeader @resourceType='taxes' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Invoice Settings</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav />
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <Pages::Profile
+        @model={{model}}
+        @avatarModelName='logo'
+        @avatarWebUrl={{model.logoUrl}}
+        @hasAvatar={{model.hasLogo}}
+        @removeLink='account.profile.delete'
+        @removeLinkTitle='Remove this business profile'
+        @removeAvatar={{removeAvatar}} as |Profile|
+      >
+        <Profile.form>
+          <form class='space-y-4' {{action (perform _saveModelTask) on='submit'}} novalidate>
+            <div>
+              <FormElements::TextInput
+                @label='Business Name'
+                @value={{model.name}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.name.isInvalid validationsEnabled}}
+                @errorMessage={{validations.name.message}}
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='Business Email'
+                @value={{model.email}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.email.isInvalid validationsEnabled}}
+                @errorMessage={{validations.email.message}}
+                @type='email'
+              />
+            </div>
+            <div>
+              <CountrySelect
+                @label='Country'
+                @model={{billingAddress}}
+                @validationsEnabled={{validationsEnabled}}
+                @valuePath='country'
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='Address 1'
+                @value={{billingAddress.address1}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.billingAddress.address1.isInvalid validationsEnabled}}
+                @errorMessage={{validations.billingAddress.address1.message}}
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='Address 2 (optional)'
+                @value={{billingAddress.address2}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.billingAddress.address2.isInvalid validationsEnabled}}
+                @errorMessage={{validations.billingAddress.address2.message}}
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='City'
+                @value={{billingAddress.city}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.billingAddress.city.isInvalid validationsEnabled}}
+                @errorMessage={{validations.billingAddress.city.message}}
+              />
+            </div>
+            <div>
+              <SubregionSelect
+                @countryCode={{billingAddress.country}}
+                @label='State'
+                @model={{billingAddress}}
+                @validationsEnabled={{validationsEnabled}}
+                @valuePath='subregion'
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='ZIP / Postal code'
+                @value={{billingAddress.zip}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.billingAddress.zip.isInvalid validationsEnabled}}
+                @errorMessage={{validations.billingAddress.zip.message}}
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='Phone (optional)'
+                @value={{model.phone}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.phone.isInvalid validationsEnabled}}
+                @errorMessage={{validations.phone.message}}
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='Fax (optional)'
+                @value={{model.fax}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.fax.isInvalid validationsEnabled}}
+                @errorMessage={{validations.fax.message}}
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @hint='This is what the tax id field is called in your geographic region (i.e., ABN # or VAT #).'
+                @label='Tax ID name (optional)'
+                @value={{model.taxIdName}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.taxIdName.isInvalid validationsEnabled}}
+                @errorMessage={{validations.taxIdName.message}}
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='Tax ID number (optional)'
+                @value={{model.taxIdNumber}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.taxIdNumber.isInvalid validationsEnabled}}
+                @errorMessage={{validations.taxIdNumber.message}}
+              />
+            </div>
+            <div>
+              <FormElements::TextInput
+                @label='Website (optional)'
+                @value={{model.website}}
+                @validationsEnabled={{validationsEnabled}}
+                @showErrors={{and validations.website.isInvalid validationsEnabled}}
+                @errorMessage={{validations.website.message}}
+              />
+            </div>
+            <div class='mt-4'>
+              <button type='submit' class='tw-button primary'>Save Changes</button>
+              <button type='button' class='tw-button white mt-4 sm:mt-0' {{action 'cancel'}}>Cancel</button>
+            </div>
+          </form>
+        </Profile.form>
+      </Pages::Profile>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

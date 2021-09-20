@@ -1,0 +1,15 @@
+&.ember-power-select-trigger-option {
+  height: auto;
+  line-height: 0;
+  padding: rem(8) rem(16);
+}
+
+.lnk-icon-circle-plus {
+  padding-left: rem(48);
+}
+
+@media (min-width: rem(768)) {
+  &.ember-power-select-trigger-option {
+    padding: rem(8) rem(24);
+  }
+}

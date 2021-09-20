@@ -1,0 +1,71 @@
+& > input[type='submit'] {
+  display: none;
+}
+
+section.collapsible {
+  margin-bottom: rem(32);
+
+  a.expander {
+    background-color: $slate-05;
+    letter-spacing: rem(1);
+  }
+}
+
+.ember-power-select-placeholder {
+  color: $slate;
+  font-style: normal;
+}
+
+.segmented-control {
+  margin: 0 auto;
+  max-width: rem(254);
+}
+
+.client-info {
+  margin-top: rem(24);
+}
+
+.contacts {
+  .contact:not(:last-of-type) {
+    margin-bottom: rem(24);
+  }
+
+  ~ .lnk {
+    display: block;
+    line-height: rem(15);
+    margin: rem(34) auto;
+    padding-right: 0;
+    width: rem(148);
+  }
+}
+
+.form-actions button[type='submit']:disabled {
+  background-color: $slate-20;
+  border-color: $slate-20;
+}
+
+@media (min-width: $bp-768px) {
+  .field {
+    float: left;
+    width: calc(50% - #{rem(12)});
+
+    &:nth-child(even) {
+      margin-left: rem(12);
+    }
+
+    &:nth-child(odd) {
+      margin-right: rem(12);
+    }
+  }
+
+  .client-info.individual .email-field {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .client-info {
+    .field {
+      margin-left: 0;
+    }
+  }
+}

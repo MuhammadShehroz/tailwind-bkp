@@ -1,0 +1,47 @@
+.card {
+  border-left: rem(8) solid $indigo;
+  border-radius: rem(4);
+  color: $slate;
+  font-size: rem(16);
+  line-height: 150%;
+  margin: 0;
+  overflow: hidden;
+  padding: rem(24) rem(32);
+}
+
+h3 {
+  color: $indigo;
+  font-size: rem(12);
+  font-weight: bold;
+  letter-spacing: rem(1);
+  line-height: 125%;
+  text-transform: uppercase;
+}
+
+p {
+  margin-top: rem(8);
+}
+
+button {
+  display: inline-block;
+  font-size: rem(14);
+  letter-spacing: inherit;
+  line-height: inherit;
+  margin-top: rem(8);
+  min-height: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-transform: none;
+  vertical-align: inherit;
+}
+
+i {
+  background-color: $slate-40;
+  border-radius: 50%;
+  display: inline-block;
+  height: rem(4);
+  margin-left: rem(12);
+  margin-right: rem(12);
+  vertical-align: middle;
+  width: rem(4);
+}

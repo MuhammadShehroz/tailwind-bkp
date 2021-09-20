@@ -1,0 +1,107 @@
+.alert {
+  background: #fff;
+  border-radius: rem(6);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  color: $slate;
+  font-size: 16px;
+  font-weight: 700;
+  left: 50%;
+  line-height: rem(24);
+  max-width: rem(462);
+  padding: rem(8);
+  position: fixed;
+  text-align: left;
+  top: rem(80);
+  transform: translateX(-50%);
+  width: calc(100% - #{rem(32)});
+  z-index: $sudo-z-index;
+
+  &::before {
+    background-position: center rem(10);
+    background-repeat: no-repeat;
+    border-radius: rem(4);
+    content: '';
+    display: block;
+    height: calc(100% - #{rem(16)});
+    left: rem(8);
+    position: absolute;
+    top: rem(8);
+    width: rem(40);
+  }
+
+  .close {
+    background: url(close-icon($slate, 18, 18)) no-repeat center;
+    display: block;
+    height: rem(56);
+    position: absolute;
+    right: 0;
+    text-indent: -9999px;
+    top: 0;
+    width: rem(40);
+  }
+
+  h3 {
+    color: $slate;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: rem(24);
+    margin: rem(8) 0;
+    padding-left: rem(56);
+    padding-right: rem(24);
+  }
+
+  p {
+    margin: rem(8) 0;
+    padding-left: rem(56);
+    padding-right: rem(24);
+
+    &.subtitle {
+      color: $slate-80;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: rem(24);
+    }
+
+    a {
+      color: $royal-blue;
+    }
+  }
+
+  &.alert-success {
+    &::before {
+      background-color: $cyan;
+      background-image: url(circled-check-icon(#fff, 20, 20));
+    }
+  }
+
+  &.alert-info {
+    &::before {
+      background-color: $royal-blue;
+      background-image: url(info-bubble-icon(#fff, 20, 20));
+    }
+  }
+
+  &.alert-warning {
+    &::before {
+      background-color: $amethyst-hl;
+      background-image: url(warning-icon(#fff, 20, 20));
+    }
+  }
+
+  &.alert-error {
+    &::before {
+      background-color: $magenta;
+      background-image: url(error-icon(#fff, 20, 20));
+    }
+  }
+
+  &.alert-inline {
+    left: auto;
+    margin-bottom: rem(16);
+    max-width: none;
+    position: relative;
+    top: auto;
+    transform: none;
+    width: 100%;
+  }
+}

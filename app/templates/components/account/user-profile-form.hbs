@@ -1,0 +1,106 @@
+{{#unless user.confirmedAt}}
+  <div class='tw-card'>
+    <div class='content'>
+      <div class='text'>
+        <h3>Reminder</h3>
+        <p>You haven't confirmed your email address.</p>
+      </div>
+      <div class='action'>
+        <button type='button' class='tw-button' disabled={{sendVerificationLink.isRunning}} onclick={{perform sendVerificationLink}}>
+          Resend verification link
+        </button>
+      </div>
+    </div>
+  </div>
+{{/unless}}
+
+
+<Forms::GroupedGrid
+  @title='User Avatar'
+  @description='User avatar.'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-6'>
+    <AvatarUploader
+      @model={{avatar}}
+      @url={{model.avatarWebUrl}}
+      @onSave={{action 'reloadUser'}}
+      @removeImage={{action 'removeAvatar'}}
+    >
+      <span class='inline-flex items-center justify-center self-center sm:self-start flex-shrink h-40 w-40 rounded-full bg-gray-300'>
+        <span class='text-7xl font-medium leading-none text-white'>
+          {{model.initials}}
+        </span>
+      </span>
+    </AvatarUploader>
+  </div>
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='User Information'
+  @description='Basic information about the user.'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='First Name'
+      @value={{model.firstName}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.firstName.isInvalid}}
+      @errorMessage={{validations.firstName.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='Last Name'
+      @value={{model.lastName}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.lastName.isInvalid}}
+      @errorMessage={{validations.lastName.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='User Email'
+      @value={{model.email}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.email.isInvalid}}
+      @errorMessage={{validations.email.message}}
+      @type='email'
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3 sm:col-start-1'>
+    <button type='button' class='tw-button' {{action 'changePassword'}}>Change Password</button>
+  </div>
+</Forms::GroupedGrid>
+
+<div class='py-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>Reset</button>
+    {{#if organization.organizationId}}
+      <LinkTo @route='account.user-profile.delete-membership' class='tw-button danger'>
+        Remove me from {{organization.name}}
+      </LinkTo>
+    {{/if}}
+    <LinkTo class='tw-button danger' @route='account.user-profile.delete'>
+      Remove me from {{model.name}}
+    </LinkTo>
+    <button type='submit' class='tw-button' disabled={{validation.isInvalid}}>Save Changes</button>
+  </div>
+</div>

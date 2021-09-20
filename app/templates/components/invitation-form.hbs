@@ -1,0 +1,27 @@
+<FormElements::EmailInput
+  @label='User email'
+  @showErrors={{validations.email.isInvalid}}
+  @errorMessage={{validations.email.message}}
+  @value={{model.email}} />
+
+<div class='radio-collection'>
+  <RadioInput
+    @radioName={{concat 'permissions' member.id}}
+    @value={{member.permissions}}
+    @label='Full Admin'
+    @radioValue='owner'
+    @extraLabel='Can make billing changes and user changes across the company'
+  />
+  <RadioInput
+    @radioName={{concat 'permissions' member.id}}
+    @value={{member.permissions}}
+    @label='Default Member'
+    @extraLabel='Can send invoices and estimates'
+    @radioValue='member'
+  />
+</div>
+
+<div class='flex space-x-2'>
+  <button type='submit' class='tw-button'>Invite user</button>
+  <button type='button' class='tw-button white' {{action 'cancel'}}>Cancel</button>
+</div>

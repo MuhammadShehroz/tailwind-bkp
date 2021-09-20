@@ -1,0 +1,6 @@
+{{#if label}}
+  <label>{{label}}</label>
+{{/if}}
+{{#if currencyFirst}}{{currency}}{{/if}}{{#if spaceBefore}} {{/if}}<FormatNumber
+@value={{value}} @decimals={{decimals}} @decimalsSeparator={{decimalsSeparator}} @thousandsSeparator={{thousandsSeparator}}
+/>{{#if spaceAfter}} {{/if}}{{#if currencyLast}}{{currency}}{{/if}}

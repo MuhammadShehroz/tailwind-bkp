@@ -1,0 +1,161 @@
+{{#if showRecords}}
+  <Layouts::PageHeader @resourceType='estimate' @pageType='list'>
+    <Breadcrumbs @segments={{routeSegments}} />
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='md:col-span-8'>
+        <h2 class='leading-normal'>Estimates</h2>
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='md:col-span-2'>
+        <FormElements::TextInput
+          placeholder='Search'
+          @value={{query}}
+          @allowClear={{true}}
+          @leadingIcon={{true}}
+          @trailingIcon={{true}}
+          as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+        >
+          <FormElements::InputLeadingIcon>
+            <Icons::Search/>
+          </FormElements::InputLeadingIcon>
+          <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+        </FormElements::TextInput>
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  </Layouts::PageHeader>
+
+  <Layouts::PageBody>
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='md:col-span-8'>
+        <LinkTo @route='estimates.new'class='tw-button'>
+          <Icons::Plus/>
+          Create New
+        </LinkTo>
+        <p class='text-md pt-3'>Create an estimate to send to a client.</p>
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='md:col-span-2 md:justify-self-end'>
+        <button type='button' {{action 'exportXls'}} class='tw-button secondary'>Export</button>
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='self-center col-span-10 sm:col-span-2'>
+        <FormElements::SelectMenu
+          @options={{this.filter.statuses}}
+          @optionKey='value'
+          @optionLabel='label'
+          @selected={{selectedStatus}}
+          @onChange={{action 'setStatus'}}
+        />
+      </Layouts::GridColumn>
+
+      <Layouts::GridColumn class='col-span-10 md:col-span-2 col-start-1 md:col-start-9'>
+        <FormElements::SelectMenu
+          @options={{this.filter.dateRanges}}
+          @optionKey='value'
+          @optionLabel='label'
+          @selected={{this.filter.selectedDateRange}}
+          @onChange={{action 'setRange'}}
+        />
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+
+    {{#if estimatesPresent}}
+      <div class='tw-table-wrapper bordered'>
+        <table>
+          <thead>
+            <tr>
+              <th scope='col' class='w-auto'>
+                <SortBy
+                  @field='status'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Status
+                </SortBy>
+              </th>
+              <th scope='col' class='w-auto'>
+                <SortBy
+                  @field='issued_on'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Issue Date
+                </SortBy>
+              </th>
+              <th scope='col' class='w-auto'>
+                <SortBy
+                  @field='number'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    ID
+                </SortBy>
+              </th>
+              <th scope='col' class='w-full'>
+                <SortBy
+                  @field='client'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Client
+                </SortBy>
+              </th>
+              <th scope='col' class='w-32'>
+                <SortBy
+                  @field='total'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Amount
+                </SortBy>
+              </th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {{#each model as |estimate|}}
+              <tr>
+                <td>
+                  <div class='tw-label'>Status</div>
+                  <StatusPill class={{estimate.statusClass}} @label={{estimate.statusLabel}} @model={{estimate}} />
+                  <LinkTo @route='estimates.show' class='link-clicker' @model={{estimate}} />
+                </td>
+                <td>
+                  <div class='tw-label'>Issue Date</div>
+                  <span class='font-medium'><FormatDate @date={{estimate.issuedOn}}/></span>
+                  <LinkTo @route='estimates.show' class='link-clicker' @model={{estimate}} />
+                </td>
+                <td>
+                  <div class='tw-label tw-link'>ID</div>
+                  {{estimate.identifier}}
+                  <LinkTo @route='estimates.show' class='link-clicker' @model={{estimate}} />
+                </td>
+                <td>
+                  <div class='tw-label tw-link'>Client</div>
+                  {{estimate.client.name}}
+                  <LinkTo @route='estimates.show' class='link-clicker' @model={{estimate}} />
+                </td>
+                <td>
+                  <div class='tw-label'>Amount</div>
+                  <FormatCurrency @value={{estimate.cachedTotal}} @isoCode={{estimate.currency}}/>
+                  <LinkTo @route='estimates.show' class='link-clicker' @model={{estimate}} />
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <PaginationControls @pagination={{pagination}} />
+    {{else}}
+      <div class='pt-6'>
+        <p>No estimates fit this filtering selection.</p>
+      </div>
+    {{/if}}
+  </Layouts::PageBody>
+{{else}}
+  <PageBlankSlate @className='estimate' @description='You haven&#39;t created an estimate yet!' />
+{{/if}}

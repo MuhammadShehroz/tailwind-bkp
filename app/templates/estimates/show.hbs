@@ -1,0 +1,102 @@
+<div class='sm:bg-gray-50'>
+  <Layouts::PageHeader @resourceType='estimate' @pageType='detail'>
+    <Breadcrumbs @segments={{routeSegments}} />
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='md:col-span-8'>
+        <h2>Estimate {{model.identifier}}</h2>
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='md:col-span-2 hidden sm:visible'>
+        Accessory
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  </Layouts::PageHeader>
+
+  <Layouts::PageBody>
+    <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+      <Layouts::GridColumn class='sm:col-span-4 bg-white sm:shadow-sm sm:mb-16'>
+        <EstimateShow
+          @model={{model}}
+          @newComment={{action 'newComment'}}
+          @historyEvents={{historyEvents}}
+          @reloadEvents={{action 'reloadEvents'}}
+        >
+          {{#if showSend}}
+            <SendDocument
+              @document={{model}}
+              @id='send-estimate'
+              @kind='send'
+              @accept={{action 'send'}}
+              @cancel={{action 'hideActions'}}
+              {{scroll-to offsetTop=48}}
+            />
+          {{/if}}
+        </EstimateShow>
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='sm:col-span-2 sm:self-start pt-4 sm:pt-0'>
+
+        <Documents::Totals @model={{model}} @currency={{currency}}>
+          <div class='sm:px-4 py-4'>
+            <ul class='flex flex-col space-y-4'>
+              {{#unless model.isConverted}}
+                <li>
+                  <LinkTo @route='estimates.preview' @model={{model}} class='inline-flex items-center tw-link'>
+                    <Icons::Mail class='mr-2' /> {{if model.lastSentAt 'Re-'}}Send
+                  </LinkTo>
+                </li>
+                <li>
+                  <LinkTo @route='estimates.edit' @model={{model}} class='inline-flex items-center tw-link'>
+                    <Icons::Edit class='mr-2' /> Edit
+                  </LinkTo>
+                </li>
+              {{/unless}}
+              <li>
+                <a href='#' class='inline-flex items-center tw-link' {{action 'print'}}>
+                  <Icons::Print class='mr-2' /> Print
+                </a>
+              </li>
+              <li>
+                <a href='#' class='inline-flex items-center tw-link' {{action 'download'}}>
+                  <Icons::Download class='mr-2' /> Download PDF
+                </a>
+              </li>
+              <li>
+                <a href='#' class='inline-flex items-center tw-link' {{action 'destroy'}}>
+                  <Icons::Trash class='mr-2' /> Delete
+                </a>
+              </li>
+              <li>
+                <a href='#' class='inline-flex items-center tw-link' {{action 'duplicate'}}>
+                  <Icons::Duplicate class='mr-2' />Duplicate
+                </a>
+              </li>
+              {{#unless model.isConverted}}
+                <li>
+                  <a href='#' class='inline-flex items-center tw-link' {{action 'convertToInvoice'}}>
+                    <Icons::Cash class='mr-2' />Generate Invoice
+                  </a>
+                </li>
+              {{/unless}}
+              {{#if model.isDraft}}
+                <li>
+                  <a href='#' class='inline-flex items-center tw-link' {{action 'makeOpen'}}>
+                    <Icons::ExclamationTriangle class='mr-2' />Change status to Open
+                  </a>
+                </li>
+              {{/if}}
+              {{#if model.clientAccessToken}}
+                <li>
+                  <LinkTo @route='portal.estimate' @model={{model}} @query={{hash token=model.clientAccessToken}} class='inline-flex items-center tw-link' @target='_blank'>
+                    <Icons::Eye class='mr-2' />View as Client
+                  </LinkTo>
+                </li>
+              {{/if}}
+            </ul>
+            <LinkTo @route='estimates.preview' @model={{model}} class='tw-button mt-4 w-full justify-center'>
+              {{if model.lastSentAt 'Re-'}}Send
+            </LinkTo>
+          </div>
+        </Documents::Totals>
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  </Layouts::PageBody>
+</div>

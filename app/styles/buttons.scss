@@ -1,0 +1,89 @@
+@layer components {
+  .tw-button {
+    @apply inline-flex items-center justify-center md:justify-start px-3 py-2 border border-transparent shadow-sm text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 w-full md:w-auto;
+
+    &:hover {
+      @apply bg-indigo-700;
+    }
+
+    &:focus {
+      @apply outline-none ring-2 ring-offset-2 ring-indigo-500;
+    }
+
+    &:disabled {
+      @apply cursor-default bg-indigo-300;
+
+      &:hover {
+        @apply bg-indigo-300;
+      }
+    }
+
+    &.create {
+      @apply text-white bg-green-700;
+
+      &:hover {
+        @apply bg-green-800;
+      }
+      
+      &:disabled {
+        @apply bg-green-400;
+      }
+
+      &:focus {
+        @apply outline-none ring-2 ring-offset-2 ring-green-500;
+      }
+    }
+
+    &.secondary {
+      @apply text-indigo-700 bg-indigo-100;
+
+      &:hover {
+        @apply bg-indigo-200;
+
+        &:disabled {
+          @apply bg-indigo-100;
+        }
+      }
+
+      &:focus {
+        @apply outline-none ring-2 ring-offset-2 ring-indigo-500;
+      }
+    }
+
+    &.white {
+      @apply bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700;
+
+      &:hover {
+        @apply bg-gray-50;
+
+        &:disabled {
+          @apply bg-white;
+        }
+      }
+
+      &:focus {
+        @apply outline-none ring-2 ring-offset-2 ring-indigo-500;
+      }
+    }
+
+    &.danger {
+      @apply bg-red-100 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-red-700;
+
+      &:hover {
+        @apply bg-red-200;
+
+        &:disabled {
+          @apply bg-red-50;
+        }
+      }
+
+      &:focus {
+        @apply outline-none ring-2 ring-offset-2 ring-red-500;
+      }
+    }
+
+    &.square {
+      @apply p-1;
+    }
+  }
+}

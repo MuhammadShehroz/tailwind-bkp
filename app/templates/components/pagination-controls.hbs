@@ -1,0 +1,52 @@
+{{#if hasPages}}
+  <nav>
+    {{#if hasPrev}}
+      <div class='-mt-px flex'>
+      {{#if otherRoute}}
+        <a href='#' {{action previousPage}} class='nav-link pr-1'>
+          <Icons::ArrowNarrowLeft class='mr-3' />
+          Previous
+        </a>
+      {{else}}
+        <LinkTo @route={{routeName}} @query={{hash page=prev.number}} class='nav-link pr-1'>
+          <Icons::ArrowNarrowLeft class='mr-3' />
+          Previous
+        </LinkTo>
+      {{/if}}
+      </div>
+    {{/if}}
+    <div class='hidden md:-mt-px md:flex'>
+      {{#each pages as |page|}}
+        {{#if page.isCurrent}}
+          <span class='border-indigo-500 text-indigo-600 border-b-2 pb-4 px-4 inline-flex items-center text-sm font-medium' aria-current='page'>
+            {{page.number}}
+          </span>
+        {{else}}
+          {{#if otherRoute}}
+            <a href='#' {{action pageNumber page.number}} class='nav-link px-4'>
+              {{page.number}}
+            </a>
+          {{else}}
+            <LinkTo @route={{routeName}} @query={{hash page=page.number}} class='nav-link px-4'>{{page.number}}</LinkTo>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+    </div>
+
+    {{#if hasNext}}
+      <div class='-mt-px flex justify-end'>
+        {{#if otherRoute}}
+          <a href='#' {{action nextPage}} class='nav-link pl-1'>
+            Next
+            <Icons::ArrowNarrowRight class='ml-3' />
+          </a>
+        {{else}}
+          <LinkTo @route={{routeName}} @query={{hash page=next.number}} class='nav-link pl-1'>
+            Next
+            <Icons::ArrowNarrowRight class='ml-3' />
+          </LinkTo>
+        {{/if}}
+      </div>
+    {{/if}}
+  </nav>
+{{/if}}

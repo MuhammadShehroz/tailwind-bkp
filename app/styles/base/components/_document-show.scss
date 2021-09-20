@@ -1,0 +1,460 @@
+.document.details {
+  .actions-bar {
+    z-index: 3;
+  }
+
+  aside.actions-bar {
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    margin-bottom: rem(1);
+    min-height: rem(48);
+    padding: 0 0 0 rem(16);
+    position: sticky;
+    top: $header-height;
+    width: 100%;
+
+    .amount-due {
+      color: $slate-80;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: rem(24);
+    }
+
+    .terms {
+      color: $slate-80;
+      display: none;
+      font-size: 12px;
+      line-height: rem(15);
+
+      .label {
+        text-transform: uppercase;
+      }
+    }
+
+    .status {
+      border: 1px solid $slate-80;
+      border-radius: 32px;
+      box-sizing: border-box;
+      color: $slate-80;
+      font-size: 10px;
+      font-weight: bold;
+      height: rem(24);
+      line-height: 1.75;
+      margin-left: rem(8);
+      padding: rem(3) rem(10);
+      text-align: center;
+      text-transform: uppercase;
+      width: rem(72);
+    }
+
+    .inline.actions {
+      margin-left: auto;
+      order: 2;
+      text-align: right;
+
+      ul {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+      }
+
+      li {
+        padding: 0;
+      }
+
+      a {
+        display: none;
+        line-height: rem(48);
+
+        &.send {
+          display: block;
+        }
+      }
+
+      .btn {
+        display: none;
+      }
+    }
+
+    .pc.actions {
+      height: rem(48);
+      margin-left: rem(16);
+      order: 3;
+      position: relative;
+      width: rem(49);
+
+      .popup-toggler {
+        border-left: 1px solid $slate-20;
+        height: rem(48);
+        min-width: rem(48);
+        width: 100%;
+
+        span {
+          display: none;
+        }
+      }
+
+      .popup-dropdown {
+        &::before {
+          right: rem(8);
+        }
+      }
+    }
+  }
+
+  &.status-open {
+    aside.actions-bar {
+      .status {
+        border-color: $indigo;
+      }
+
+      .currency,
+      .status,
+      .terms {
+        color: $indigo;
+      }
+    }
+  }
+
+  &.status-closed {
+    aside.actions-bar {
+      .status {
+        border-color: $slate;
+      }
+
+      .currency,
+      .status,
+      .terms {
+        color: $slate;
+      }
+    }
+  }
+
+  &.status-past_due { /* stylelint-disable-line selector-class-pattern */
+    aside.actions-bar {
+      .status {
+        border-color: $magenta;
+      }
+
+      .currency,
+      .status,
+      .terms {
+        color: $magenta;
+      }
+    }
+  }
+
+  section {
+    padding: rem(24) rem(16);
+
+    .line-item {
+      .header {
+        margin-bottom: rem(24);
+      }
+
+      .detail-row {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: rem(16);
+        padding-right: rem(16);
+
+        .field:not(.description) {
+          width: 50%;
+        }
+
+        .field {
+          margin-bottom: rem(33);
+          position: unset;
+
+          &.description {
+            @include formatted-string;
+          }
+        }
+
+        label {
+          margin-bottom: rem(8);
+        }
+
+        span {
+          color: $slate;
+        }
+      }
+    }
+
+    .summary {
+      padding: 0 rem(16) rem(16);
+
+      .entry {
+        margin-bottom: rem(8);
+
+        .label {
+          color: $slate-80;
+          display: inline-block;
+          font-size: 12px;
+          letter-spacing: 1px;
+          line-height: rem(30);
+          text-transform: uppercase;
+          width: rem(120);
+        }
+
+        .amount {
+          color: $slate;
+          display: inline-block;
+          float: right;
+          font-size: 24px;
+          line-height: rem(30);
+          text-align: right;
+          width: calc(100% - #{rem(124)});
+        }
+
+        &.total {
+          border-top: 2px solid $slate-20;
+          padding-top: rem(24);
+        }
+
+        &.total,
+        &.total-paid,
+        &.total-due {
+          margin-bottom: rem(8);
+
+          .th,
+          .td {
+            font-weight: 700;
+          }
+        }
+
+        &:nth-last-child(2) {
+          margin-bottom: rem(24);
+        }
+      }
+    }
+
+    .notes .content {
+      @include formatted-text;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.portal .document.details {
+  .info-details {
+    display: flex;
+    text-align: center;
+
+    .created,
+    .due {
+      display: none;
+    }
+  }
+
+  .to-transactor,
+  .from-transactor {
+    background-color: transparent;
+    box-shadow: none;
+    text-align: center;
+
+    .header {
+      background-color: transparent;
+      padding-bottom: rem(8);
+      text-align: center;
+    }
+
+    .content {
+      padding-top: 0;
+    }
+  }
+
+  .from-transactor {
+    margin-left: auto;
+  }
+
+  .to-transactor {
+    margin-right: auto;
+  }
+}
+
+@media (min-width: rem(768)) {
+  .document.details {
+    aside.actions-bar {
+      .inline.actions {
+        li:first-child {
+          padding-right: rem(16);
+        }
+
+        a {
+          &.edit {
+            display: block;
+          }
+        }
+      }
+
+      .pc.actions {
+        width: rem(90);
+
+        .popup-toggler {
+          i {
+            display: block;
+            float: left;
+            width: rem(38);
+          }
+
+          span {
+            display: block;
+            float: left;
+            font-size: 14px;
+            line-height: rem(48);
+          }
+        }
+
+        .popup-dropdown {
+          right: rem(16);
+          width: rem(260);
+
+          .edit {
+            display: none;
+          }
+        }
+      }
+    }
+
+    section {
+      .summary {
+        .entry {
+          .label {
+            width: rem(360);
+          }
+
+          .amount {
+            width: calc(100% - #{rem(360)});
+          }
+        }
+      }
+
+      .line-item .detail-row {
+        flex-wrap: nowrap;
+      }
+    }
+  }
+
+  .portal .document.details {
+    .info-details {
+      flex-wrap: wrap;
+    }
+
+    .from-transactor,
+    .to-transactor {
+      width: rem(250);
+    }
+
+    .info {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: rem(1280)) {
+  .document.details {
+    margin: rem(32) auto;
+    width: $page-max-width;
+
+    section {
+      padding: 0;
+      width: calc(100% - #{rem(284)});
+    }
+
+    aside.actions-bar {
+      display: block;
+      float: right;
+      padding: 0;
+      width: rem(260);
+
+      .amount-due {
+        font-size: 32px;
+        line-height: rem(40);
+        padding-top: rem(24);
+        text-align: center;
+      }
+
+      .terms {
+        display: block;
+        margin: rem(8) rem(24);
+        text-align: center;
+
+        div {
+          margin-bottom: rem(8);
+        }
+      }
+
+      .status {
+        margin: rem(16) auto rem(16) auto;
+      }
+
+      .inline.actions {
+        border-top: 1px dashed $slate-20;
+        margin: rem(24) 0 0 0;
+        padding: rem(20) 0 rem(16);
+
+        ul {
+          display: block;
+        }
+
+        li {
+          padding: 0;
+
+          &:first-child {
+            padding-right: 0;
+          }
+        }
+
+        li > a {
+          display: block;
+          line-height: rem(24);
+          padding: rem(6) rem(24) rem(6) rem(48);
+          text-align: left;
+
+          &.send {
+            display: none;
+          }
+
+          &::before {
+            left: rem(16);
+          }
+
+          &::after {
+            content: none;
+          }
+
+          &:hover {
+            background-color: $cyan-10;
+          }
+
+          &:active {
+            background-color: $cyan;
+          }
+        }
+
+        .btn {
+          display: block;
+          margin: rem(24) auto 0;
+          width: calc(100% - #{rem(32)});
+        }
+      }
+
+      .pc.actions {
+        display: none;
+      }
+    }
+  }
+
+  .portal .document.details {
+    section {
+      width: $page-max-width;
+    }
+  }
+}

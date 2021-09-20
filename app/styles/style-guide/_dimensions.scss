@@ -1,0 +1,23 @@
+$header-height-px: 0px;
+$header-height: rem($header-height-px);
+
+$page-max-width-px: 1024px;
+$page-max-width: rem($page-max-width-px);
+
+$header-z-index: 1000;
+$tooltip-z-index: 1000;
+$popup-z-index: 1500;
+$popup-toggler-z-index: 1600;
+$modal-z-index: 2000;
+$sudo-z-index: 10000;
+
+$bp-320px: rem(320);
+$bp-360px: rem(360);
+$bp-375px: rem(375);
+$bp-480px: rem(480);
+$bp-640px: rem(640);
+$bp-768px: rem(768);
+$bp-1024px: rem(1024);
+$bp-1280px: rem(1280);
+$bp-1366px: rem(1366);
+$bp-1440px: rem(1440);

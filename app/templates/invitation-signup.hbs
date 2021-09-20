@@ -1,0 +1,62 @@
+<form {{action 'save' on='submit'}} novalidate>
+  <div class='signup-content'>
+    <div class='signup-fields'>
+      <h4 class='text-center text-xl font-bold pb-4'>Create User Profile</h4>
+      <div class='space-y-4'>
+        <div>
+          <FormElements::TextInput
+            @value={{model.firstName}}
+            @label='First Name'
+            @showErrors={{validations.firstName.isInvalid}}
+            @errorMessage={{validations.firstName.message}}
+            @dataLPIgnore='true'
+          />
+        </div>
+        <div>
+          <FormElements::TextInput
+            @value={{model.lastName}}
+            @label='Last Name'
+            @showErrors={{validations.lastName.isInvalid}}
+            @errorMessage={{validations.lastName.message}}
+            @dataLPIgnore='true'
+          />
+        </div>
+        <div>
+          <FormElements::TextInput
+            @value={{model.email}}
+            @type='email'
+            @label='Your Email'
+            @showErrors={{validations.email.isInvalid}}
+            @errorMessage={{validations.email.message}}
+            @disabled={{true}}
+          />
+        </div>
+        <div>
+          <FormElements::PasswordInput
+            @value={{model.password}}
+            @label='Create Password'
+            @showErrors={{validations.password.isInvalid}}
+            @errorMessage={{validations.password.message}}
+          />
+        </div>
+        <button type='submit' class='tw-button w-full text-center justify-center' disabled={{save.isRunning}}>Create User Profile</button>
+      </div>
+    </div>
+
+    <div class='flex items-center justify-center'>
+      <div class='px-4 py-4 flex-column items-center justify-center'>
+        {{#each marketingReasons as |reason|}}
+        <dt class='flex items-center'>
+          <Icons::Check class='text-green-500' />
+          <p class='ml-3 text-md leading-6 font-medium text-gray-900'>{{reason}}</p>
+        </dt>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class='px-4 py-4'>
+  <h4 class='font-bold text-center text-md pb-4'>Already have an account?</h4>
+  <LinkTo @route='login' class='tw-button white w-full text-center justify-center'>Sign in</LinkTo>
+</div>

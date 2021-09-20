@@ -1,0 +1,9 @@
+{{#bs-modal 'document-preview'
+  class='modal-document-preview'
+  accept=(action 'close')
+  dismiss=(action 'close')
+  acceptLabel='Done'
+  title='Email Preview'
+}}
+  <DocumentPreview @model={{document}} @message={{message}} @pdfAttached={{pdfAttached}} @includeStripe={{includeStripe}} @includePaypal={{includePaypal}} />
+{{/bs-modal}}

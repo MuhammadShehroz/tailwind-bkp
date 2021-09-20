@@ -1,0 +1,97 @@
+& {
+  align-items: center;
+  background-color: #fff;
+  border-radius: rem(4);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  margin: rem(10) 0;
+  padding: rem(16) rem(24);
+  position: relative;
+  width: 100%;
+}
+
+.card-flag {
+  background-color: $cyan;
+  color: $slate;
+  font-size: rem(10);
+  font-weight: bold;
+  padding: rem(7) rem(13);
+  position: absolute;
+  right: rem(22);
+  text-align: center;
+  text-transform: uppercase;
+  top: rem(-24);
+
+  &::after {
+    border-color: $cyan transparent transparent;
+    border-style: solid;
+    border-width: rem(9) rem(9) 0;
+    content: '';
+    left: rem(26);
+    position: absolute;
+    top: rem(24);
+  }
+}
+
+.action-description .title {
+  color: $slate-80;
+  font-size: rem(12);
+  letter-spacing: rem(1);
+  margin-bottom: rem(10);
+  text-transform: uppercase;
+}
+
+.action-description .desc {
+  color: $slate;
+  font-size: rem(16);
+}
+
+.icon-wrapper {
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  height: rem(60);
+  width: rem(60);
+}
+
+&.clients .icon-wrapper {
+  background-color: $amethyst-hl;
+  background-image: url(client-medium-icon());
+}
+
+&.invoices {
+  box-shadow: 0 rem(1) rem(1) rgba(0, 0, 0, 0.1), inset rem(8) 0 0 $indigo;
+
+  .icon-wrapper {
+    background-color: $indigo-hl;
+    background-image: url(invoice-medium-icon());
+  }
+}
+
+&.recurring-invoices .icon-wrapper {
+  background-color: $sapphire-hl;
+  background-image: url(recurring-invoice-medium-icon());
+}
+
+&.estimates .icon-wrapper {
+  background-color: $royal-blue-hl;
+  background-image: url(estimate-medium-icon());
+}
+
+&.account .icon-wrapper {
+  background-color: $cerulean-hl;
+  background-image: url(settings-medium-icon());
+}
+
+&.support .icon-wrapper {
+  background-color: $cyan;
+  background-image: url(dashboard-medium-icon());
+}
+
+@media (min-width: rem(768)) {
+  & {
+    width: 49%;
+  }
+}

@@ -1,0 +1,116 @@
+{{#if showRecords}}
+  <Layouts::PageHeader @resourceType='client' @pageType='list'>
+    <Breadcrumbs @segments={{routeSegments}} />
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='md:col-span-8'>
+        <h2>Clients</h2>
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='md:col-span-2'>
+        <ClientFilters @name={{nameFilter}} @reset={{action 'resetFilters' }} />
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  </Layouts::PageHeader>
+
+  <Layouts::PageBody>
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='md:col-span-10'>
+        <LinkTo @route='clients.new'class='tw-button'>
+          <Icons::Plus/>
+          Create New Client
+        </LinkTo>
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+
+    <Layouts::ColumnsGrid>
+      <Layouts::GridColumn class='md:col-span-10'>
+        <ToggleSwitch
+          @value={{this.archived}}
+          @toggleOnLabel='Show archived'
+          @class='archived-clients-switch'
+        />
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+
+    {{#if clientsPresent}}
+      <div class='tw-table-wrapper bordered'>
+        <table>
+          <thead>
+            <tr>
+              <th scope='col' class='w-full'>
+                <SortBy
+                  @field='name'
+                  @defaultOrder='desc'
+                  @sort={{sort}}
+                  @order={{order}}
+                  @onSortChange={{action 'sort'}}>
+                    Name
+                </SortBy>
+              </th>
+              <th scope='col' class='w-auto'>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each groupedClients as |group|}}
+              <tr>
+                <td colspan='2' class='bg-gray-200'>
+                  <div class='text-center sm:text-left text-gray-800 text-sm font-bold'>{{group.value}}</div>
+                </td>
+              </tr>
+              {{#each group.items as |client|}}
+              <tr>
+                <td>
+                  <div class='tw-label'>Name</div>
+                  {{client.name}}
+                  <LinkTo @route='clients.show' class='link-clicker' @model={{client}} />
+                </td>
+                <td>
+                  <div class='tw-label'>Actions</div>
+                  {{#if client.archivedAt}}
+                    <button
+                      type='button'
+                      class='tw-link'
+                      {{action 'unarchiveClient' client}}
+                      disabled={{unarchive.isRunning}}
+                    >
+                      Unarchive
+                    </button>
+                  {{else}}
+                  <LinkTo class='tw-link' @route='clients.show' @model={{client}}>View</LinkTo>
+                  <LinkTo class='tw-link' @route='contacts.new' @model={{client}}>Add Contact</LinkTo>
+                  <LinkTo class='tw-link' @route='invoices.new' @query={{hash client=client.id}}>New Invoice</LinkTo>
+                  <LinkTo class='tw-link' @route='estimates.new' @query={{hash client=client.id}}>New Estimate
+                    </LinkTo>
+                  <button
+                    type='button'
+                    class='tw-link'
+                    {{action 'archiveClient' client}}
+                    disabled={{archive.isRunning}}
+                  >
+                    Archive
+                  </button>
+                  {{/if}}
+                  <button
+                    type='button'
+                    class='tw-link'
+                    {{action 'delete' client}}
+                    disabled={{delete.isRunning}}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              {{/each}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <PaginationControls @pagination={{pagination}} />
+    {{else}}
+      <div class='pt-6'>
+        <p>No clients fit this filtering selection.</p>
+      </div>
+    {{/if}}
+  </Layouts::PageBody>
+{{else}}
+  <PageBlankSlate @className='client' @description='You haven&#39;t added a client yet!' />
+{{/if}}

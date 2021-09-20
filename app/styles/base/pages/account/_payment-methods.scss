@@ -1,0 +1,166 @@
+.account-payments {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  &.form {
+    max-width: rem(782);
+  }
+
+  .details {
+    margin: rem(16) rem(8);
+    max-width: rem(343);
+    width: 100%;
+
+    .separator {
+      background-color: $slate-20;
+      height: rem(8);
+      width: rem(40);
+    }
+
+    h1 {
+      color: $slate;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 30px;
+      margin: rem(16) 0;
+    }
+
+    p {
+      color: $slate-80;
+      font-size: 16px;
+      line-height: 24px;
+      margin-bottom: rem(16);
+    }
+  }
+
+  .cards {
+    margin-left: rem(8);
+    margin-right: rem(8);
+    max-width: rem(343);
+    width: 100%;
+  }
+
+  .stripe-card,
+  .paypal-card {
+    width: 100%;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      padding: rem(24) rem(12);
+
+      .logo-circle {
+        align-items: center;
+        align-self: center;
+        border: rem(1) dashed $slate-20;
+        border-radius: 50%;
+        display: flex;
+        height: rem(88);
+        justify-content: center;
+        position: relative;
+        width: rem(88);
+
+        .logo {
+          height: 100%;
+          width: 100%;
+        }
+
+        .connection-state {
+          background-position: center;
+          background-repeat: no-repeat;
+          border-radius: 50%;
+          bottom: rem(-20);
+          height: rem(40);
+          position: absolute;
+          width: rem(40);
+        }
+      }
+
+      .checkbox-field {
+        margin: 0;
+        margin-top: rem(48);
+        padding: 0;
+      }
+
+      section {
+        max-width: rem(215);
+        width: 100%;
+
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+
+    &.connected {
+      .content {
+        align-items: start;
+
+        .logo-circle {
+          border-style: solid;
+        }
+      }
+
+      .content .logo-circle .connection-state {
+        background-color: $cyan;
+        background-image: url(check-icon(#fff, 20, 20));
+      }
+
+      .content .btn-connection {
+        background-image: url(plug-icon($magenta, 20, 20));
+        background-position: rem(8) center;
+        color: $magenta;
+        font-size: rem(16);
+        line-height: 150%;
+        margin-top: rem(16);
+        opacity: 1;
+        padding-left: rem(38);
+        text-transform: capitalize;
+      }
+    }
+
+    &.disconnected {
+      .content {
+        align-items: center;
+      }
+
+      .content .logo-circle .connection-state {
+        background-color: $slate-20;
+        background-image: url(plug-icon($slate, 20, 20));
+      }
+
+      .content .btn-connection {
+        margin-top: rem(48);
+      }
+    }
+  }
+
+  .stripe-card .logo {
+    background-image: url(stripe-icon($slate));
+  }
+
+  .paypal-card .logo {
+    background-image: url(paypal-icon($slate));
+  }
+}
+
+@media (min-width: $bp-768px) {
+  .account-payments {
+    align-items: initial;
+    flex-direction: row;
+    justify-content: center;
+
+    .details {
+      margin: rem(32) rem(64) 0 0;
+
+      h1 {
+        margin-top: rem(32);
+      }
+    }
+
+    .cards {
+      margin: rem(32) 0 0;
+    }
+  }
+}

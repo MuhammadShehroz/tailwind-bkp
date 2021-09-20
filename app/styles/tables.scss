@@ -1,0 +1,88 @@
+@layer components {
+  .tw-table-wrapper {
+    @apply overflow-visible mt-6 my-2;
+
+    tr:hover {
+      @apply bg-gray-50;
+    }
+
+    &.bordered {
+      @apply sm:shadow sm:rounded-lg border-b border-gray-200 overflow-hidden;
+
+      tr:first-child th:first-child {
+        @apply rounded-tl-md;
+      }
+
+      tr:first-child th:last-child {
+        @apply rounded-tr-md;
+      }
+
+      tr:last-child td:first-child {
+        @apply rounded-bl-md;
+      }
+
+      tr:last-child td:last-child {
+        @apply rounded-br-md;
+      }
+    }
+
+    &.wrapped {
+      td {
+        @apply whitespace-normal;
+        word-wrap: anywhere;
+      }
+    }
+  }
+
+  table {
+    @apply min-w-full divide-y divide-gray-200;
+
+    tr:first-child th {
+      @apply bg-gray-100;
+    }
+
+    .link-clicker {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+    }
+  }
+
+  thead {
+    @apply hidden md:table-header-group;
+  }
+
+  tbody {
+    @apply flex flex-col md:table-row-group bg-white divide-y divide-gray-200;
+  }
+
+  tr {
+    @apply flex flex-col md:table-row;
+
+    &.tw-row[draggable='true'] {
+      @apply cursor-move;
+    }
+  }
+
+  th {
+    @apply py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap w-auto;
+  }
+
+  td {
+    position: relative;
+    @apply align-top sm:py-3 sm:px-4 sm:whitespace-nowrap text-left text-sm;
+
+    .tw-label {
+      @apply text-gray-500 sm:hidden;
+    }
+
+    .tw-link {
+      &:not(:last-child) {
+        @apply pr-4;
+      }
+    }
+  }
+}

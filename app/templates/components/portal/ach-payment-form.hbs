@@ -1,0 +1,29 @@
+<div class='{{if @show ' flex flex-col items-center justify-center' 'hidden' }}' ...attributes>
+  <div class='w-full sm:w-2/3 lg:w-1/3'>
+    {{#if @paymentError}}
+      <div class='py-4'>
+        <AlertMessage @message={{@paymentError}} />
+      </div>
+    {{/if}}
+
+    <div class='py-4 justify-center flex items-center flex-col'>
+      <FormElements::CurrencyInput
+        @value={{@amount}}
+        @label='Payment Amount'
+        @decimals={{@decimals}}
+        @decimalsSeparator={{@decimalsSeparator}}
+        @thousandsSeparator={{@thousandsSeparator}}
+        @leadingIcon={{@currencySymbol}}
+        @allowClear={{true}}
+        as |leadingIcon|
+      >
+        <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+      </FormElements::CurrencyInput>
+      {{#if @plaidLinkToken}}
+        <PlaidLink @onSuccess={{action @processPlaidToken}} class='px-4 py-4' @token={{@plaidLinkToken}}>
+          <button class='tw-button' type='button'>Add Bank Account</button>
+        </PlaidLink>
+      {{/if}}
+    </div>
+  </div>
+</div>

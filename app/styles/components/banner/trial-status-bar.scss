@@ -1,0 +1,61 @@
+.status-bar {
+  align-items: center;
+  display: flex;
+}
+
+label {
+  background-color: $indigo;
+  font-size: rem(10);
+  font-weight: bold;
+  line-height: 100%;
+  padding: rem(16) rem(12);
+  text-transform: uppercase;
+}
+
+p {
+  margin-left: rem(16);
+
+  span {
+    display: block;
+  }
+
+  a {
+    color: $cyan;
+    font-weight: bold;
+  }
+}
+
+button {
+  background: url(close-icon(#fff, 12, 12)) no-repeat center;
+  height: rem(12);
+  position: absolute;
+  right: rem(26);
+  top: rem(18);
+  width: rem(12);
+}
+
+&.danger {
+  .status-bar {
+    background-color: $magenta;
+    justify-content: center;
+  }
+
+  p {
+    margin-left: 0;
+
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (min-width: rem(768)) {
+  label {
+    padding: rem(8);
+  }
+
+  p > span {
+    display: inline-block;
+  }
+}

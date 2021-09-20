@@ -1,0 +1,30 @@
+<Layouts::PageHeader @resourceType='preferences' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Preferences</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <Account::PreferencesForm
+        @model={{model}}
+        @units={{units}}
+        @taxes={{taxes}}
+        @countries={{countries}}
+        @timezones={{timezones}}
+        @subregions={{subregions}}
+        @currencies={{currencies}}
+        @dateFormats={{dateFormats}}
+        @cancel={{action 'cancel'}}
+        @addTax={{action 'addTax'}}
+        @fetchSubregions={{action 'fetchSubregions'}}
+      />
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

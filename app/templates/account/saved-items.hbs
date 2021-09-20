@@ -1,0 +1,83 @@
+<Layouts::PageHeader @resourceType='items' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Saved Items</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <button type='button' {{action 'addItem'}} class='tw-button'>
+        <Icons::Plus/>
+        Add New Item
+      </button>
+      {{#if itemPresent}}
+        <div class='tw-table-wrapper bordered'>
+          <table>
+            <thead>
+              <tr>
+                <th scope='col' class='w-full'>Name</th>
+                <th scope='col' class='w-full'>Quantity</th>
+                <th scope='col' class='w-full'>Unit</th>
+                <th scope='col' class='w-full'>Price</th>
+                <th scope='col' class='w-full'>Tax</th>
+                <th scope='col' class='w-auto'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each model as |item|}}
+                <tr>
+                  <td>
+                    <div class='tw-label'>Name</div>
+                    {{item.name}}
+                  </td>
+                  <td>
+                    <div class='tw-label'>Quantity</div>
+                    {{item.quantity}}
+                  </td>
+                  <td>
+                    <div class='tw-label'>Unit</div>
+                    {{item.unitOfMeasurement.name}}
+                  </td>
+                  <td>
+                    <div class='tw-label'>Price</div>
+                    <FormatCurrency @label='Item total' @value={{item.price}} @isoCode={{item.currency}} />
+                  </td>
+                  <td>
+                    <div class='tw-label'>Tax</div>
+                    {{item.calculatedTax.nameAndPercent}}
+                  </td>
+                  <td>
+                    <div class='tw-label'>Actions</div>
+                    <button type='button' class='tw-link' {{action 'editItem' item}}>
+                      Edit
+                    </button>
+                    <button type='button' class='tw-link' {{action 'destroyItem' item}} disabled={{delete.isRunning}}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <Layouts::PageHeader @resourceType='items' @pageType='list'>
+          <Layouts::ColumnsGrid>
+            <Layouts::GridColumn>
+              <h2 class='text-center font-extrabold py-2'>
+                No Saved Line Items
+              </h2>
+              <p class='text-sm text-center text-gray-600'>You may save line items on an invoice or estimate and view them here.</p>
+            </Layouts::GridColumn>
+          </Layouts::ColumnsGrid>
+        </Layouts::PageHeader>
+      {{/if}}
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

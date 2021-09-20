@@ -1,0 +1,251 @@
+.send-to-all-clients-switch {
+  margin-bottom: rem(16);
+}
+
+.date-field {
+  background: url(form-calendar-icon($slate-60, 24, 24)) no-repeat right center;
+
+  &.field-with-errors {
+    background-image: none;
+  }
+}
+
+.bs-time-select {
+  .field {
+    display: inline-block;
+    margin-bottom: 0;
+    width: rem(48);
+
+    &.bs-time-select-meridian {
+      margin-left: rem(8);
+    }
+
+    &.bs-time-select-hour,
+    &.bs-time-select-minute,
+    &.bs-time-select-meridian {
+      .ember-power-select-trigger {
+        padding-right: rem(12);
+      }
+    }
+  }
+
+  .bs-time-select-colon {
+    display: inline-block;
+    font-size: 16px;
+    line-height: rem(40);
+    text-align: center;
+    vertical-align: top;
+    width: rem(9);
+  }
+
+  .bs-time-select-info {
+    float: right;
+    height: rem(40);
+    margin-left: rem(16);
+    position: relative;
+    width: calc(100% - #{rem(190)});
+
+    span {
+      display: inline-block;
+      letter-spacing: 1px;
+      line-height: rem(15);
+      padding-right: rem(20);
+      text-transform: uppercase;
+    }
+
+    .hint {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+
+      .trigger {
+        height: rem(18);
+        width: rem(18);
+      }
+
+      .popover {
+        right: rem(-6);
+        top: rem(30);
+      }
+    }
+  }
+}
+
+.template-field .input-wrapper {
+  padding-right: 0;
+}
+
+.input-group {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .more-text {
+    display: none;
+  }
+
+  .btn {
+    border-color: $slate-60;
+    display: inline-block;
+    flex-grow: unset;
+    font-weight: normal;
+    height: rem(40);
+    margin-bottom: rem(8);
+  }
+
+  .field.select-field {
+    flex-grow: 0.7;
+  }
+}
+
+.switch-field {
+  margin-bottom: rem(8);
+
+  .input-wrapper {
+    border-bottom: hidden;
+  }
+}
+
+.message-field {
+  clear: both;
+}
+
+.form-section.schedule {
+  position: relative;
+
+  .more-actions {
+    position: absolute;
+    right: rem(-20);
+    top: rem(4);
+  }
+}
+
+.checkboxes-collection {
+  .field {
+    margin-bottom: rem(4);
+  }
+
+  & > label {
+    margin-bottom: rem(17);
+  }
+}
+
+.net-terms {
+  .recurring-payment-terms.field {
+    margin-bottom: rem(24);
+  }
+}
+
+@media (min-width: rem(411)) {
+  .bs-time-select .bs-time-select-info {
+    span {
+      line-height: rem(36);
+      padding-right: 0;
+      vertical-align: middle;
+    }
+
+    .hint {
+      display: inline-block;
+      float: right;
+      margin-right: calc(100% - #{rem(160)});
+      position: inherit;
+    }
+  }
+}
+
+@media (min-width: $bp-768px) {
+  .net-terms,
+  .currency-select-field {
+    display: inline-block;
+    width: calc((100% - #{rem(29)}) / 2);
+  }
+
+  .net-terms.other {
+    .recurring-payment-terms,
+    .number-field {
+      display: inline-block;
+      width: calc((100% - #{rem(29)}) / 2);
+    }
+
+    .number-field {
+      float: right;
+    }
+  }
+
+  .net-terms .recurring-payment-terms.field {
+    margin-bottom: rem(24);
+  }
+
+  .currency-select-field {
+    float: right;
+  }
+
+  .send-to-all-clients-switch {
+    margin-left: auto;
+    margin-right: auto;
+    width: rem(340);
+  }
+
+  .start-sending-invoices-on-field {
+    display: inline-block;
+    width: calc(100% - #{rem(374)});
+  }
+
+  .bs-time-select {
+    display: inline-block;
+    float: right;
+    width: rem(350);
+
+    &.multi-schedule {
+      float: none;
+      width: rem(350);
+    }
+  }
+
+  .input-group.multi-schedule {
+    float: right;
+    width: calc(100% - #{rem(374)});
+  }
+
+  .input-group {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    .field.select-field {
+      flex-grow: 0.95;
+    }
+  }
+
+  .switchbox-group {
+    display: flex;
+  }
+
+  .switch-field {
+    &.field,
+    .input-wrapper {
+      display: inline-block;
+    }
+
+    &.field {
+      width: calc((100% - #{rem(29)}) / 2);
+    }
+
+    &.right-aligned-switch {
+      float: right;
+    }
+  }
+
+  .checkbox-field {
+    display: inline-block;
+  }
+}
+
+@media (min-width: $bp-1280px) {
+  .start-sending-invoices-on-field,
+  .bs-time-select {
+    width: calc((100% - #{rem(29)}) / 2);
+  }
+}

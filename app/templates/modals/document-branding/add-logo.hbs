@@ -1,0 +1,13 @@
+<BsModal
+  @title='Add Your Logo'
+>
+  <DocumentBranding::AddLogo
+    @model={{logo}}
+    @logoUrl={{model.logoUrl}}
+    @organization={{model}}
+    @close={{action 'close'}}
+    @onSave={{action 'onSave'}}
+    @removeLogo={{removeLogo}}
+
+  />
+</BsModal>

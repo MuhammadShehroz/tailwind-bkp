@@ -1,0 +1,53 @@
+.card {
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: rem(24);
+  position: relative;
+
+  .ribbon {
+    align-items: center;
+    background-color: $indigo;
+    color: #fff;
+    font-size: rem(10);
+    font-weight: 700;
+    height: rem(24);
+    left: rem(-8);
+    line-height: rem(17);
+    padding: rem(3) rem(8);
+    position: absolute;
+    text-transform: uppercase;
+    top: rem(24);
+    width: rem(88);
+
+    &::after {
+      border-bottom: rem(12) solid transparent;
+      border-left: rem(12) solid $indigo;
+      border-right: rem(12) solid transparent;
+      border-top: rem(12) solid transparent;
+      content: '';
+      left: rem(88);
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .header {
+    background-color: $slate-05;
+    color: $slate;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: rem(16);
+    mix-blend-mode: normal;
+    padding: rem(12) rem(16);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .content {
+    color: $slate;
+    font-size: 16px;
+    line-height: rem(24);
+    padding: rem(16);
+  }
+}

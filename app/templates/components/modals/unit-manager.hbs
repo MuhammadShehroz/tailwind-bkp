@@ -1,0 +1,51 @@
+<Layouts::ColumnsGrid class='sm:grid-cols-6 sm:pt-0'>
+  <Layouts::GridColumn class='sm:col-span-6'>
+    <button type='button' {{action 'addUnit'}} class='tw-button' disabled={{unit.hasDirtyAttributes}}>
+      <Icons::Plus/>
+      Add New Unit
+    </button>
+    {{#if unitPresent}}
+      <div class='tw-table-wrapper bordered'>
+        <table>
+          <thead>
+            <tr>
+              <th scope='col' class='w-full'>Name</th>
+              <th scope='col' class='w-auto'>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each model as |unit|}}
+            <tr>
+              <td>
+                <div class='tw-label'>Name</div>
+                {{unit.name}}
+              </td>
+              <td>
+                <div class='tw-label'>Actions</div>
+                <button type='button' class='tw-link' {{action 'editUnit' unit}}>
+                  Edit
+                </button>
+                <button type='button' class='tw-link' {{action 'delete' unit}} disabled={{delete.isRunning}}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    {{/if}}
+    {{#unless unit}}
+      <div class='pt-5'>
+        <div class='flex justify-end flex-wrap gap-3'>
+          <button type='button' class='tw-button white' {{action 'cancel'}}>
+            Close
+          </button>
+        </div>
+      </div>
+    {{/unless}}
+  </Layouts::GridColumn>
+  {{#if unit}}
+    <UnitForm @model={{unit}} @close={{close}} class='sm:col-span-6' />
+  {{/if}}
+</Layouts::ColumnsGrid>

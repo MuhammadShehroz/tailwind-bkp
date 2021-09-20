@@ -1,0 +1,45 @@
+<div class='col-span-6 sm:col-span-2 sm:col-start-1'>
+    <FormElements::PowerSelectMenu
+      @label={{label}}
+      @placeholder='No late fee'
+      @options={{lateFeeOptions}}
+      @optionKey='idx'
+      @optionLabel='label'
+      @selected={{lateFee}}
+      @onChange={{action 'setLateFee'}}
+      @showErrors={{validations.lateFee.isInvalid}}
+      @errorMessage={{validations.lateFee.message}}
+    />
+
+</div>
+
+<div class='col-span-6 sm:col-span-2'>
+  {{#if (eq lateFee.type 'custom')}}
+    <FormElements::CurrencyInput
+      @label='Custom Late Fee'
+      @value={{model.lateFee}}
+      @decimals={{decimals}}
+      @decimalsSeparator={{decimalsSeparator}}
+      @thousandsSeparator={{thousandsSeparator}}
+      @leadingIcon={{if (eq lateFee.lateFeeKind 'fixed') currencySymbol '%'}}
+      @allowClear={{true}}
+      @showErrors={{validations.lateFee.isInvalid}}
+      @errorMessage={{validations.lateFee.message}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  {{/if}}
+</div>
+
+<div class='col-span-6 sm:col-span-2'>
+  {{#if (eq lateFee.type 'custom')}}
+    <FormElements::SelectMenu
+      @label='Late Fee Interval'
+      @options={{intervalOptions}}
+      @optionKey='lateFeeInterval'
+      @optionLabel='label'
+      @value={{model.lateFeeInterval}}
+    />
+  {{/if}}
+</div>

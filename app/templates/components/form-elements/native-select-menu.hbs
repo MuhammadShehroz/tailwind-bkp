@@ -1,0 +1,23 @@
+{{#if label}}
+  <label for={{fieldId}} class='tw-label'>{{label}}</label>
+{{/if}}
+
+<div class='tw-input-wrapper'>
+  <select id={{fieldId}} onChange={{action 'select'}} class={{if showErrors 'error'}}>
+    {{#unless isSelected}}
+      <option disabled selected class='hidden'></option>
+    {{/unless}}
+    {{#each options as |opt|}}
+      <option
+        value={{get opt optionKey}}
+        selected={{is-equal (get opt optionKey) value}}
+      >
+        {{get opt optionLabel}}
+      </option>
+    {{/each}}
+  </select>
+</div>
+
+{{#if showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}

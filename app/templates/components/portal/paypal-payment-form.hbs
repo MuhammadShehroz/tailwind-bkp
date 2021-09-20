@@ -1,0 +1,27 @@
+<div class='{{if @show 'flex flex-col items-center justify-center' 'hidden'}}'>
+  {{#if @paymentError}}
+    <div class='alert alert-inline alert-error'>
+      <p>{{@paymentError}}</p>
+    </div>
+  {{/if}}
+
+  <div class='fields'>
+    <FormElements::CurrencyInput
+      @value={{@amount}}
+      @label='Payment Amount'
+      @decimals={{@decimals}}
+      @decimalsSeparator={{@decimalsSeparator}}
+      @thousandsSeparator={{@thousandsSeparator}}
+      @leadingIcon={{@currencySymbol}}
+      @allowClear={{true}}
+      @showErrors={{@validations.amount.isInvalid}}
+      @errorMessage={{@validations.amount.message}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </div>
+
+  <div class='paypal pt-4'></div>
+  <button type='button' class='tw-button white' {{action @cancel}}>Cancel</button>
+</div>

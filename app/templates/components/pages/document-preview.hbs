@@ -1,0 +1,203 @@
+{{#let (capitalize this.modelName) as |documentName|}}
+  <form novalidate>
+    <Forms::GroupedGrid
+      @title='Compose Email'
+      @description=''
+      class='md:grid md:grid-cols-3'
+    >
+      <div class='col-span-6 sm:col-span-4'>
+        <FormElements::EmailSelect
+          @label='Send to'
+          @placeholder='Select recipient'
+          @options={{this.contacts}}
+          @optionKey='id'
+          @optionLabel='name'
+          @displayField='name'
+          @searchEnabled={{true}}
+          @value={{this.delivery.toRecipients}}
+          @showErrors={{this.delivery.validations.attrs.toRecipients.isInvalid}}
+          @errorMessage={{this.delivery.validations.attrs.toRecipients.message}}
+        />
+      </div>
+
+      <div class='sm:col-span-2 col-span-6 sm:flex justify-end flex-wrap gap-3 sm:mt-8'>
+        <div>
+          <button type='button' class='tw-button secondary' onclick={{toggle-action 'isShowingCcField' this}}>
+            <Icons::Duplicate/>CC
+          </button>
+          <button type='button' class='tw-button secondary mt-4 sm:m-0' onclick={{toggle-action 'isShowingBccField' this}}>
+            <Icons::Duplicate/>BCC
+          </button>
+        </div>
+      </div>
+
+      {{#if (or this.isShowingCcField this.delivery.ccRecipients)}}
+        <div class='col-span-6 sm:col-span-4 sm:col-start-1'>
+          <FormElements::EmailSelect
+            @label='CC'
+            @placeholder='Select recipient'
+            @options={{this.contacts}}
+            @optionKey='id'
+            @optionLabel='name'
+            @displayField='name'
+            @searchEnabled={{true}}
+            @value={{this.delivery.ccRecipients}}
+            @showErrors={{validations.ccRecipients.isInvalid}}
+            @errorMessage={{validations.ccRecipients.message}}
+          />
+        </div>
+      {{/if}}
+
+      {{#if (or this.isShowingBccField this.delivery.bccRecipients)}}
+        <div class='col-span-6 sm:col-span-4 sm:col-start-1'>
+          <FormElements::EmailSelect
+            @label='BCC'
+            @placeholder='Select recipient'
+            @options={{this.contacts}}
+            @optionKey='id'
+            @optionLabel='name'
+            @displayField='name'
+            @searchEnabled={{true}}
+            @value={{this.delivery.bccRecipients}}
+            @showErrors={{validations.bccRecipients.isInvalid}}
+            @errorMessage={{validations.bccRecipients.message}}
+          />
+        </div>
+      {{/if}}
+
+      <div class='col-span-6'>
+        <FormElements::TextInput
+          @value={{this.delivery.subject}}
+          @label='Subject'
+          @allowClear={{true}}
+          @showErrors={{validations.subject.isInvalid}}
+          @errorMessage={{validations.subject.message}}
+          as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+        >
+          <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+        </FormElements::TextInput>
+      </div>
+
+      <div class='col-span-6 sm:col-span-6'>
+        <ToggleSwitch
+          @value={{this.delivery.pdfAttached}}
+          @toggleOnLabel='Add attachment of PDF invoice'
+        />
+      </div>
+
+      <div class='col-span-6 sm:col-span-6'>
+        <FormElements::TextArea
+          rows='5'
+          @disabled={{false}}
+          @value={{this.delivery.message}}
+          @label='Message'
+          @hint='Brief description for your profile. URLs are hyperlinked.'
+          @showErrors={{validations.message.isInvalid}}
+          @errorMessage={{validations.message.message}}
+        />
+      </div>
+
+      <div class='pt-2 col-span-6 sm:col-span-6'>
+        <div class='flex justify-start flex-wrap gap-3'>
+          <button type='button' class='tw-button white' {{on 'click' this.back}}>Back</button>
+          <button type='button' class='tw-button secondary' {{on 'click' this.edit}}>Edit {{documentName}}</button>
+          <button type='button' class='tw-button' onclick={{perform this.saveDeliveryTask}}>
+            <Icons::Mail/>
+            <span class='pl-2'>Send {{documentName}}</span>
+          </button>
+        </div>
+      </div>
+    </Forms::GroupedGrid>
+  </form>
+{{/let}}
+
+<Forms::Divider />
+
+{{#if @showPaymentOptions}}
+  <Forms::GroupedGrid
+    @title='Payment Methods'
+    @description=''
+    class='md:grid md:grid-cols-3'
+  >
+    {{#if this.hasOrgPaymentMethods}}
+      {{#if this.isOrganizationStripeConnected}}
+        <div class='col-span-6 sm:col-span-6'>
+          <ToggleSwitch
+            @value={{this.delivery.includeStripe}}
+            @toggleOnLabel='Credit Card'
+          />
+          <ToggleSwitch
+            @value={{this.delivery.includeAch}}
+            @toggleOnLabel='ACH Bank Transfer'
+          />
+        </div>
+      {{/if}}
+      {{#if this.isOrganizationPaypalConnected}}
+        <div class='col-span-6 sm:col-span-6'>
+          <ToggleSwitch
+            @value={{this.delivery.includePaypal}}
+            @toggleOnLabel='Paypal'
+          />
+        </div>
+      {{/if}}
+      {{#if this.isOrganizationCoinbaseConnected}}
+        <div class='col-span-6 sm:col-span-6'>
+          <ToggleSwitch
+            @value={{this.delivery.includeCoinbase}}
+            @toggleOnLabel='Coinbase Commerce'
+          />
+        </div>
+      {{/if}}
+    {{else}}
+      <div class='col-span-6 sm:col-span-6'>
+        <button type='button' class='tw-button' {{on 'click' this.activatePayments}}>Activate Online Payments</button>
+      </div>
+    {{/if}}
+  </Forms::GroupedGrid>
+
+  <Forms::Divider />
+{{/if}}
+
+<Forms::GroupedGrid
+  @title='Edit Template'
+  @description=''
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-6'>
+    <ToggleSwitch
+      @value={{this.isEditingTemplate}}
+      @toggleOnLabel='Edit Template'
+      @onChange={{action 'editTemplate'}}
+    />
+  </div>
+  {{#if this.isEditingTemplate}}
+    <div class='pt-2 col-span-6 sm:col-span-6'>
+      <div class='flex justify-start flex-wrap gap-3'>
+        <button type='button' class='tw-button white' disabled={{this.resetEditTemplateTask.isRunning}} {{on 'click' (perform this.resetEditTemplateTask)}}>Reset</button>
+        <button type='button' class='tw-button' {{on 'click' this.cancelEditTemplate}}>Cancel</button>
+      </div>
+    </div>
+  {{/if}}
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Attachment Preview'
+  @description=''
+  class='md:grid md:grid-cols-3'
+>
+  {{#if isShowingPreveiw}}
+    <div class='col-span-6 sm:col-span-6'>
+      <DocumentPreview
+        @model={{@model}}
+        @message={{this.delivery.message}}
+        @pdfAttached={{this.delivery.pdfAttached}}
+        @includeStripe={{this.delivery.includeStripe}}
+        @includePaypal={{this.delivery.includePaypal}}
+        @onLoadPreview={{action 'didLoadPreview'}}
+        {{ref this 'documentPreviewElement'}}
+      />
+    </div>
+  {{/if}}
+</Forms::GroupedGrid>

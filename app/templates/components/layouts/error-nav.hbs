@@ -1,0 +1,36 @@
+<div class='bg-gray-800'>
+  <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <div class='flex items-center justify-between h-16'>
+      <div class='flex items-center'>
+        <div class='flex-shrink-0'>
+          <LinkTo @route='index'>
+            <img class='h-16 w-16' src='/assets/images/logo.svg' alt='Blinksale'>
+          </LinkTo>
+        </div>
+        {{#if isAuthenticated}}
+          <div class='hidden md:block'>
+            <div class='ml-10 flex items-baseline space-x-4'>
+              <LinkTo @route='index' class='text-white px-3 py-2 rounded-md text-sm font-medium'>Dashboard</LinkTo>
+              <LinkTo @route='clients' class='text-white px-3 py-2 rounded-md text-sm font-medium'>Clients</LinkTo>
+              <LinkTo @route='invoices' class='text-white px-3 py-2 rounded-md text-sm font-medium'>Invoices</LinkTo>
+              <LinkTo @route='invoice-templates' class='text-white px-3 py-2 rounded-md text-sm font-medium'>Recurring Invoices</LinkTo>
+              <LinkTo @route='estimates' class='text-white px-3 py-2 rounded-md text-sm font-medium'>Estimates</LinkTo>
+            </div>
+          </div>
+        {{/if}}
+      </div>
+      {{#if isAuthenticated}}
+        <div class='hidden md:block'>
+          <div class='ml-4 flex items-center md:ml-6'>
+            <PopupControl class='px-4 {{if unreadNotifications 'has-unread'}}'
+              @setOpenState={{action 'setOpenState'}} as |pc|>
+              <NotificationPanel @popupControl={{pc}} @notifications={{notifications}} @markAllRead={{action 'markAllRead'}} />
+            </PopupControl>
+            <LinkTo @route='account.profile' class='block px-4 py-2 text0sm text-white hover:text-gray-50' aria-label='Settings'><Icons::Gear /></LinkTo>
+            <a href='#' class='block px-4 py-2 text-sm text-white hover:text-gray-50' {{action 'invalidateSession'}} aria-label='Sign Out'><Icons::Logout /></a>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

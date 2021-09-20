@@ -1,0 +1,26 @@
+<div class='flex items-center'>
+  <Input
+    ...attributes
+    id={{fieldId}}
+    @type={{type}}
+    @value={{value}}
+    @checked={{checked}}
+    @showErrors={{showErrors}}
+    @classNames={{_classNames}}
+    @classNameBindings={{_classNameBindings}}
+    @attributeBindings={{_attributeBindings}}
+    oninput={{action 'onSelect'}}
+  />
+
+  <label for={{fieldId}} class='tw-label ml-3'>
+    {{label}}
+  </label>
+</div>
+
+{{#if _showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}
+
+{{#if hint}}
+  <p class='validation-message hint'>{{hint}}</p>
+{{/if}}

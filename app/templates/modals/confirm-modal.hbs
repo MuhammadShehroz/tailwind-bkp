@@ -1,0 +1,14 @@
+{{#bs-modal 'confirm-modal'
+  accept=(action 'confirm')
+  acceptLabel=false
+  dismiss=(action 'cancel')
+  dismissLabel=false
+  title=headerTitle
+  message=message
+}}
+  <p>{{title}} {{message}}</p>
+  <div class='flex justify-end mt-5 gap-3'>
+    <button type='button' {{action 'cancel'}} class='tw-button white'>{{cancelButtonLabel}}</button>
+    <button type='button' {{action 'confirm'}} class='tw-button'>{{confirmButtonLabel}}</button>
+  </div>
+{{/bs-modal}}

@@ -1,0 +1,160 @@
+<Layouts::PageHeader @resourceType='notification-settings' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <div class='header-wrapper'>
+    <h2>Manage Notifications</h2>
+  </div>
+</Layouts::PageHeader>
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <Forms::GroupedGrid
+        @title='Invoice Delivery'
+        @description='Get notified when invoices are sent and if email delivery fails.'
+        class='md:grid md:grid-cols-1'
+      >
+        <div class='col-span-6 sm:col-span-3'>
+          <FormElements::RadioInput
+            @name='invoice-delivery'
+            @label='In-App'
+            @value={{model.documentDeliveryNotifications}}
+            @option='in_app'
+          />
+          <FormElements::RadioInput
+            @name='invoice-delivery'
+            @label='Email'
+            @value={{model.documentDeliveryNotifications}}
+            @option='email'
+          />
+          <FormElements::RadioInput
+            @name='invoice-delivery'
+            @label='Both'
+            @value={{model.documentDeliveryNotifications}}
+            @option='all'
+          />
+          <FormElements::RadioInput
+            @name='invoice-delivery'
+            @label='Off'
+            @value={{model.documentDeliveryNotifications}}
+            @option='off'
+          />
+        </div>
+      </Forms::GroupedGrid>
+
+      <Forms::Divider />
+
+      <Forms::GroupedGrid
+        @title='Estimate Status'
+        @description='Get notified when estimates are approved or declined.'
+        class='md:grid md:grid-cols-1'
+      >
+        <div class='col-span-6 sm:col-span-3'>
+          <FormElements::RadioInput
+            @name='estimate-status'
+            @label='In-App'
+            @value={{model.estimateStatusNotifications}}
+            @option='in_app'
+          />
+          <FormElements::RadioInput
+            @name='estimate-status'
+            @label='Email'
+            @value={{model.estimateStatusNotifications}}
+            @option='email'
+          />
+          <FormElements::RadioInput
+            @name='estimate-status'
+            @label='Both'
+            @value={{model.estimateStatusNotifications}}
+            @option='all'
+          />
+          <FormElements::RadioInput
+            @name='estimate-status'
+            @label='Off'
+            @value={{model.estimateStatusNotifications}}
+            @option='off'
+          />
+        </div>
+      </Forms::GroupedGrid>
+
+      <Forms::Divider />
+
+      <Forms::GroupedGrid
+        @title='Payments'
+        @description='Get notified when payments are received or adjusted.'
+        class='md:grid md:grid-cols-1'
+      >
+        <div class='col-span-6 sm:col-span-3'>
+          <FormElements::RadioInput
+            @name='payments'
+            @label='In-App'
+            @value={{model.paymentNotifications}}
+            @option='in_app'
+          />
+          <FormElements::RadioInput
+            @name='payments'
+            @label='Email'
+            @value={{model.paymentNotifications}}
+            @option='email'
+          />
+          <FormElements::RadioInput
+            @name='payments'
+            @label='Both'
+            @value={{model.paymentNotifications}}
+            @option='all'
+          />
+          <FormElements::RadioInput
+            @name='payments'
+            @label='Off'
+            @value={{model.paymentNotifications}}
+            @option='off'
+          />
+        </div>
+      </Forms::GroupedGrid>
+
+      <Forms::Divider />
+
+      <Forms::GroupedGrid
+        @title='Comments'
+        @description='Select how you would like to receive comments left on invoices and estimates.'
+        class='md:grid md:grid-cols-1'
+      >
+        <div class='col-span-6 sm:col-span-3'>
+          <FormElements::RadioInput
+            @name='comments'
+            @label='In-App'
+            @value={{model.commentNotifications}}
+            @option='in_app'
+          />
+          <FormElements::RadioInput
+            @name='comments'
+            @label='Email'
+            @value={{model.commentNotifications}}
+            @option='email'
+          />
+          <FormElements::RadioInput
+            @name='comments'
+            @label='Both'
+            @value={{model.commentNotifications}}
+            @option='all'
+          />
+          <FormElements::RadioInput
+            @name='comments'
+            @label='Off'
+            @value={{model.commentNotifications}}
+            @option='off'
+          />
+        </div>
+      </Forms::GroupedGrid>
+
+      <div class='py-5'>
+        <div class='flex justify-end flex-wrap gap-3'>
+          <button type='button' class='tw-button white' {{action 'cancel'}}>Reset</button>
+          <button type='button' class='tw-button' {{action (perform save)}} disabled={{save.isRunning}}>Save Changes</button>
+        </div>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

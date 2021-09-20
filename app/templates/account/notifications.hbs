@@ -1,0 +1,40 @@
+<Layouts::PageHeader @resourceType='notifications' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid class='sm:grid-cols-2'>
+    <Layouts::GridColumn>
+      <h2>Notifications</h2>
+    </Layouts::GridColumn>
+    <Layouts::GridColumn>
+      <div class='flex space-x-4 justify-end'>
+        <button class='tw-button danger' type='button' {{ action 'readAllNotifications'}}>Mark All as Read</button>
+        <button class='tw-button white' type='button' {{ action 'gotoSettings'}}><Icons::Gear /> Notification Settings</button>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-1'>
+    <Layouts::GridColumn class='sm:col-span-2'>
+      
+      <div class='divide-y divide-gray-200'>
+      {{#each model as |notification|}}
+        <div class='flex py-4 justify-between {{if notification.readAt 'notification-read' 'notification-unread'}}'>
+          <div class='flex flex-col pl-6'>
+            <span class='font-medium text-sm'>{{notification.message}}</span>
+            <span class='text-xs text-gray-600'>{{moment-from-now notification.createdAt}}</span>
+          </div>
+          <div class='flex space-x-4'>
+            {{#unless notification.readAt}}
+              <button class='tw-button white' type='button' {{action 'markMessageRead' notification}}>Mark as Read</button>
+            {{/unless}}
+            <button class='tw-button' type='button' {{action 'readMessage' notification}}>View</button>
+          </div>
+        </div>
+      {{/each}}
+      </div>
+      <PaginationControls @pagination={{pagination}} />
+    </Layouts::GridColumn>
+      
+  </Layouts::ColumnsGrid>
+  </Layouts::PageBody>

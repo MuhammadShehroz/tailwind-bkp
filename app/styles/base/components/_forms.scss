@@ -1,0 +1,54 @@
+.form {
+  margin: 0 auto;
+  max-width: rem(768);
+  padding: rem(16);
+  width: 100%;
+}
+
+.ember-power-select-dropdown {
+  &.net-terms-dropdown,
+  &.late-fee-dropdown {
+    height: rem(255);
+
+    .ember-power-select-options {
+      overflow-y: unset;
+    }
+  }
+}
+
+.form-actions {
+  text-align: center;
+
+  .btn {
+    width: 100%;
+
+    &.btn-cancel {
+      display: inline-block;
+      width: auto;
+    }
+  }
+
+  .inline-actions {
+    .btn {
+      margin-bottom: rem(16);
+    }
+  }
+}
+
+@media (min-width: $bp-768px) {
+  .form-actions {
+    .inline-actions {
+      display: flex;
+      width: 100%;
+
+      .btn {
+        flex-basis: 0;
+        flex-grow: 1;
+      }
+
+      :not(:first-child) {
+        margin-left: rem(32);
+      }
+    }
+  }
+}

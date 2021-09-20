@@ -1,0 +1,94 @@
+<Layouts::PageHeader @resourceType='email' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Email Settings</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      {{#if customDomainPresent}}
+        <Forms::GroupedGrid
+          @title='Custom Email Address & Domain'
+          @description='Custom Email Address & Domain'
+          class='md:grid md:grid-cols-1'
+        >
+          <div class='col-span-6 sm:col-span-3'>
+            <FormElements::TextInput
+              @label='Email Address'
+              @hint={{if isVerified 'Verified' 'Not Yet Verified.'}}
+              @value={{model.email}}
+              @disabled={{true}}
+            />
+          </div>
+          <div class='col-span-6 sm:col-span-3'>
+            <div class='sm:mt-8'>
+              <div class='flex justify-start flex-wrap gap-3'>
+                {{#if isVerified}}
+                  <button type='button' class='tw-button secondary' {{on 'click' (perform this.sendTestEmailTask)}} disabled={{sendTestEmailTask.isRunning}}>
+                    Send a Test Email
+                  </button>
+                {{else}}
+                  <button type='button' class='tw-button secondary' {{on 'click' (perform this.verificationTask)}} disabled={{verificationTask.isRunning}}>
+                    Test Verification
+                  </button>
+                {{/if}}
+                <button type='button' class='tw-button' disabled={{delete.isRunning}} {{action 'remove'}}>Remove</button>
+              </div>
+            </div>
+          </div>
+          {{#unless isVerified}}
+            <div class='col-span-6'>
+              <p class='validation-message hint'>Note: Once you make the above DNS changes it can take from a few minutes up to 48hrs for those changes to propagate. We will email you to let you know once your domain is verified.</p>
+            </div>
+          {{/unless}}
+        </Forms::GroupedGrid>
+
+        <div class='tw-table-wrapper bordered wrapped'>
+          <table>
+            <thead>
+              <tr>
+                <th scope='col' class='w-1/12'>Type</th>
+                <th scope='col' class='w-5/12'>Property</th>
+                <th scope='col' class='w-1/12'>Priority</th>
+                <th scope='col' class='w-5/12'>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each model.dnsRecords as |record|}}
+                <tr>
+                  <td>
+                    <div class='tw-label'>Type</div>
+                    {{record.type}}
+                  </td>
+                  <td>
+                    <div class='tw-label'>Property</div>
+                    {{record.label}} {{#if record.label}}<a href='#' class='tw-link' {{action 'copy' record.label}}><Icons::Duplicate/></a>{{/if}}
+                  </td>
+                  <td>
+                    <div class='tw-label'>Priority</div>
+                    {{record.priority}}
+                  </td>
+                  <td>
+                    <div class='tw-label'>Value</div>
+                    {{record.value}} {{#if record.value}}<a href='#' class='tw-link' {{action 'copy' record.value}}><Icons::Duplicate/></a>{{/if}}
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <Account::EmailDomainForm
+          @model={{customDomain}}
+          @refresh={{refresh}}
+        />
+      {{/if}}
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

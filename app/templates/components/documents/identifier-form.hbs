@@ -1,0 +1,24 @@
+{{#if @model.hasLegacyIdentifier}}
+  <FormElements::TextInput
+    @label='Number'
+    @model={{@model}}
+    @valuePath='legacyIdentifier'
+    @validationsEnabled={{@validationsEnabled}}
+  />
+{{else}}
+  <FormElements::TextInput
+    @label='Prefix (Optional)'
+    @model={{@model}}
+    @valuePath='prefix'
+    @validationsEnabled={{@validationsEnabled}}
+    @class='prefix'
+  />
+
+  <FormElements::NumberInput
+    @model={{@model}}
+    @valuePath='number'
+    @label={{numberLabel}}
+    @validationsEnabled={{@validationsEnabled}}
+    @class='number'
+  />
+{{/if}}

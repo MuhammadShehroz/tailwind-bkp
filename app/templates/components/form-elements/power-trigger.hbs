@@ -1,0 +1,10 @@
+<span class='w-full inline-flex truncate'>
+  {{#if @select.selected}}
+    {{yield @select.selected @select}}
+  {{else}}
+    {{@placeholder}}
+  {{/if}}
+</span>
+<span class='tw-icon right'>
+  <Icons::Selector/>
+</span>

@@ -1,0 +1,25 @@
+<div class='col-span-3 sm:col-span-1'>
+  <FormElements::SelectMenu
+    @options={{taxDistributionOptions}}
+    @selected={{currentTaxDistribution}}
+    @label='Tax'
+    @optionKey='value'
+    @optionLabel='label'
+  />
+</div>
+
+{{#if model.isTaxDistributionLineItem}}
+  <div class='col-span-3 sm:col-span-1 sm:pt-10 text-sm'>
+    Add tax on line items
+  </div>
+{{/if}}
+
+{{#if model.isTaxDistributionDocument}}
+  <div class='col-span-3 sm:col-span-1'>
+    <TaxSelect @label='Tax (Optional)' @model={{model}} @lockTax={{lockTax}} />
+  </div>
+{{/if}}
+
+<div class='col-span-3 sm:col-span-1 sm:pt-8'>
+  <button type='button' class='tw-button' {{action 'openTaxManager'}}>Add or edit a tax</button>
+</div>

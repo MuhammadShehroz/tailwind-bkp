@@ -1,0 +1,23 @@
+<form class='subscribe-plan'>
+  {{#unless isModal}}
+    <a href='#' {{action 'backToPlanFormAction'}}>
+      <FormElements::TextInput
+        @model={{model}}
+        @valuePath='planName'
+        @label='Your plan'
+        @validationsEnabled={{validationsEnabled}}
+        @class='edit-icon disabled'
+      />
+    </a>
+  {{/unless}}
+
+  <div class='card-details'>
+    <Payment::CardDetails @cardElements={{cardElements}}/>
+  </div>
+
+  {{#unless isModal}}
+    <div class='action-btns'>
+      <button class='btn' type='button' {{action 'subscribeAction'}}>Subscribe now</button>
+    </div>
+  {{/unless}}
+</form>

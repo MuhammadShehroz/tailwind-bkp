@@ -1,0 +1,120 @@
+<div class='max-w-3xl bg-white m-auto py-4 border-8 border-white shadow-xl'>
+  <section class='flex flex-col items-center space-y-4'>
+    <span class='text-3xl font-bold text-gray-900 sm:text-3xl'>{{model.identifier}}</span>
+    {{#if model.poNumber}}<p class='text-sm text-gray-500'>P.O. {{model.poNumber}}</p>{{/if}}
+    <StatusPill class={{model.statusClass}} @label={{model.statusLabel}} @model={{model}} />
+
+    {{#if isEstimate}}
+      <FormatCurrency
+              @label={{if isEstimate 'Estimate Total:'}}
+              @class='text-2xl font-bold text-center'
+              @value={{if isClosed model.totalPaid model.cachedTotal}}
+              @isoCode={{model.currency}}
+      />
+  {{/if}}
+    <p class='text-sm leading-6 font-light text-gray-900 mt-4'>
+      {{#if isEstimate}}
+        {{#if (or model.isApproved model.isDeclined model.isConverted)}}
+          {{if model.isDeclined 'Declined' 'Approved'}} on
+          <FormatDate @date={{if model.isDeclined estimateDeclinedDate estimateApprovedDate}} />
+        {{else}}
+          (<FormatDate @date={{model.issuedOn}} />)
+        {{/if}}
+      {{else}}
+        {{#if isClosed}}
+          Paid on <FormatDate @date={{payments.lastObject.date}} />
+        {{else}}
+          Due by <FormatDate @date={{model.dueOn}} />
+          {{#if model.netTermsLabel}}
+            ({{model.netTermsLabel}})
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    </p>
+    {{#if isEstimate}}
+      <div class='flex space-x-4 items-center py-4 justify-center'>
+        {{#if (or model.isApproved model.isDeclined)}}
+          <button {{action changeStatus}} disabled={{model.isReloading}} type='button' class='tw-button'>
+            Change to {{if model.isApproved 'Declined' 'Approved'}}
+          </button>
+        {{else if (not model.isConverted)}}
+          <button type='button' class='tw-button' {{action approve}}
+            style={{html-safe (concat 'background-color: ' model.organization.buttonColor '; color: ' model.organization.buttonLabelColor)}}
+            onMouseOver={{action onMouseOver}} onMouseOut={{action onMouseOut}}>Approve</button>
+          <button type='button' class='tw-button danger' {{action decline}}>Decline</button>
+        {{/if}}
+      </div>
+    {{else}}
+      {{#if model.payable}}
+        <Portal::PaymentSelect
+          @hidePayView={{false}}
+          @model={{model}}
+          @selectedPayment={{selectedPayment}}
+          @reloadEvents={{reloadEvents}}
+          @selectPayment={{fn (mut selectedPayment)}}
+          @closePayment={{fn (mut selectedPayment) ''}}
+          @startProcessing={{startProcessing}}
+          @processingFinished={{processingFinished}}
+          @onmouseover={{action onMouseOver}}
+          @onmouseout={{action onMouseOut}}
+        />
+      {{/if}}
+    {{/if}}
+  </section>
+  <section class='py-4 border-b-1 border-gray-800'>
+    <RecipientCard
+      @organization={{model.organization}}
+      @client={{model.client}}
+    />
+    <LineItemList @class='line-items' @model={{model}} />
+    {{#if model.payable}}
+    <div class='text-center p-4'>
+      <div class='text-2xl'>Total Due:</div>
+      <FormatCurrency @class='text-2xl font-bold' @value={{model.cachedTotalDue}} @isoCode={{model.currency}} />
+    </div>
+    {{/if}}
+    </section>
+  {{#if model.hasPayments}}
+
+    <Documents::PaymentList @model={{model}}>
+      {{#each payments as |payment|}}
+        <Documents::PaymentItem @payment={{payment}} @model={{model}} />
+      {{/each}}
+    </Documents::PaymentList>
+  {{/if}}
+
+  {{#if model.notes}}
+    <section class='px-4 py-4 text-md'>
+      <div class='font-bold'>Invoice Notes</div>
+      <div class='leading-7 text-sm'>{{custom-html-sanitize model.notes}}</div>
+    </section>
+  {{/if}}
+  
+  {{#if isEstimate}}
+    <div class='flex space-x-4 items-center py-4 justify-center'>
+      {{#if (or model.isApproved model.isDeclined)}}
+        <button {{action changeStatus}} disabled={{model.isReloading}} type='button' class='tw-button'>
+          Change to {{if model.isApproved 'Declined' 'Approved'}}
+        </button>
+      {{else if (not model.isConverted)}}
+        <button type='button' class='tw-button' {{action approve}}
+          style={{html-safe (concat 'background-color: ' model.organization.buttonColor '; color: ' model.organization.buttonLabelColor)}}
+          onMouseOver={{action onMouseOver}} onMouseOut={{action onMouseOut}}>Approve</button>
+        <button type='button' class='tw-button danger' {{action decline}}>Decline</button>
+      {{/if}}
+    </div>
+  {{else}}
+    {{!-- <Portal::PaymentSelect
+      @model={{model}}
+      @hidePayView={{true}}
+      @selectedPayment={{selectedPayment}}
+      @reloadEvents={{reloadEvents}}
+      @selectPayment={{action 'scrollToPayView'}}
+      @closePayment={{fn (mut selectedPayment) ''}}
+      @startProcessing={{startProcessing}}
+      @processingFinished={{processingFinished}}
+      @onmouseover={{action onMouseOver}}
+      @onmouseout={{action onMouseOut}}
+    /> --}}
+  {{/if}}
+</div>

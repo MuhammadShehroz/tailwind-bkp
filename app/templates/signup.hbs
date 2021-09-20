@@ -1,0 +1,124 @@
+{{#in-element header}}
+  <h1>Stop sending nagging emails to get paid and get back to the work you love.</h1>
+{{/in-element}}
+
+{{#in-element subheader}}
+  <div class='flex items-center justify-center'>
+    <div class='py-4 flex-column items-center justify-center'>
+      <dt class='flex items-center'>
+        <Icons::Check class='text-green-500' />
+        <p class='ml-3 text-lg leading-6 font-medium text-gray-900'>Free 14-day trial</p>
+      </dt>
+      <dt class='flex items-center'>
+        <Icons::Check class='text-green-500' />
+        <p class='ml-3 text-lg leading-6 font-medium text-gray-900'>Cancel anytime</p>
+      </dt>
+      <dt class='flex items-center'>
+        <Icons::Check class='text-green-500' />
+        <p class='ml-3 text-lg leading-6 font-medium text-gray-900'>Easy to use</p>
+      </dt>
+    </div>
+  </div>
+{{/in-element}}
+
+<form class='space-y-2'>
+  {{#if validations.base.isInvalid}}
+    <p class='validation-message error'>{{validations.base.message}}</p>
+  {{/if}}
+
+  <div class='grid grid-cols-1 gap-x-6 gap-y-4'>
+    <div>
+      <FormElements::TextInput
+        @value={{model.name}}
+        @label='Your business name (optional)'
+        @showErrors={{validations.name.isInvalid}}
+        @errorMessage={{validations.name.message}}
+        disabled={{signup.isRunning}}
+      />
+    </div>
+
+    <div>
+      <FormElements::TextInput
+        @value={{model.firstName}}
+        @label='First Name'
+        @showErrors={{validations.firstName.isInvalid}}
+        @errorMessage={{validations.firstName.message}}
+        autocomplete='given-name'
+        disabled={{signup.isRunning}}
+      />
+    </div>
+
+    <div>
+      <FormElements::TextInput
+        @value={{model.lastName}}
+        @label='Last Name'
+        @showErrors={{validations.lastName.isInvalid}}
+        @errorMessage={{validations.lastName.message}}
+        autocomplete='family-name'
+        disabled={{signup.isRunning}}
+      />
+    </div>
+
+    <div>
+      <FormElements::EmailInput
+        @value={{model.email}}
+        @label='Your Email'
+        @showErrors={{validations.email.isInvalid}}
+        @errorMessage={{validations.email.message}}
+        disabled={{signup.isRunning}}
+      />
+    </div>
+
+    <div>
+      <FormElements::PasswordInput
+        @value={{model.password}}
+        @label='Create Password'
+        @showErrors={{validations.password.isInvalid}}
+        @errorMessage={{validations.password.message}}
+        disabled={{signup.isRunning}}
+      />
+    </div>
+
+
+    <div class='flex-column items-center justify-center'>
+      <h4 class='text-center text-2xl font-extrabold tracking-tight text-gray-900 py-3'>Start your 14-day free trial</h4>
+      <div class='flex-column items-center justify-center text-center'>
+        <div class='flex items-center justify-center'>
+          <h1 class='text-3xl font-extrabold mr-2'>$0</h1>
+          <h3 class='text-sm font-extrabold tracking-tight'>DUE TODAY</h3>
+        </div>
+        {{#if model.isAnnually}}
+          <p class='text-lg font-semibold text-gray-900 pt-2 mt-2'>Just $12.50/month after trial</p>
+          <p class='text-sm text-gray-600'>billed annually</p>
+        {{else}}
+          <p class='text-lg font-semibold text-gray-900 pt-2 mt-2'>Just $15/month after trial</p>
+          <p class='text-sm text-gray-600'>billed monthly</p>
+        {{/if}}
+
+        <div class='flex items-center justify-center py-4'>
+          <button type='button' {{action (toggle 'isAnnually' model)}} class=' bg-gray-200 {{if model.isAnnually 'bg-indigo-600'}} relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' role='switch' aria-checked='false' aria-labelledby='annual-billing-label'>
+            <span class='sr-only'>Use setting</span>
+            <span aria-hidden='true' class='translate-x-0 {{if model.isAnnually 'translate-x-5'}} pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'></span>
+          </button>
+          <span class='ml-3' id='annual-billing-label'>
+            <span class='text-sm font-medium text-gray-900'>Annual billing </span>
+            <span class='text-sm text-gray-500'>(Save 30%)</span>
+          </span>
+        </div>
+        <div class='text-left py-2'>
+          <div class='p-4 rounded shadow'>
+            <Payment::CardDetails @cardElements={{cardElements}} />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type='button' {{on 'click' (perform this.signup)}} disabled={{signup.isRunning}} class='tw-button justify-center w-full'>Get Started</button>
+
+    <div class='flex-column items-center justify-between text-center mt-3'>
+      <p>Already have an account?</p>
+      <LinkTo @route='login' class='font-medium text-indigo-600 hover:text-indigo-500'>Sign in</LinkTo>
+    </div>
+
+  </div>
+</form>

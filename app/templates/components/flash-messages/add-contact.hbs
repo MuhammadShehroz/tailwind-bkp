@@ -1,0 +1,9 @@
+<p>
+  You must add
+  {{#if content.client.isCompany}}
+    <LinkTo @route='contacts.new' @model={{content.client}} @query={{hash done=invoiceRoute}}> a contact </LinkTo>
+    or
+  {{/if}}
+  <LinkTo @route='clients.edit' @model={{content.client}} @query={{hash done=invoiceRoute}}> an email address </LinkTo>
+   to this client before this invoice can be sent.
+</p>

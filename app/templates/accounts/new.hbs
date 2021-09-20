@@ -1,0 +1,78 @@
+<Layouts::PageHeader @resourceType='taxes' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Business Details</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <form {{action 'save' on='submit'}}>
+        <Layouts::ColumnsGrid class='sm:grid-cols-2'>
+          <Layouts::GridColumn>
+            <FormElements::TextInput
+              @label='Business name'
+              @value={{model.name}}
+              @allowClear={{true}}
+              @showErrors={{validations.name.isInvalid}}
+              @errorMessage={{validations.name.message}}
+              as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+            >
+              <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+            </FormElements::TextInput>
+          </Layouts::GridColumn>
+
+          <Layouts::GridColumn>
+            <FormElements::PowerSelectMenu
+              @label='Country'
+              @options={{countries}}
+              @optionKey='code'
+              @optionLabel='name'
+              @searchEnabled={{true}}
+              @selected={{country}}
+              @onChange={{action 'onCountryChange'}}
+            />
+          </Layouts::GridColumn>
+
+          <Layouts::GridColumn>
+            <FormElements::PowerSelectMenu
+              @label='Timezone'
+              @options={{timezones.all}}
+              @optionKey='key'
+              @optionLabel='label'
+              @searchEnabled={{true}}
+              @selected={{timezone}}
+              @onChange={{action 'onSelect'}}
+            />
+          </Layouts::GridColumn>
+
+          <Layouts::GridColumn>
+            <FormElements::PowerSelectMenu
+              @label='Currency'
+              @options={{currencies}}
+              @optionKey='code'
+              @optionLabel='name'
+              @searchEnabled={{true}}
+              @selected={{currency}}
+              @onChange={{action 'onCurrencyChange'}}
+            />
+          </Layouts::GridColumn>
+
+          <Layouts::GridColumn class='sm:col-span-2'>
+            <div class='pt-5'>
+              <div class='flex justify-end flex-wrap gap-3'>
+                <button type='button' class='tw-button white' {{action 'cancel'}}>Cancel</button>
+                <button type='button' class='tw-button' {{action 'save'}} disabled={{saveTask.isRunning}}>Save</button>
+              </div>
+            </div>
+          </Layouts::GridColumn>
+        </Layouts::ColumnsGrid>
+      </form>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

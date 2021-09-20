@@ -1,0 +1,414 @@
+.tooltip.error {
+  bottom: rem(10);
+  display: block;
+  position: absolute;
+  right: 0;
+
+  .trigger {
+    background: url(error-indicator-icon($magenta, 24, 18)) no-repeat center;
+    height: rem(18);
+    position: relative;
+    text-indent: -9999px;
+    width: rem(24);
+  }
+
+  .popover {
+    background-color: #fff;
+    border-radius: 4px;
+    bottom: rem(30);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
+    color: $slate;
+    font-size: rem(16);
+    line-height: rem(24);
+    padding: rem(16);
+    position: absolute;
+    right: -#{rem(10)};
+    width: rem(290);
+    z-index: $tooltip-z-index;
+
+    &::after {
+      border-color: transparent #fff #fff transparent;
+      border-style: solid;
+      border-width: rem(8);
+      bottom: -#{rem(6)};
+      box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.04);
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: rem(12);
+      transform: rotate(45deg);
+      width: 0;
+    }
+  }
+}
+
+.payment-field-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.field {
+  background-color: transparent;
+  margin-bottom: rem(24);
+  position: relative;
+  text-align: left;
+
+  label {
+    color: $slate-80;
+    cursor: pointer;
+    display: block;
+    font-size: rem(12);
+    letter-spacing: 1px;
+    line-height: rem(16);
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .input-wrapper {
+    border-bottom: 1px solid $slate-20;
+    position: relative;
+  }
+
+  input:not([type='checkbox']),
+  input:not([type='radio']),
+  textarea {
+    background-color: transparent;
+    border: hidden;
+    box-shadow: none;
+    color: $slate;
+    font-family: $default-font-family;
+    font-size: rem(16);
+    line-height: rem(23);
+    padding: rem(8) 0;
+    text-align: left;
+    width: 100%;
+  }
+
+  textarea {
+    box-shadow: none;
+    outline: none;
+    padding: rem(8);
+    resize: vertical;
+
+    &:focus {
+      border-color: $cyan;
+    }
+  }
+
+  &.focused-field {
+    .input-wrapper {
+      border-bottom-color: $cyan;
+    }
+  }
+
+  &.field-with-errors {
+    label {
+      color: $magenta;
+    }
+
+    .input-wrapper {
+      border-bottom-color: $magenta;
+      padding-right: rem(40);
+    }
+
+    .tooltip.error {
+      display: block;
+    }
+  }
+
+  &.field-with-button {
+    button {
+      background-color: transparent;
+      border: 0;
+      bottom: rem(6);
+      cursor: pointer;
+      height: rem(24);
+      position: absolute;
+      right: 0;
+      text-indent: -9999px;
+      width: rem(24);
+    }
+
+    .input-wrapper {
+      padding-right: rem(40);
+    }
+
+    &.field-with-errors {
+      .input-wrapper {
+        padding-right: rem(60);
+      }
+
+      .tooltip.error {
+        right: rem(32);
+      }
+    }
+  }
+
+  &.field-with-hint {
+    .input-wrapper {
+      padding-right: rem(44);
+    }
+
+    .tooltip.hint {
+      bottom: 0;
+      display: block;
+      position: absolute;
+      right: 0;
+
+      .popover {
+        top: rem(46);
+      }
+    }
+  }
+
+  &.field-disabled {
+    .input-wrapper {
+      border-bottom: 1px dashed $slate-20;
+    }
+  }
+
+  &.field-with-clear {
+    &.field-with-content:not(.select-field) {
+      .input-wrapper {
+        padding-right: rem(40);
+
+        &::after {
+          background: url(close-icon($slate-80, 10, 10)) center right no-repeat;
+          content: '';
+          display: block;
+          height: rem(40);
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: rem(40);
+        }
+      }
+
+      .clear {
+        cursor: pointer;
+        height: rem(40);
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: rem(40);
+        z-index: 999;
+      }
+    }
+
+    &.field-with-content {
+      .input-wrapper {
+        &::after {
+          content: none;
+        }
+      }
+    }
+  }
+
+  &.field-with-prefix {
+    .prefix {
+      font-size: rem(16);
+      left: 0;
+      line-height: rem(23);
+      padding: rem(8) rem(8) rem(8) 0;
+      top: 0;
+    }
+
+    .input-wrapper {
+      align-items: center;
+      display: flex;
+    }
+  }
+
+  &.number-field {
+    .input-wrapper {
+      input[type=number]::-webkit-inner-spin-button,
+      input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
+        margin: 0;
+      }
+    }
+  }
+
+  &.password-field {
+    &.field-with-button {
+      input[type='text'] + button {
+        background: transparent url(eye-icon($slate-80, 24, 24)) no-repeat center;
+      }
+
+      input[type='password'] + button {
+        background: transparent url(eye-icon($slate-40, 24, 24)) no-repeat center;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.checkbox-field {
+    padding-bottom: rem(8);
+    padding-top: rem(8);
+
+    label span {
+      color: $slate;
+      font-size: 16px;
+      line-height: 1.5;
+      padding-left: rem(40);
+      text-transform: none;
+    }
+
+    input {
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      text-transform: none;
+      width: 1px;
+    }
+
+    input + span {
+      position: relative;
+
+      &::before {
+        background: $slate-10;
+        border: hidden;
+        border-radius: 4px;
+        content: '';
+        display: block;
+        font-size: 16px;
+        height: rem(24);
+        left: rem(8);
+        position: absolute;
+        width: rem(24);
+      }
+    }
+
+    input:checked + span::before {
+      background: $slate-10 url(check-icon($slate, 14, 14)) no-repeat center;
+    }
+  }
+
+  &.switch-field {
+    .input-wrapper {
+      .toggle-switch {
+        height: rem(39);
+        width: 100%;
+      }
+    }
+  }
+
+  &.radio-field {
+    margin-bottom: rem(8);
+
+    input[type='radio'] {
+      display: none;
+
+      &:checked + span::before {
+        background: $slate;
+        border-radius: 50%;
+        content: '';
+        display: block;
+        height: rem(6);
+        left: rem(3);
+        position: absolute;
+        top: rem(10);
+        width: rem(6);
+        z-index: 1;
+      }
+    }
+
+    label span {
+      color: $slate;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: rem(24);
+      padding-left: rem(24);
+      text-transform: none;
+
+      &::after {
+        background-color: $slate-20;
+        border-radius: 50%;
+        content: '';
+        display: block;
+        height: rem(12);
+        left: 0;
+        position: absolute;
+        top: rem(7);
+        width: rem(12);
+      }
+
+      .label-byline {
+        color: $amethyst;
+        font-weight: 700;
+      }
+    }
+  }
+
+  &.payment-field {
+    position: relative;
+
+    &.half-width {
+      width: calc(50% - #{rem(10)});
+    }
+
+    .ember-stripe-element .StripeElement { /* stylelint-disable-line */
+      border-bottom: rem(1) solid $slate-20;
+      margin-top: rem(8);
+      padding-bottom: rem(8);
+    }
+
+    p {
+      color: #e31b1b;
+    }
+  }
+
+  &.search-field {
+    background-color: $slate-10;
+    border-radius: rem(68);
+
+    .input-wrapper {
+      border-bottom: 0;
+      padding: 0 rem(40) 0 rem(16);
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+
+  .radio-collection {
+    margin-top: rem(14);
+  }
+
+  &.dark-mode {
+    label {
+      color: $slate-40;
+    }
+
+    .input-wrapper {
+      border-bottom: 1px solid $slate-60;
+    }
+
+    input:not([type='checkbox']),
+    input:not([type='radio']),
+    textarea::placeholder,
+    textarea {
+      color: #fff;
+    }
+
+    &.checkbox-field {
+      label span {
+        color: #fff;
+      }
+
+      input + span::before {
+        background: $slate-90;
+      }
+
+      input:checked + span::before {
+        background: $slate-90 url(check-icon(#fff, 14, 14)) no-repeat center;
+      }
+    }
+  }
+}

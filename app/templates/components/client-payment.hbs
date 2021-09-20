@@ -1,0 +1,69 @@
+<div class='text-center flex justify-center py-4'>
+  <div class='w-full sm:w-2/3 lg:w-1/3'>
+  {{#if multiPayment}}
+    <PowerSelect
+      @options={{paymentOptions}}
+      @placeholder='Choose payment method'
+      @dropdownClass='portal-payment'
+      @selected={{selectedPayment}}
+      @onChange={{action 'selectPayment'}} as |option|
+    >
+      {{option}}
+    </PowerSelect>
+  {{else if singlePayment}}
+    <button onClick={{ action 'selectPayment' paymentOptions.firstObject}} 
+      class='tw-button' type='button'
+      style={{html-safe (concat 'background-color: ' model.organization.buttonColor '; color: ' model.organization.buttonLabelColor)}}
+      onMouseOver={{onmouseover}} onMouseOut={{onmouseout}}>
+      Pay By {{paymentOptions.firstObject}}
+    </button>
+  {{/if}}
+  </div>
+</div>
+<Portal::AchPaymentForm 
+  @show={{showAchForm}} 
+  @currencySymbol={{currencySymbol}} 
+  @amount={{amount}} 
+  @decimals={{documentOrganization.decimals}}
+  @decimalsSeparator={{documentOrganization.decimalsSeparator}}
+  @thousandsSeparator={{documentOrganization.thousandsSeparator}}
+  @paymentError={{paymentError}}
+  @plaidLinkToken={{plaidLinkToken}} 
+  @cancel={{ action 'cancel' }}
+  @processPlaidToken={{action 'processPlaidToken'}} 
+  />
+<Portal::StripeCardPaymentForm 
+  @show={{showCardForm}} 
+  @disabledConfirm={{disabledConfirm}} 
+  @currencySymbol={{currencySymbol}} 
+  @amount={{amount}} 
+  @decimals={{documentOrganization.decimals}}
+  @decimalsSeparator={{documentOrganization.decimalsSeparator}}
+  @thousandsSeparator={{documentOrganization.thousandsSeparator}}
+  @paymentError={{paymentError}}
+  @payByCard={{ action 'payByCard'}}
+  @cancel={{ action 'cancel' }}
+  @cardElements={{cardElements}} 
+  />
+<Portal::PaypalPaymentForm 
+  @show={{showPayPalForm}}
+  @currencySymbol={{currencySymbol}} 
+  @amount={{amount}}
+  @decimals={{documentOrganization.decimals}}
+  @decimalsSeparator={{documentOrganization.decimalsSeparator}}
+  @thousandsSeparator={{documentOrganization.thousandsSeparator}}
+  @paymentError={{paymentError}}
+  @cancel={{ action 'cancel' }}
+  />
+<Portal::CoinbasePaymentForm
+  @amount={{amount}}
+  @decimals={{documentOrganization.decimals}}
+  @decimalsSeparator={{documentOrganization.decimalsSeparator}}
+  @thousandsSeparator={{documentOrganization.thousandsSeparator}}
+  @show={{showCoinbaseForm}}
+  @currencySymbol={{currencySymbol}} 
+  @paymentLink={{coinbaseHostedUrl}}
+  @handleClick={{ action 'createCoinbaseCharge'}}
+  @handleConfirm={{ action 'payWithCrypto'}}
+  @handleCancel={{ action 'clearCoinbaseCharge'}}
+/>

@@ -1,0 +1,26 @@
+& {
+  background-color: $slate-90;
+  color: #fff;
+  font-size: rem(14);
+  height: rem(66);
+  line-height: 150%;
+  padding: rem(12);
+  position: relative;
+  width: 100%;
+}
+
+button {
+  background: url(close-icon(#fff, 12, 12)) no-repeat center;
+  height: rem(12);
+  position: absolute;
+  right: rem(26);
+  top: rem(18);
+  width: rem(12);
+}
+
+@media (min-width: rem(768)) {
+  & {
+    height: rem(48);
+    justify-content: center;
+  }
+}

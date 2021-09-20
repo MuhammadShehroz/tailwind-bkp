@@ -1,0 +1,43 @@
+{{#in-element header}}
+  <h1>Sign in to your account</h1>
+{{/in-element}}
+
+{{#in-element subheader}}
+  <p class='text-center text-gray-600 max-w'>
+    Or <LinkTo @route='signup' class='tw-link'>start your 14-day free trial</LinkTo>
+  </p>
+{{/in-element}}
+
+<form {{on 'submit' (perform this.authenticate)}} novalidate>
+  {{#if errorMessage}}
+    <p class='validation-message error'>There was an error with your submission:<br/>{{errorMessage}}</p>
+  {{/if}}
+
+  <div class='grid grid-cols-1 gap-x-6 gap-y-4'>
+    <div>
+      <FormElements::EmailInput
+        data-lpignore='true'
+        @value={{model.email}}
+        @label='Email'
+        @showErrors={{validations.email.isInvalid}}
+        @errorMessage={{validations.email.message}}
+      />
+    </div>
+
+    <div>
+      <FormElements::PasswordInput
+        @value={{model.password}}
+        @label='Password'
+        @showErrors={{validations.password.isInvalid}}
+        @errorMessage={{validations.password.message}}
+      />
+    </div>
+
+    <LinkTo @route='forgot-password' class='tw-link text-sm text-center'>
+      Forgot your password?
+    </LinkTo>
+
+    <button type='submit' class='tw-button justify-center' disabled={{authenticate.isRunning}}>Sign in</button>
+
+  </div>
+</form>

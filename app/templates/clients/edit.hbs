@@ -1,0 +1,19 @@
+<Layouts::PageHeader @resourceType='client' @pageType='form'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2 class='leading-normal'>Edit Client {{model.name}}</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::OneColumn>
+    <Clients::Form
+      @model={{model}}
+      @countries={{countries}}
+      @subregions={{subregions}}
+      @save={{action 'save'}}
+      @cancel={{action 'cancel'}}
+      @fetchSubregions={{action 'fetchSubregions'}}
+    />
+  </Layouts::OneColumn>
+</Layouts::PageBody>

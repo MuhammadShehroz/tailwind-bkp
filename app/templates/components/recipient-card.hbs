@@ -1,0 +1,73 @@
+<div class='grid grid-cols-2 gap-4 px-4 py-4'>
+  <div>
+    <span class='text-xs font-bold uppercase'>From:</span>
+    <p>
+      <h6 class='font-bold'>{{organization.name}}</h6>
+      <span class='tax-number'>
+        {{#if organization.taxIdNumber}}
+          {{or organization.taxIdName 'Tax ID'}} {{organization.taxIdNumber}}
+        {{/if}}
+      </span>
+    </p>
+  </div>
+  <div>
+    <span class='text-xs font-bold uppercase'>To:</span>
+    <p>
+      <h6 class='font-bold'>{{client.name}}</h6>
+      <span class='tax-number'>
+        {{#if client.taxIdNumber}}
+          {{or client.taxIdName 'Tax ID'}} {{client.taxIdNumber}}
+        {{/if}}
+      </span>
+    </p>
+  </div>
+  <div>
+    <p class='text-sm'>
+      <span>{{organization.billingAddress.address1}}</span>
+      <span>{{organization.billingAddress.address2}}</span>
+      <span>
+        {{#if organization.billingAddress.city}}
+          {{organization.billingAddress.city}},
+        {{/if}}
+        {{organization.billingAddress.subregion}}
+        {{organization.billingAddress.zip}}
+      </span>
+      <span>{{get country 'name'}}</span>
+      {{#if organization.fax}}
+        <span>Fax: {{organization.fax}}</span>
+      {{/if}}
+      {{#if organization.phone}}
+        <span>Phone: {{organization.phone}}</span>
+      {{/if}}
+      <span>
+        <a href='{{organization.website}}' target='_blank' rel='noopener noreferrer'>{{organization.website}}</a>
+      </span>
+    </p>
+  </div>
+  <div>
+    <p class='text-sm'>
+      <span>{{client.billingAddress.address1}}</span>
+      <span>{{client.billingAddress.address2}}</span>
+      <span>
+        {{#if client.billingAddress.city}}
+          {{client.billingAddress.city}},
+        {{/if}}
+        {{client.billingAddress.subregion}}
+        {{client.billingAddress.zip}}
+      </span>
+      <span>{{get country 'name'}}</span>
+      {{#if client.fax}}
+        <span>Fax: {{client.fax}}</span>
+      {{/if}}
+      {{#if client.phone}}
+        <span>Phone: {{client.phone}}</span>
+      {{/if}}
+      {{#if client.identifier}}
+        <span>Client ID: {{client.identifier}}</span>
+      {{/if}}
+      <span>
+        <a href='{{client.website}}' target='_blank' rel='noopener noreferrer'>{{client.website}}</a>
+      </span>
+    </p>
+  </div>
+</div>

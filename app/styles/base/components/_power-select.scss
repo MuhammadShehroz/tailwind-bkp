@@ -1,0 +1,239 @@
+.ember-power-select-trigger {
+  background-color: transparent;
+  border: hidden;
+  border-radius: 0;
+  font-size: rem(16);
+  height: rem(39);
+  line-height: rem(39);
+  padding-right: rem(32);
+
+  .field-with-content.field-with-clear & {
+    padding-right: rem(46);
+  }
+}
+
+.ember-power-select-trigger:focus,
+.ember-power-select-trigger--active {
+  border: hidden;
+  box-shadow: none;
+  outline: none;
+}
+
+.ember-power-select-placeholder {
+  color: $slate-80;
+  font-size: rem(16);
+  font-style: italic;
+  line-height: 1.5;
+  margin-left: 0;
+  margin-top: rem(8);
+}
+
+.ember-power-select-status-icon {
+  background: url(caret-icon($slate-60, 15, 6)) no-repeat right center;
+  border: hidden;
+  bottom: 0;
+  height: 100%;
+  right: 0;
+  top: 0;
+  width: rem(32);
+
+  .ember-basic-dropdown-trigger[aria-expanded='true'] & {
+    transform: none;
+  }
+}
+
+.field.focused-field {
+  .ember-power-select-status-icon {
+    background: url(caret-icon($cyan, 15, 6)) no-repeat right center;
+  }
+}
+
+.field.dark-mode {
+  .ember-power-select-placeholder,
+  .ember-power-select-selected-item {
+    color: #fff;
+  }
+}
+
+.ember-power-select-clear-btn {
+  bottom: 0;
+  color: $slate-60;
+  display: block;
+  right: rem(30);
+  top: 0;
+  width: rem(10);
+}
+
+.ember-power-select-dropdown {
+  background-color: #fff;
+  border: hidden !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  z-index: $popup-z-index;
+
+  &:not(.portal-payment) {
+    border-radius: 0 !important;
+  }
+
+  .modal-in & {
+    z-index: $sudo-z-index;
+  }
+
+  &.portal-payment {
+    background-color: $royal-blue;
+    border-radius: 0 0 rem(6) rem(6);
+    margin-top: rem(-8);
+
+    .ember-power-select-options {
+      min-height: unset;
+    }
+
+    .ember-power-select-option {
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: rem(1);
+      padding: 0 rem(16);
+      text-transform: uppercase;
+
+      &:hover,
+      &[aria-current='true'],
+      &[aria-selected='true'] {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
+
+.ember-power-select-options {
+  min-height: rem(218);
+  padding: rem(8) 0 rem(10);
+}
+
+.ember-power-select-dropdown.has-after-options {
+  .ember-power-select-options {
+    min-height: auto;
+  }
+}
+
+.ember-power-select-option {
+  color: $slate;
+  font-size: rem(16);
+  height: rem(40);
+  line-height: rem(40);
+  overflow-x: hidden;
+  padding: 0 rem(16);
+  position: relative;
+  white-space: nowrap;
+
+  &::after {
+    bottom: 1px;
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: rem(50);
+  }
+
+  &[aria-current='true'] {
+    background-color: $cyan-10;
+    color: $slate;
+  }
+
+  &[aria-selected='true'] {
+    background-color: $cyan;
+    color: $slate;
+  }
+
+  &[aria-selected='true'] {
+    &::before {
+      background: url(check-icon-svg-data(#fff, 12, 9)) no-repeat center;
+      content: '';
+      display: block;
+      height: 100%;
+      left: rem(3);
+      position: absolute;
+      top: 0;
+      width: rem(24);
+    }
+  }
+
+  &.ember-power-select-trigger-option {
+    border-top: 1px solid $slate-20;
+    height: rem(41);
+
+    &:hover {
+      background-color: $cyan-10;
+      color: $slate;
+    }
+  }
+
+  .bs-time-select-options & {
+    padding: 0 rem(8);
+  }
+}
+
+.ember-power-select-search {
+  background: url(search-icon-svg-data($slate-40, 12, 12)) no-repeat right rem(16) center;
+  padding: 0;
+}
+
+input.ember-power-select-search-input {
+  background-color: transparent;
+  border: hidden;
+  border-bottom: 1px solid #ddd !important;
+  box-shadow: none;
+  color: $slate;
+  font-size: rem(16);
+  height: rem(40);
+  line-height: rem(40);
+  padding: 0 rem(36) 0 rem(16);
+  width: 100%;
+
+  &:focus,
+  &:active {
+    border: hidden;
+    border-bottom: 1px solid $cyan !important;
+    outline: none;
+  }
+}
+
+.ember-basic-dropdown-content--below {
+  margin-top: - rem(7);
+}
+
+.ember-basic-dropdown-content--above {
+  margin-top: rem(7);
+}
+
+.ember-power-select-selected-item {
+  color: $slate;
+  font-size: rem(16);
+  line-height: 1.5;
+  margin-left: 0;
+  overflow-x: hidden;
+}
+
+@media (min-width: rem(768)) {
+  .ember-power-select-option {
+    padding: 0 rem(24);
+  }
+}
+
+@include max-768px {
+  .ember-basic-dropdown-content:not(.portal-payment) {
+    left: 0 !important;
+    margin-left: rem(32);
+    margin-right: rem(32);
+    right: 0 !important;
+    width: calc(100% - #{rem(64)}) !important;
+  }
+
+  .ember-basic-dropdown-content.contact-select-dropdown {
+    left: 0 !important;
+    margin-left: rem(16);
+    margin-right: rem(16);
+    right: 0 !important;
+    width: calc(100% - #{rem(32)}) !important;
+  }
+}

@@ -1,0 +1,15 @@
+<FlashMessages />
+
+{{#if hasLayout}}
+  {{#component (concat 'layouts/' layoutName '-layout') showOnlyUserPoopup=showOnlyUserPoopup}}
+    {{outlet}}
+  {{/component}}
+{{else}}
+  {{outlet}}
+{{/if}}
+
+<div id='modal'>
+  {{outlet 'modal'}}
+</div>
+
+<Loader @isLoading={{loading}} />

@@ -1,0 +1,203 @@
+& {
+  padding-bottom: rem(72);
+}
+
+& > section {
+  background-color: $slate;
+  padding: rem(32) rem(16);
+
+  > form {
+    margin: 0 auto;
+    max-width: rem(740);
+    width: 100%;
+  }
+}
+
+& > header {
+  align-items: center;
+  background-color: $slate-05;
+  display: flex;
+  height: rem(56);
+  padding: rem(16);
+
+  .edit-template {
+    display: flex;
+    margin: 0 auto;
+    max-width: rem(680);
+    width: 100%;
+
+    & > .btn {
+      margin: 0;
+      text-transform: none;
+    }
+
+    & > .btn.reset {
+      background-image: url(refund-icon($slate-80, 16, 12));
+      margin-left: auto;
+      margin-right: rem(24);
+    }
+  }
+}
+
+footer {
+  background-color: $slate-95;
+  bottom: 0;
+  left: 0;
+  max-height: rem(72);
+  padding: rem(16);
+  position: fixed;
+  right: 0;
+
+  .wrapper {
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    max-width: rem(740);
+    width: 100%;
+  }
+
+  .lnk {
+    color: $slate-30;
+    font-size: rem(14);
+    text-transform: none;
+  }
+
+  .back {
+    background: url(arrow-left-icon($cyan, 16, 16)) left rem(8) no-repeat;
+  }
+
+  .edit {
+    margin-left: auto;
+    padding: 0 rem(8);
+  }
+}
+
+label {
+  color: $slate-40;
+  font-size: rem(12);
+  letter-spacing: rem(1);
+  line-height: 125%;
+  text-transform: uppercase;
+}
+
+form header {
+  align-items: center;
+  display: flex;
+
+  .actions {
+    margin-left: auto;
+  }
+}
+
+.subject-field {
+  display: flex;
+  flex-direction: column;
+
+  > .text-field {
+    flex-basis: 0;
+    flex-grow: 1;
+
+    input {
+      color: #fff;
+    }
+  }
+}
+
+.send-to-field {
+  .actions  > button {
+    background: url(copy-icon($slate-40, 16, 16)) left center no-repeat;
+    color: $slate-40;
+    margin-left: rem(24);
+    margin-left: rem(32);
+    padding: 0 0 0 rem(24);
+  }
+}
+
+.message-field {
+  .actions > button {
+    background: url(edit-icon($slate-40, 24, 24)) center center no-repeat;
+    height: rem(24);
+    margin-left: auto;
+    width: rem(24);
+  }
+
+  .message {
+    background-color: $slate-90;
+    color: $slate-20;
+    cursor: pointer;
+    font-size: rem(14);
+    line-height: 150%;
+    margin-top: rem(16);
+    min-height: rem(88);
+    overflow-wrap: break-word;
+    padding: rem(8) rem(12);
+    word-wrap: break-word;
+  }
+}
+
+.payment-field > .content {
+  margin-top: rem(16);
+}
+
+// Overrides
+
+.field:last-of-type {
+  margin-bottom: 0;
+}
+
+.input-wrapper {
+  border-bottom-color: $slate-60;
+}
+
+.switchbox-group {
+  display: flex;
+  flex-direction: column;
+
+  .switch-field {
+    margin-bottom: rem(16);
+  }
+}
+
+.switch-field {
+  .input-wrapper {
+    border-bottom: transparent;
+
+    .toggle-switch {
+      height: rem(24);
+    }
+  }
+
+  .toggle-switch-label-container {
+    color: #fff;
+  }
+}
+
+@media (min-width: $bp-360px) {
+  footer {
+    .edit {
+      padding: 0 rem(24);
+    }
+  }
+}
+
+@media (min-width: $bp-768px) {
+  .switchbox-group {
+    flex-direction: row;
+
+    .switch-field {
+      margin-right: rem(32);
+    }
+  }
+
+  .subject-field {
+    align-items: center;
+    flex-direction: row;
+
+    > .text-field {
+      flex-basis: 0;
+      flex-grow: 1;
+      margin-bottom: 0;
+      margin-right: rem(32);
+    }
+  }
+}

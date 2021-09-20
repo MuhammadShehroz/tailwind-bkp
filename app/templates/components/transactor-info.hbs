@@ -1,0 +1,30 @@
+<h2 class='text-lg font-bold'>
+  {{#if hasBlock}}
+    {{#if isPortal}}
+      {{transactor.name}}
+    {{else}}
+      {{yield}}
+    {{/if}}
+  {{else}}
+    {{transactor.name}}
+  {{/if}}
+</h2>
+
+{{#if transactor.shortAddress}}
+  <address class='text-sm not-italic'>{{transactor.shortAddress}}</address>
+{{/if}}
+{{#if transactor.phone}}
+  <div class='text-sm'>Phone: <a href='tel:{{transactor.phone}}'>{{transactor.phone}}</a></div>
+{{/if}}
+{{#if transactor.fax}}
+  <div class='text-sm'>Fax: {{transactor.fax}}</div>
+{{/if}}
+{{#if transactor.taxIdNumber}}
+  <div class='text-sm'>{{transactor.taxIdNameWithDefault}}: {{transactor.taxIdNumber}}</div>
+{{/if}}
+{{#if transactor.email}}
+  <div class='text-sm'><a href='mailto:{{transactor.email}}' target='_blank' rel='noopener noreferrer'>{{transactor.email}}</a></div>
+{{/if}}
+{{#if transactor.website}}
+  <div class='text-sm'><a href={{transactor.website}} target='_blank' rel='noopener noreferrer'>{{transactor.website}}</a></div>
+{{/if}}

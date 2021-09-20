@@ -1,0 +1,161 @@
+& {
+  .info {
+    display: flex;
+  }
+
+  .created,
+  .due {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .due {
+    font-weight: 700;
+    margin-left: rem(23);
+
+    .past-due-days {
+      color: $magenta;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: rem(15);
+      text-transform: uppercase;
+    }
+  }
+
+  .payment {
+    border-bottom: 1px solid $slate-20;
+    margin-bottom: rem(24);
+    padding-bottom: rem(24);
+
+    &:last-child {
+      border-bottom: hidden;
+      margin-bottom: 0;
+    }
+
+    .date {
+      color: $slate;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: rem(16);
+      text-transform: uppercase;
+    }
+
+    h4 {
+      color: $slate;
+      font-size: 16px;
+      line-height: rem(24);
+      margin: rem(16) 0;
+      padding-left: rem(24);
+    }
+
+    .status-message {
+      margin-bottom: rem(16);
+    }
+
+    .details {
+      color: $slate;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: rem(16);
+
+      span {
+        text-transform: uppercase;
+      }
+    }
+
+    .amount {
+      font-weight: 700;
+      margin-top: rem(16);
+      text-align: right;
+    }
+
+    &.success {
+      h4 {
+        background: url(payment-icon($slate-80, 20, 20)) left rem(4) no-repeat;
+      }
+    }
+
+    &.pending,
+    &.in_progress { /* stylelint-disable-line selector-class-pattern */
+      h4,
+      .amount,
+      .status-message {
+        color: $sapphire;
+      }
+
+      h4 {
+        background: url(warning-icon($sapphire, 20, 20)) left rem(4) no-repeat;
+      }
+    }
+
+    &.failure {
+      h4,
+      .amount,
+      .status-message {
+        color: $magenta;
+      }
+
+      h4 {
+        background: url(warning-icon($magenta, 20, 20)) left rem(4) no-repeat;
+      }
+    }
+  }
+
+  .payments-summary {
+    font-weight: 700;
+    padding: 0 rem(16) rem(16);
+
+    .entry {
+      margin-bottom: rem(8);
+
+      .label {
+        color: $slate-80;
+        display: inline-block;
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: rem(30);
+        text-transform: uppercase;
+        width: rem(100);
+      }
+
+      .amount {
+        color: $slate;
+        display: inline-block;
+        float: right;
+        font-size: 24px;
+        line-height: rem(30);
+        text-align: right;
+        width: calc(100% - #{rem(104)});
+      }
+    }
+  }
+}
+
+@media (min-width: rem(768)) {
+  & {
+    .info-details {
+      display: flex;
+
+      .to-transactor,
+      .info {
+        width: 50%;
+      }
+
+      .info {
+        margin-left: rem(23);
+      }
+    }
+
+    .payments-summary {
+      .entry {
+        .label {
+          width: rem(360);
+        }
+
+        .amount {
+          width: calc(100% - #{rem(360)});
+        }
+      }
+    }
+  }
+}

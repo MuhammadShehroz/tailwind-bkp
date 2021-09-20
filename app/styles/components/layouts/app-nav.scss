@@ -1,0 +1,878 @@
+& {
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: $header-z-index;
+}
+
+#menus {
+  @include clearfix;
+  background-color: $slate;
+  height: $header-height;
+  position: relative;
+}
+
+.popup-dropdown {
+  width: 100%;
+
+  > div {
+    padding: rem(16) 0;
+  }
+}
+
+.primary-navigation-pc {
+  float: left;
+  width: rem(64);
+
+  .popup-toggler {
+    display: block;
+    height: $header-height;
+    padding-top: rem(21);
+    position: relative;
+    text-align: center;
+    width: rem(64);
+
+    i {
+      background: transparent;
+      display: inline-block;
+      height: rem(14);
+      position: relative;
+      vertical-align: middle;
+      width: rem(16);
+
+      &::before,
+      &::after {
+        backface-visibility: hidden;
+        background: $cyan;
+        content: '';
+        height: rem(2);
+        left: 0;
+        position: absolute;
+        transition: 0.5s;
+        width: rem(16);
+      }
+
+      &::before {
+        box-shadow: $cyan 0 rem(6) 0 0;
+        top: 0;
+      }
+
+      &::after {
+        top: calc(100% - #{rem(2)});
+      }
+    }
+
+    span {
+      display: none;
+    }
+  }
+
+  .popup-dropdown {
+    background-color: $slate;
+    left: 0;
+    position: absolute;
+    top: $header-height;
+
+    a {
+      color: #fff;
+      display: block;
+      font-size: rem(16);
+      letter-spacing: 1px;
+      line-height: rem(64);
+      padding-left: rem(72);
+      position: relative;
+      text-transform: uppercase;
+
+      &::before {
+        background-position: center;
+        background-repeat: no-repeat;
+        content: '';
+        display: block;
+        height: rem(32);
+        left: 0;
+        margin-left: rem(24);
+        position: absolute;
+        top: rem(16);
+        width: rem(32);
+      }
+
+      &:hover {
+        background-color: $slate-90;
+      }
+
+      &:active {
+        background-color: $slate-40;
+        color: $slate;
+      }
+
+      &.active {
+        background-color: $slate;
+        color: $cyan;
+
+        &::after {
+          background-color: $cyan;
+          content: '';
+          height: rem(24);
+          left: 0;
+          position: absolute;
+          top: rem(20);
+          transition: width 0.3s;
+          width: rem(4);
+        }
+      }
+
+      &.dashboard {
+        &::before {
+          background-image: url('#{dashboard-icon($cyan, 24, 24)}');
+        }
+
+        &:active::before {
+          background-image: url(dashboard-icon($slate, 24, 24));
+        }
+
+        &.active::before {
+          background-image: url(dashboard-icon($cyan, 24, 24));
+        }
+      }
+
+      &.invoices {
+        &::before {
+          background-image: url(invoice-icon($cyan, 21, 24));
+        }
+
+        &:active::before {
+          background-image: url(invoice-icon($slate, 21, 24));
+        }
+
+        &.active::before {
+          background-image: url(invoice-icon($cyan, 21, 24));
+        }
+      }
+
+      &.recurring-invoices {
+        &::before {
+          background-image: url(recurring-invoice-icon($cyan, 24, 24));
+        }
+
+        &:active::before {
+          background-image: url(recurring-invoice-icon($slate, 24, 24));
+        }
+
+        &.active::before {
+          background-image: url(recurring-invoice-icon($cyan, 24, 24));
+        }
+      }
+
+      &.estimates {
+        &::before {
+          background-image: url(estimate-icon($cyan, 23, 24));
+        }
+
+        &:active::before {
+          background-image: url(estimate-icon($slate, 23, 24));
+        }
+
+        &.active::before {
+          background-image: url(estimate-icon($cyan, 23, 24));
+        }
+      }
+
+      &.clients {
+        &::before {
+          background-image: url(client-icon($cyan, 24, 24));
+        }
+
+        &:active::before {
+          background-image: url(client-icon($slate, 24, 24));
+        }
+
+        &.active::before {
+          background-image: url(client-icon($cyan, 24, 24));
+        }
+      }
+    }
+  }
+
+  &.expanded {
+    .popup-toggler {
+      z-index: $popup-toggler-z-index;
+
+      i {
+        &::before,
+        &::after {
+          background: #fff;
+          height: rem(1);
+        }
+
+        &::before {
+          box-shadow: transparent 0 0 0 0;
+          top: 50%;
+          transform: rotate(225deg);
+        }
+
+        &::after {
+          top: 50%;
+          transform: rotate(315deg);
+        }
+      }
+    }
+  }
+}
+
+.primary-navigation-menu {
+  display: none;
+
+  a {
+    color: $slate-40;
+    display: block;
+    float: left;
+    font-size: rem(12);
+    letter-spacing: 1px;
+    line-height: rem(64);
+    margin-left: rem(32);
+    padding-left: rem(32);
+    position: relative;
+    text-transform: uppercase;
+
+    &::before {
+      background-position: center;
+      background-repeat: no-repeat;
+      content: '';
+      display: block;
+      height: rem(32);
+      left: 0;
+      position: absolute;
+      top: rem(16);
+      width: rem(32);
+    }
+
+    &::after {
+      background-color: $cyan;
+      bottom: 0;
+      content: '';
+      height: rem(2);
+      left: 0;
+      position: absolute;
+      transition: width 0.3s;
+      width: 0;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+
+    &:active {
+      color: $cyan;
+    }
+
+    &.active {
+      color: $cyan;
+
+      &::after {
+        width: 100%;
+      }
+    }
+
+    &.dashboard {
+      &::before {
+        background-image: url(dashboard-icon($slate-40, 16, 16));
+      }
+
+      &:hover {
+        &::before {
+          background-image: url(dashboard-icon(#fff, 16, 16));
+        }
+      }
+
+      &:active,
+      &.active {
+        &::before {
+          background-image: url(dashboard-icon($cyan, 16, 16));
+        }
+      }
+    }
+
+    &.invoices {
+      &::before {
+        background-image: url(invoice-icon($slate-40, 14, 16));
+      }
+
+      &:hover {
+        &::before {
+          background-image: url(invoice-icon(#fff, 14, 16));
+        }
+      }
+
+      &:active,
+      &.active {
+        &::before {
+          background-image: url(invoice-icon($cyan, 14, 16));
+        }
+      }
+    }
+
+    &.recurring-invoices {
+      &::before {
+        background-image: url(recurring-invoice-icon($slate-40, 16, 16));
+      }
+
+      &:hover {
+        &::before {
+          background-image: url(recurring-invoice-icon(#fff, 16, 16));
+        }
+      }
+
+      &:active,
+      &.active {
+        &::before {
+          background-image: url(recurring-invoice-icon($cyan, 16, 16));
+        }
+      }
+    }
+
+    &.estimates {
+      &::before {
+        background-image: url(estimate-icon($slate-40, 15, 16));
+      }
+
+      &:hover {
+        &::before {
+          background-image: url(estimate-icon(#fff, 15, 16));
+        }
+      }
+
+      &:active,
+      &.active {
+        &::before {
+          background-image: url(estimate-icon($cyan, 15, 16));
+        }
+      }
+    }
+
+    &.clients {
+      &::before {
+        background-image: url(client-icon($slate-40, 16, 16));
+      }
+
+      &:hover {
+        &::before {
+          background-image: url(client-icon(#fff, 16, 16));
+        }
+      }
+
+      &:active,
+      &.active {
+        &::before {
+          background-image: url(client-icon($cyan, 16, 16));
+        }
+      }
+    }
+  }
+}
+
+.logo {
+  background-size: rem(58) rem(24);
+  display: block;
+  float: left;
+  height: 100%;
+  text-indent: -9999px;
+  width: rem(58);
+}
+
+.secondary-navigation {
+  @include clearfix;
+  float: right;
+  height: 100%;
+  width: rem(176);
+}
+
+.notifications-pc {
+  float: left;
+
+  &.has-unread .popup-toggler::before {
+    background-color: $magenta;
+    border-radius: 50%;
+    content: '';
+    height: rem(7);
+    position: absolute;
+    right: rem(1);
+    top: rem(21);
+    width: rem(7);
+  }
+
+  .popup-toggler {
+    background-image: url(notification-icon($slate-50));
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    height: $header-height;
+    margin-right: rem(30);
+    position: relative;
+    width: rem(18);
+  }
+
+  .popup-dropdown {
+    background-color: $slate;
+    max-height: 0;
+    max-width: rem(359);
+    overflow: hidden;
+    position: absolute;
+    right: rem(16);
+    top: $header-height + rem(8);
+    transition: max-height 0.15s ease-out;
+    width: 100%;
+
+    > div {
+      padding: 0;
+    }
+  }
+
+  &.expanded {
+    .popup-toggler {
+      background-image: url(notification-icon($cyan));
+
+      &::before {
+        background-color: $cyan;
+      }
+    }
+
+    .popup-dropdown {
+      border-top: 2px solid $cyan;
+      max-height: rem(474);
+      overflow: visible;
+
+      &::before {
+        border-color: transparent transparent $cyan transparent;
+        border-style: solid;
+        border-width: 0 rem(12) rem(12);
+        content: '';
+        display: block;
+        height: 0;
+        position: absolute;
+        right: rem(138);
+        top: -#{rem(14)};
+        width: 0;
+      }
+    }
+
+    .panel-footer {
+      opacity: 1;
+      position: fixed;
+      transition: opacity 0.95s ease-in;
+    }
+
+    .notification-item {
+      opacity: 1;
+      transition: opacity 0.5s ease-in;
+    }
+  }
+}
+
+.popup-dropdown-overlay {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.user-pc {
+  float: left;
+  margin-right: rem(32);
+  width: rem(32);
+
+  .popup-toggler {
+    display: block;
+    height: $header-height;
+    padding: rem(16) 0;
+    text-align: center;
+    width: 100%;
+
+    span {
+      color: $slate-40;
+      display: inline-block;
+      font-size: rem(12);
+      font-weight: 600;
+      height: rem(32);
+      line-height: rem(32);
+      position: relative;
+      width: rem(32);
+
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        height: rem(4);
+        left: rem(5);
+        position: absolute;
+        width: rem(22);
+      }
+
+      &::before {
+        background: url(wink($slate-40, 22, 4)) no-repeat;
+        top: 0;
+      }
+
+      &::after {
+        background: url(wink($slate-40, 22, 4)) no-repeat;
+        bottom: 0;
+        transform: scale(-1, -1);
+      }
+    }
+
+    .image {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: rem(32) rem(32);
+      border-radius: 50%;
+      height: rem(32);
+      margin: 0 auto;
+      width: rem(32);
+    }
+
+    .image + span {
+      display: none;
+    }
+
+    &:hover {
+      span {
+        color: #fff;
+
+        &::before {
+          background: url(wink(#fff, 22, 4)) no-repeat;
+        }
+
+        &::after {
+          background: url(wink(#fff, 22, 4)) no-repeat;
+        }
+      }
+    }
+  }
+
+  .popup-dropdown {
+    background-color: $slate;
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    right: rem(16);
+    top: $header-height + rem(8);
+    transition: max-height 0.15s ease-out;
+    width: rem(304);
+
+    > div {
+      padding-top: 0;
+    }
+
+    h4 {
+      color: $slate-40;
+      font-size: rem(12);
+      letter-spacing: 1px;
+      line-height: rem(16);
+      padding: rem(16) rem(16) rem(8);
+      text-transform: uppercase;
+
+      &.organization {
+        border-top: 1px dashed $slate-70;
+        margin: rem(16) 0 0;
+        padding-top: rem(24);
+      }
+    }
+
+    a {
+      color: #fff;
+      display: block;
+      font-size: rem(16);
+      line-height: rem(40);
+      padding: 0 rem(16);
+      position: relative;
+
+      &:hover {
+        background-color: $slate-90;
+      }
+
+      &:active {
+        background-color: $slate-40;
+        color: $slate;
+      }
+
+      &.active {
+        color: $cyan;
+      }
+    }
+  }
+
+  &.expanded {
+    .popup-toggler {
+      span {
+        color: $cyan;
+
+        &::before {
+          background: url(wink($cyan, 22, 4)) no-repeat;
+        }
+
+        &::after {
+          background: url(wink($cyan, 22, 4)) no-repeat;
+        }
+      }
+    }
+
+    .popup-dropdown {
+      border-top: 2px solid $cyan;
+      max-height: calc(100vh - (#{$header-height} + #{rem(102)})) !important;
+      overflow-y: scroll;
+
+      &::before {
+        border-color: transparent transparent $cyan transparent;
+        border-style: solid;
+        border-width: 0 rem(12) rem(12);
+        content: '';
+        display: block;
+        height: 0;
+        position: absolute;
+        right: rem(84);
+        top: -#{rem(14)};
+        width: 0;
+      }
+    }
+  }
+}
+
+.add-pc {
+  float: left;
+
+  .popup-toggler {
+    background-color: $cyan;
+    display: block;
+    height: $header-height;
+    padding-top: rem(26);
+    text-align: center;
+    width: rem(64);
+
+    i {
+      background: transparent;
+      display: inline-block;
+      height: rem(12);
+      position: relative;
+      vertical-align: middle;
+      width: rem(12);
+
+      &::before,
+      &::after {
+        backface-visibility: hidden;
+        background: $slate;
+        content: '';
+        height: rem(2);
+        left: 0;
+        position: absolute;
+        transition: 0.5s;
+        width: rem(12);
+      }
+
+      &::before {
+        top: 0;
+        transform: rotate(90deg);
+      }
+
+      &::after {
+        top: 0;
+      }
+    }
+
+    span {
+      display: none;
+    }
+  }
+
+  .popup-dropdown {
+    background-color: $slate;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: $header-height + rem(8);
+    width: rem(328);
+
+    a {
+      color: #fff;
+      display: block;
+      font-size: rem(16);
+      letter-spacing: 1px;
+      line-height: rem(64);
+      opacity: 0;
+      padding-left: rem(72);
+      position: relative;
+      text-transform: uppercase;
+
+      &::before {
+        background-position: center;
+        background-repeat: no-repeat;
+        content: '';
+        display: block;
+        height: rem(32);
+        left: 0;
+        margin-left: rem(24);
+        position: absolute;
+        top: rem(16);
+        width: rem(32);
+      }
+
+      &:hover {
+        background-color: $slate-90;
+      }
+
+      &:active {
+        background-color: $slate-40;
+        color: $slate;
+      }
+
+      &.active {
+        background-color: $slate;
+        color: $cyan;
+
+        &::after {
+          background-color: $cyan;
+          content: '';
+          height: rem(24);
+          left: 0;
+          position: absolute;
+          top: rem(20);
+          transition: width 0.3s;
+          width: rem(4);
+        }
+      }
+
+      &.new-invoice {
+        &::before {
+          background-image: url(invoice-icon($cyan, 21, 24));
+        }
+
+        &:active::before {
+          background-image: url(invoice-icon($slate, 21, 24));
+        }
+
+        &.active::before {
+          background-image: url(invoice-icon($cyan, 21, 24));
+        }
+      }
+
+      &.new-recurring-invoice {
+        &::before {
+          background-image: url(recurring-invoice-icon($cyan, 24, 24));
+        }
+
+        &:active::before {
+          background-image: url(recurring-invoice-icon($slate, 24, 24));
+        }
+
+        &.active::before {
+          background-image: url(recurring-invoice-icon($cyan, 24, 24));
+        }
+      }
+
+      &.new-estimate {
+        &::before {
+          background-image: url(estimate-icon($cyan, 23, 24));
+        }
+
+        &:active::before {
+          background-image: url(estimate-icon($slate, 23, 24));
+        }
+
+        &.active::before {
+          background-image: url(estimate-icon($cyan, 23, 24));
+        }
+      }
+
+      &.new-client {
+        &::before {
+          background-image: url(client-icon($cyan, 24, 24));
+        }
+
+        &:active::before {
+          background-image: url(client-icon($slate, 24, 24));
+        }
+
+        &.active::before {
+          background-image: url(client-icon($cyan, 24, 24));
+        }
+      }
+    }
+  }
+
+  &.expanded {
+    .popup-toggler {
+      background-color: $slate-90;
+      z-index: $popup-toggler-z-index;
+
+      i {
+        &::before,
+        &::after {
+          background: $cyan;
+        }
+
+        &::before {
+          box-shadow: transparent 0 0 0 0;
+          transform: rotate(225deg);
+        }
+
+        &::after {
+          transform: rotate(315deg);
+        }
+      }
+    }
+
+    .popup-dropdown {
+      border-top: rem(2) solid $cyan;
+      overflow: visible;
+
+      a {
+        opacity: 1;
+        transition: opacity 0.25s ease-in;
+      }
+
+      &::before {
+        border-color: transparent transparent $cyan transparent;
+        border-style: solid;
+        border-width: 0 rem(12) rem(12);
+        content: '';
+        display: block;
+        height: 0;
+        position: absolute;
+        right: rem(20);
+        top: -#{rem(14)};
+        width: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: $bp-640px) {
+  .popup-dropdown {
+    width: rem(320);
+  }
+
+  .user-pc {
+    .popup-dropdown {
+      width: rem(314);
+    }
+  }
+}
+
+@media (min-width: $bp-1024px) {
+  .primary-navigation-pc {
+    display: none;
+  }
+
+  .logo {
+    background-size: rem(68) rem(28);
+    margin-left: rem(24);
+    width: rem(68);
+  }
+
+  .primary-navigation-menu {
+    @include clearfix;
+    display: block;
+    float: left;
+  }
+}

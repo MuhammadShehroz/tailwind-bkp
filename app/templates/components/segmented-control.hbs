@@ -1,0 +1,10 @@
+{{#each segments as |segment index|}}
+  <button
+    type='button'
+    disabled={{isDisabled}}
+    class='lnk {{if (eq index selectedSegmentIndex) 'selected'}}'
+    {{action onClickSegment index}}
+  >
+    {{yield segment}}
+  </button>
+{{/each}}

@@ -1,0 +1,67 @@
+<Layouts::PageHeader @resourceType='taxes' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>Taxes</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <button type='button' {{action 'addTax'}} class='tw-button'>
+        <Icons::Plus/>
+        Add New Tax
+      </button>
+      {{#if taxPresent}}
+        <div class='tw-table-wrapper bordered'>
+          <table>
+            <thead>
+              <tr>
+                <th scope='col' class='w-full'>Name</th>
+                <th scope='col' class='w-full'>Percent</th>
+                <th scope='col' class='w-auto'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each model as |tax|}}
+              <tr>
+                <td>
+                  <div class='tw-label'>Name</div>
+                  {{tax.name}}
+                </td>
+                <td>
+                  <div class='tw-label'>Percent</div>
+                  {{tax.percent}}%
+                </td>
+                <td>
+                  <div class='tw-label'>Actions</div>
+                  <button type='button' class='tw-link' {{action 'editTax' tax}}>
+                    Edit
+                  </button>
+                  <button type='button' class='tw-link' {{action 'destroyTax' tax}} disabled={{delete.isRunning}}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <Layouts::PageHeader @resourceType='taxes' @pageType='list'>
+          <Layouts::ColumnsGrid>
+            <Layouts::GridColumn>
+              <h2 class='text-center font-extrabold'>
+                Create & save your own tax rates with custom labels and apply them to any invoice or line item.
+              </h2>
+            </Layouts::GridColumn>
+          </Layouts::ColumnsGrid>
+        </Layouts::PageHeader>
+      {{/if}}
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

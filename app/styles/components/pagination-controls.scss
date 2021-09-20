@@ -1,0 +1,44 @@
+& {
+  font-size: 0;
+  margin: rem(40) 0 rem(40) 0;
+  text-align: center;
+}
+
+.page {
+  border-radius: 6px;
+  color: $slate;
+  display: inline-block;
+  font-size: rem(16);
+  height: rem(40);
+  line-height: rem(38);
+  margin: 0 rem(2);
+  text-align: center;
+  vertical-align: middle;
+  width: rem(40);
+
+  &:hover,
+  &.current {
+    background-color: $slate-10;
+    color: $slate-80;
+  }
+
+  &.prev,
+  &.next {
+    background-image: url(chevron-right($slate, 12, 12));
+    background-position: center;
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+
+    &:hover {
+      background-image: url(chevron-right($slate-80, 12, 12));
+    }
+  }
+
+  &.prev {
+    transform: rotate(180deg);
+  }
+
+  &.next {
+    transform: rotate(0deg);
+  }
+}

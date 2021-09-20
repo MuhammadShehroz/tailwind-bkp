@@ -1,0 +1,17 @@
+<Layouts::PageHeader @resourceType='invoice' @pageType='form'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2 class='leading-normal'>Estimate {{model.number}}</h2>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::OneColumn>
+    <Pages::DocumentPreview
+      @logo={{this.logo}}
+      @model={{this.model}}
+      @backRoute={{this.backRoute}}
+      @removeLogo={{this.removeLogo}}
+    />
+  </Layouts::OneColumn>
+</Layouts::PageBody>

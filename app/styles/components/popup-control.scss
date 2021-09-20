@@ -1,0 +1,131 @@
+&.pc {
+  width: rem(48);
+
+  .popup-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    transition: max-height 0.15s ease-out;
+    z-index: $popup-toggler-z-index;
+  }
+
+  &.expanded {
+    .popup-dropdown {
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      max-height: rem(570);
+      transition: max-height 0.25s ease-in;
+    }
+  }
+
+  &.actions {
+    position: relative;
+
+    .popup-toggler {
+      display: block;
+      height: rem(40);
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: rem(40);
+
+      i {
+        background: url(vdots-icon($slate-80, 16, 16)) no-repeat center;
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+
+      span {
+        display: none;
+      }
+
+      &:hover {
+        background-color: $slate-05;
+      }
+    }
+
+    .popup-dropdown {
+      transition: none;
+
+      li {
+        a,
+        button {
+          display: block;
+          padding: rem(6) rem(24) rem(6) rem(48);
+          width: 100%;
+
+          &::before {
+            left: rem(16);
+          }
+        }
+      }
+    }
+
+    &.expanded {
+      .popup-toggler {
+        background-color: $cyan-10;
+      }
+
+      .popup-dropdown {
+        background-color: #fff;
+        border-top: 2px solid $cyan;
+        box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
+        overflow: visible;
+        position: absolute;
+        right: 0;
+        top: rem(53);
+        width: rem(220);
+
+        &::before {
+          border-bottom: rem(16) solid $cyan;
+          border-left: rem(16) solid transparent;
+          border-right: rem(16) solid transparent;
+          content: '';
+          display: block;
+          position: absolute;
+          right: rem(4);
+          top: rem(-16);
+        }
+
+        > div {
+          padding: rem(8) 0;
+        }
+      }
+    }
+
+    &.dark-mode {
+      .popup-toggler {
+        i {
+          background: url(vdots-icon($slate-60, 16, 16)) no-repeat center;
+        }
+
+        span {
+          color: #fff;
+        }
+
+        &:hover {
+          background-color: $slate-80;
+        }
+      }
+
+      .popup-dropdown {
+        background: $slate-90;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      }
+
+      &.expanded {
+        .popup-toggler {
+          background-color: $slate-90;
+        }
+      }
+    }
+  }
+}
+
+.popup-dropdown-overlay {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}

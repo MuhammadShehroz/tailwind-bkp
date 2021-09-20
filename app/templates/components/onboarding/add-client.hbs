@@ -1,0 +1,12 @@
+<Layouts::PageHeader @resourceType='client' @pageType='list'>
+  <div class='header-wrapper'>
+    <h2>Add a client</h2>
+  </div>
+</Layouts::PageHeader>
+
+<section>
+  {{#if title}}
+    <h1>{{title}}</h1>
+  {{/if}}
+  {{yield}}
+</section>

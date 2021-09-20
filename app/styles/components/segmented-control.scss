@@ -1,0 +1,30 @@
+& {
+  background-color: $slate-10;
+  border-radius: rem(6);
+  display: flex;
+  height: rem(40);
+  padding: rem(4);
+}
+
+&.disabled {
+  cursor: no-drop;
+  opacity: 0.8;
+
+  button {
+    pointer-events: none;
+  }
+}
+
+button {
+  background-color: transparent;
+  border-radius: rem(4);
+  flex-basis: 0;
+  flex-grow: 1;
+  font-weight: bold;
+  height: 100%;
+  text-align: center;
+}
+
+button.selected {
+  background-color: #fff;
+}

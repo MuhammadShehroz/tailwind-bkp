@@ -1,0 +1,23 @@
+<label class='p-4 flex cursor-pointer'>
+  <input type='radio' name={{radioName}} value={{radioValue}} disabled={{disabled}} checked={{checked}} class='h-4 w-4 mt-0.5 cursor-pointer text-indigo-600 border-gray-300 focus:ring-indigo-500' aria-labelledby='privacy-setting-0-label' aria-describedby='privacy-setting-0-description'>
+  <div class='ml-3 flex flex-col'>
+    <span class='text-gray-900 block text-sm font-medium'>
+      {{label}}
+    </span>
+    <span class='text-gray-500 block text-sm'>
+      {{extraLabel}}
+    </span>
+  </div>
+</label>
+
+{{#if showErrorMessage}}
+  <InfoTip @class='error' @label='Error'>
+    {{v-get model valuePath 'message'}}
+  </InfoTip>
+{{/if}}
+
+{{#if showWarningMessage}}
+  <InfoTip @class='warning' @label='Warning'>
+    {{v-get model valuePath 'warningMessage'}}
+  </InfoTip>
+{{/if}}

@@ -1,0 +1,26 @@
+{{#if @show}}
+  <div class='flex items-center justify-center'>
+    <div class='py-4 justify-center flex items-center flex-col'>
+      <FormElements::CurrencyInput
+        @value={{@amount}}
+        @label='Payment Amount'
+        @decimals={{@decimals}}
+        @decimalsSeparator={{@decimalsSeparator}}
+        @thousandsSeparator={{@thousandsSeparator}}
+        @leadingIcon={{@currencySymbol}}
+        @allowClear={{true}}
+        as |leadingIcon|
+      >
+        <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+      </FormElements::CurrencyInput>
+      <div class='pt-4'>
+        {{#if paymentLink}}
+          <button {{action @handleConfirm}} type='button' class='tw-button mr-2'>Pay On Coinbase</button>
+          <button {{action @handleCancel}} type='button' class='tw-button'>Reset</button>
+        {{else}}
+          <button {{action @handleClick}} type='button' class='tw-button white'>Pay With Cryptocurrency</button>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+{{/if}}

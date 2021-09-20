@@ -1,0 +1,277 @@
+#client.details {
+  section {
+    padding: rem(24) rem(16);
+  }
+
+  .contacts h2,
+  .contact-information h2 {
+    color: $slate-80;
+    font-size: rem(12);
+    letter-spacing: 1px;
+    line-height: rem(16);
+    margin-bottom: rem(16);
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .contact-information {
+    .card {
+      display: flex;
+      flex-direction: column;
+      padding: rem(32) rem(16) rem(8);
+    }
+
+    .info-field {
+      margin-bottom: rem(24);
+      padding: 0 rem(12);
+      width: 100%;
+
+      h3 {
+        color: $slate-80;
+        font-size: rem(12);
+        letter-spacing: 1px;
+        line-height: rem(16);
+        margin-bottom: rem(8);
+        text-transform: uppercase;
+      }
+
+      span {
+        display: block;
+        line-height: rem(24);
+
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .contacts {
+    text-align: center;
+  }
+
+  .contact {
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: rem(16);
+    padding: rem(16) rem(16) rem(12);
+    position: relative;
+    text-align: left;
+
+    h3 {
+      color: $slate;
+      font-size: rem(16);
+      font-weight: 700;
+      line-height: rem(24);
+      margin-bottom: rem(4);
+      padding-right: rem(56);
+    }
+
+    .email,
+    .phone {
+      color: $slate-80;
+      font-size: rem(14);
+      line-height: rem(20);
+      margin-bottom: rem(4);
+    }
+
+    .email {
+      text-decoration: underline;
+    }
+
+    .actions {
+      position: absolute;
+      right: rem(8);
+      top: rem(8);
+    }
+  }
+
+  .details-blank {
+    margin-bottom: rem(32);
+  }
+
+  .contacts-blank,
+  .details-blank {
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 rem(1) rem(1) rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: rem(168);
+    justify-content: center;
+    max-width: rem(740);
+    width: 100%;
+
+    .logo {
+      background-color: rgba(159, 122, 237, 0.1);
+      background-position: center;
+      border-radius: 50%;
+      height: rem(64);
+      margin-bottom: rem(16);
+      width: rem(64);
+    }
+
+    span {
+      background-image: url(arrow-right-icon($cyan, 16, 16));
+      background-position: right center;
+      background-repeat: no-repeat;
+      color: $slate;
+      font-size: rem(16);
+      padding-right: rem(28);
+    }
+  }
+
+  .details-blank .logo {
+    background-image: url(settings-medium-dark-icon(32, 32));
+  }
+  
+  .contacts-blank .logo {
+    background-image: url(client-medium-icon($amethyst, 32, 32));
+  }
+
+  .actions-bar {
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    margin-bottom: rem(1);
+    min-height: rem(48);
+    padding: 0 0 0 rem(16);
+    position: sticky;
+    top: $header-height;
+    width: 100%;
+
+    .inline.actions {
+      ul {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+      }
+
+      li {
+        padding: 0;
+      }
+
+      a {
+        display: none;
+        line-height: rem(48);
+
+        &.invoice,
+        &.estimate {
+          display: block;
+          padding-right: rem(16);
+        }
+      }
+    }
+
+    .pc.actions {
+      height: rem(48);
+      margin-left: auto;
+      position: relative;
+      width: rem(49);
+
+      .popup-toggler {
+        border-left: 1px solid $slate-20;
+        height: rem(48);
+        width: 100%;
+
+        span {
+          display: none;
+        }
+      }
+
+      .popup-dropdown {
+        &::before {
+          right: rem(8);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $bp-768px) {
+  #client.details {
+    margin: rem(32) rem(24);
+    max-width: $page-max-width;
+
+    section {
+      padding: 0;
+      width: calc(100% - #{rem(276)});
+    }
+
+    .contact-information {
+      .card {
+        flex-flow: wrap;
+      }
+
+      .info-field {
+        width: 50%;
+      }
+    }
+
+    .actions-bar {
+      float: right;
+      padding: 0;
+      width: rem(260);
+
+      .inline.actions {
+        padding: rem(16) 0;
+        width: 100%;
+
+        ul {
+          display: block;
+        }
+
+        li {
+          padding: 0;
+        }
+
+        a {
+          display: block;
+          line-height: rem(24);
+          padding: rem(6) rem(24) rem(6) rem(48);
+          text-align: left;
+
+          &.send {
+            display: none;
+          }
+
+          &::before {
+            left: rem(16);
+          }
+
+          &::after {
+            content: none;
+          }
+
+          &:hover {
+            background-color: $cyan-10;
+          }
+
+          &:active {
+            background-color: $cyan;
+          }
+        }
+
+        .btn {
+          display: block;
+          margin: rem(24) auto 0;
+          width: calc(100% - #{rem(32)});
+        }
+      }
+
+      .pc.actions {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (min-width: $bp-1280px) {
+  #client.details {
+    margin: rem(32) auto;
+    width: 100%;
+  }
+}

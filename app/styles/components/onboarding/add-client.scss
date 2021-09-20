@@ -1,0 +1,31 @@
+.page-header {
+  height: rem(120);
+
+  .header-wrapper {
+    background-size: rem(160);
+  }
+
+  h2 {
+    font-size: rem(24);
+    line-height: 125%;
+  }
+}
+
+section {
+  align-items: center;
+  color: $slate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: rem(343);
+  min-height: rem(404);
+  padding: rem(70) 0;
+  text-align: center;
+}
+
+h1 {
+  font-size: rem(32);
+  line-height: 125%;
+  margin-bottom: rem(40);
+}

@@ -1,0 +1,39 @@
+<Forms::GroupedGrid
+  @title='Custom Email Address & Domain'
+  @description='Custom Email Address & Domain'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::EmailInput
+      @value={{model.email}}
+      @label='Email Address'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.email.isInvalid}}
+      @errorMessage={{validations.email.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::EmailInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='Domain'
+      @value={{model.domain}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.domain.isInvalid}}
+      @errorMessage={{validations.domain.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+</Forms::GroupedGrid>
+
+<div class='py-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='submit' class='tw-button' disabled={{save.isRunning}}>Save</button>
+  </div>
+</div>

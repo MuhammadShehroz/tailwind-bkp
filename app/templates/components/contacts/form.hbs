@@ -1,0 +1,72 @@
+<Forms::GroupedGrid
+  @title='Contact Information'
+  @description='Basic information about the contact.'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @value={{model.firstName}}
+      @label='First name'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.firstName.isInvalid}}
+      @errorMessage={{validations.firstName.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @value={{model.lastName}}
+      @label='Last name'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.lastName.isInvalid}}
+      @errorMessage={{validations.lastName.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::EmailInput
+      @value={{model.email}}
+      @label='Email'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.email.isInvalid}}
+      @errorMessage={{validations.email.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::EmailInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @value={{model.phone}}
+      @label='Phone (optional)'
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.phone.isInvalid}}
+      @errorMessage={{validations.phone.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+</Forms::GroupedGrid>
+
+{{#if inModal}}
+  <input type='submit'/>
+{{else}}
+  <div class='pt-5'>
+    <div class='flex justify-end flex-wrap gap-3'>
+      <button {{action onCancel}} type='button' class='tw-button white'>Cancel</button>
+      <button type='submit' class='tw-button' disabled={{save.isRunning}}>Save</button>
+    </div>
+  </div>
+{{/if}}

@@ -1,0 +1,50 @@
+& {
+  display: inline-block;
+  width: 100%;
+
+  .field {
+    &:last-child.tax-distribution-selector {
+      width: 100%;
+    }
+
+    &.tax-distribution-selector {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  .document-tax-selector,
+  .mock-field {
+    width: 100%;
+
+    .field {
+      width: 100%;
+    }
+  }
+
+  .mock-field .input-wrapper {
+    border: hidden;
+  }
+}
+
+@media (min-width: rem(768)) {
+  & {
+    .field.tax-distribution-selector {
+      margin-bottom: 0;
+      width: calc((100% - #{rem(29)}) / 2);
+    }
+
+    .document-tax-selector,
+    .mock-field {
+      display: inline-block;
+      float: right;
+      width: calc((100% - #{rem(29)}) / 2);
+    }
+
+    .mock-field .input-wrapper {
+      display: table-cell;
+      height: rem(48);
+      vertical-align: bottom;
+    }
+  }
+}

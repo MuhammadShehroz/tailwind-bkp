@@ -1,0 +1,24 @@
+<div class='tw-checkbox'>
+  <Input ...attributes
+    id={{fieldId}}
+    @type={{type}}
+    @checked={{value}}
+    @keyPress={{change}}
+    @showErrors={{showErrors}}
+    @classNameBindings={{_classNameBindings}}
+  />
+
+  {{#if label}}
+    <label for='{{fieldId}}' class='tw-label'>
+      {{label}}
+    </label>
+  {{/if}}
+</div>
+
+{{#if showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}
+
+{{#if hint}}
+  <p class='validation-message hint'>{{hint}}</p>
+{{/if}}

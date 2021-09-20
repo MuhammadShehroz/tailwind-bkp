@@ -1,0 +1,18 @@
+<ol role='list' class='flex items-center space-x-2 h-6'>
+  {{#each segments as |segment|}}
+    <li>
+      <div class='flex items-center'>
+        {{#if segment.isCurrent}}
+          <span class='mr-2 text-sm text-gray-500'>{{segment.label}}</span>
+        {{else}}
+          <LinkTo @route={{segment.route}} class='mr-2 tw-link text-sm text-gray-500'>
+            {{segment.label}}
+          </LinkTo>
+        {{/if}}
+        {{#unless (eq segments.lastObject segment)}}
+          <Icons::ChevronRight class='text-gray-400' />
+        {{/unless}}
+      </div>
+    </li>
+  {{/each}}
+</ol>

@@ -1,0 +1,17 @@
+.saved-item {
+  color: $slate;
+  font-size: 16px;
+  line-height: rem(24);
+  position: relative;
+}
+
+.lnk-icon-remove {
+  padding-right: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.quantity-text {
+  font-weight: 700;
+}

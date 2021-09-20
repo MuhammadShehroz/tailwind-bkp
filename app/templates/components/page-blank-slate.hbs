@@ -1,0 +1,15 @@
+<Layouts::PageHeader @resourceType={{className}} @pageType='list'>
+  <Layouts::ColumnsGrid>
+    <Layouts::GridColumn>
+      <h2 class='text-center font-extrabold'>
+        {{@description}}
+      </h2>
+      <div class='text-center py-4'>
+        <LinkTo @route={{newLink}} class='tw-button'>
+          <Icons::Plus/>
+          Create New
+        </LinkTo>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>

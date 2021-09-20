@@ -1,0 +1,29 @@
+<Layouts::PageHeader @resourceType='profile' @pageType='list'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid>
+    <h2>{{model.name}}&nbsp;Business Profile</h2>
+    {{#if memberSinceDate}}
+      <p class='text-blue-gray-500'>Member since <FormatDate @date={{memberSinceDate}}/></p>
+    {{/if}}
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='sm:grid-cols-3'>
+    <Layouts::GridColumn class='sm:col-span-1'>
+      <Layouts::SettingsNav/>
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2'>
+      <Account::ProfileForm
+        @model={{model}}
+        @logo={{logo}}
+        @countries={{countries}}
+        @subregions={{subregions}}
+        @removeLogo={{removeLogo}}
+        @cancel={{action 'cancel'}}
+        @fetchSubregions={{action 'fetchSubregions'}}
+      />
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

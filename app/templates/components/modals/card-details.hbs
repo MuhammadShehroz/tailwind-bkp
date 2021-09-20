@@ -1,0 +1,35 @@
+<div class='payment-field field space-y-2'>
+
+  <StripeCardNumber @options={{cardNumberOptions}} @elements={{cardElements}} @onChange={{action (mut cardElements)}} as |stripeElement stripeError|>
+    {{#if stripeError}}
+      <p class='text-sm text-red-600'>{{stripeError.message}}</p>
+    {{/if}}
+  </StripeCardNumber>
+</div>
+
+<div class='flex mt-4'>
+  <div class='flex-grow mr-4 relative'>
+    <StripeCardExpiry @options={{cardExpiryOptions}} @elements={{cardElements}} @onChange={{action (mut cardElements)}} as |stripeElement stripeError|>
+      {{#if stripeError}}
+        <p class='text-sm text-red-600 absolute'>{{stripeError.message}}</p>
+        <p class='mb-5'>&nbsp;</p>
+      {{/if}}
+    </StripeCardExpiry>
+  </div>
+
+  <div class='flex-grow relative'>
+    <StripeCardCvc @options={{cardCvcOptions}} @elements={{cardElements}} @onChange={{action (mut cardElements)}} as |stripeElement stripeError|>
+      {{#if stripeError}}
+        <p class='text-sm text-red-600 absolute'>{{stripeError.message}}</p>
+        <p class='mb-5'>&nbsp;</p>
+      {{/if}}
+    </StripeCardCvc>
+  </div>
+</div>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>Cancel</button>
+    <button type='submit' class='tw-button' disabled={{save.isRunning}}>Save</button>
+  </div>
+</div>

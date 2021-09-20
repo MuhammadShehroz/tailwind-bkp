@@ -1,0 +1,73 @@
+section.form-section {
+  @include clearfix;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: rem(16);
+}
+
+section.collapsible {
+  a.expander {
+    background-color: $slate-10;
+    color: $slate;
+    display: block;
+    font-size: rem(12);
+    font-weight: 700;
+    height: rem(40);
+    letter-spacing: 1px;
+    line-height: rem(40);
+    padding: 0 rem(48);
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+
+    &::before,
+    &::after {
+      background-color: $slate;
+      content: '';
+      display: block;
+      height: 2px;
+      left: rem(19);
+      margin-top: -1px;
+      position: absolute;
+      top: 50%;
+      transition: all 0.2s linear;
+      width: rem(10);
+    }
+
+    &::after {
+      transform: rotate(90deg);
+    }
+  }
+
+  .expandable-area {
+    display: none;
+  }
+
+  &.hidden-trigger {
+    a.expander {
+      display: none;
+    }
+  }
+
+  &.expanded {
+    a.expander {
+      &::after {
+        transform: none;
+      }
+    }
+
+    .expandable-area {
+      display: block;
+      padding: rem(24) rem(16);
+    }
+  }
+}
+
+@media (min-width: $bp-640px) {
+  section.collapsible {
+    a.expander {
+      letter-spacing: 2.5px;
+    }
+  }
+}

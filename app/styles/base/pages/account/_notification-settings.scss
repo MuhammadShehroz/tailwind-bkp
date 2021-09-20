@@ -1,0 +1,19 @@
+#settings.notification-settings {
+  margin: rem(32) rem(16);
+  max-width: rem(744);
+
+  &.collapsible.expanded .expandable-area {
+    box-shadow: 0 rem(1) rem(1) rgba(0, 0, 0, 0.1);
+  }
+
+  &.collapsible a.expander {
+    letter-spacing: rem(1);
+  }
+  
+  @media (min-width: rem(768)) {
+    & {
+      margin: rem(32) auto;
+      width: 100%;
+    }
+  }
+}

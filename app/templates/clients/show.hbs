@@ -1,0 +1,202 @@
+<Layouts::PageHeader @resourceType='client' @pageType='detail'>
+  <Breadcrumbs @segments={{routeSegments}} />
+  <Layouts::ColumnsGrid class='md:grid-cols-10'>
+    <Layouts::GridColumn class='md:col-span-8'>
+      <h2>{{model.name}}</h2>
+    </Layouts::GridColumn>
+    <Layouts::GridColumn class='md:col-span-2'>
+      
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  {{#if hasInvoices}}
+    <AmountStats @model={{clientStats}} @header='Billing Overview' @className='client-stat pb-4' @clientId={{model.id}} />
+  {{/if}}
+  <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+    <Layouts::GridColumn class='sm:col-span-4'>
+
+      <div class='bg-white shadow overflow-hidden sm:rounded-lg'>
+        <div class='px-4 py-5 sm:px-6'>
+          <h3>Client Details</h3>
+          <p class='mt-1 max-w-2xl text-sm text-gray-500'>
+            Client contact information and address.
+          </p>
+        </div>
+        <div class='border-t border-gray-200 px-4 py-5 sm:p-0'>
+          <dl class='sm:divide-y sm:divide-gray-200'>
+            {{#with model.billingAddress as |address|}}
+              {{#if (or address.address1 address.address2)}}
+                <div class='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
+                  <dt>Address</dt>
+                  <dd class='sm:mt-0 sm:col-span-2'>
+                    <span>{{address.address1}}</span>
+                    <span>{{address.address2}}</span>
+                  </dd>
+                </div>
+              {{/if}}
+            {{/with}}
+
+            {{#with model.billingAddress as |address|}}
+              {{#if (or address.city address.subregion address.zip address.country)}}
+                <div class='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
+                  <dt>City / State / Zip / Country</dt>
+                  <dd class='sm:mt-0 sm:col-span-2'>
+                    <span>{{address.city}}{{if address.city ','}} {{address.subregion}} {{address.zip}}</span>
+                    <span>{{address.country}}</span>
+                  </dd>
+                </div>
+              {{/if}}
+            {{/with}}
+
+            {{#with model.phone as |phone|}}
+              <div class='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
+                <dt>Phone</dt>
+                <dd class='sm:mt-0 sm:col-span-2'>
+                  <span><a href='tel:{{phone}}'>{{phone}}</a></span>
+                </dd>
+              </div>
+            {{/with}}
+
+            {{#with model.fax as |fax|}}
+              <div class='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
+                <dt>Fax</dt>
+                <dd class='sm:mt-0 sm:col-span-2'>
+                  <span><a href='tel:{{fax}}'>{{fax}}</a></span>
+                </dd>
+              </div>
+            {{/with}}
+
+            {{#with model.email as |email|}}
+              <div class='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
+                <dt>Email</dt>
+                <dd class='sm:mt-0 sm:col-span-2'>
+                  <span><a href='mailto:{{email}}' target='_blank' rel='noopener noreferrer'>{{email}}</a></span>
+                </dd>
+              </div>
+            {{/with}}
+
+            {{#with model.website as |website|}}
+              <div class='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
+                <dt>Website</dt>
+                <dd class='sm:mt-0 sm:col-span-2'>
+                  <span><a href={{website}} target='_blank' rel='noopener noreferrer'>{{website}}</a></span>
+                </dd>
+              </div>
+            {{/with}}
+
+            {{#if (or model.taxIdName model.taxIdNumber)}}
+              <div class='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
+                <dt>Tax ID</dt>
+                <dd class='sm:mt-0 sm:col-span-2'>
+                  <span>{{#if model.taxIdName}}{{model.taxIdName}}{{else}}Tax ID Name{{/if}}: {{model.taxIdNumber}}</span>
+                </dd>
+              </div>
+            {{/if}}
+
+            {{#with model.identifier as |identifier|}}
+              <div class='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
+                <dt>Client ID</dt>
+                <dd class='sm:mt-0 sm:col-span-2'>
+                  <span>{{identifier}}</span>
+                </dd>
+              </div>
+            {{/with}}
+          </dl>
+        </div>
+      </div>
+
+      
+
+      <div class='px-4 py-5 sm:px-6'>
+        <h3 class='mb-3'>Client Contacts</h3>
+        {{#if contacts}}
+          <ul class='divide-y divide-gray-200'>
+            {{#each contacts as |contact|}}
+            <li class='py-4 flex items-center justify-between'>
+              <div>
+                <p class='text-sm font-medium text-gray-900'>{{contact.name}}</p>
+                {{#if contact.email}}
+                <p class='text-sm text-gray-500'><a href='mailto:{{contact.email}}'>{{contact.email}}</a></p>
+                {{/if}}
+                {{#if contact.phone}}
+                <p class='text-sm text-gray-500'><a href='tel:{{contact.phone}}'>{{contact.phone}}</a></p>
+                {{/if}}
+              </div>
+              <div>
+                <LinkTo @route='contacts.edit' @model={{contact}} class='tw-button'>Edit</LinkTo>
+                <a href='#' class='tw-button danger' {{action 'destroyContact' contact}}>Delete</a>
+              </div>
+            </li>
+          {{/each}}
+          </ul>
+        {{/if}}
+        <LinkTo @route='contacts.new' @model={{model}} class='tw-button create'><Icons::Plus /> Add New Contact</LinkTo>
+      </div>
+      
+    </Layouts::GridColumn>
+
+    <Layouts::GridColumn class='sm:col-span-2 sm:self-start pt-4 sm:pt-0'>
+      <div class='sm:px-4'>
+        <ul class='flex flex-col space-y-4'>
+          {{#unless model.archivedAt}}
+          <li>
+            <LinkTo @route='invoices.new' @query={{hash client=model.id}} class='inline-flex items-center tw-link'>
+              <Icons::Plus class='mr-2' /> New Invoice
+            </LinkTo>
+          </li>
+          <li>
+            <LinkTo @route='estimates.new' @query={{hash client=model.id}} class='inline-flex items-center tw-link'>
+              <Icons::Plus class='mr-2' /> New Estimate
+            </LinkTo>
+          </li>
+          <li>
+            <LinkTo @route='invoices' @query={{hash clientId=model.id client_id=model.id}} class='inline-flex items-center tw-link'>
+              <Icons::Eye class='mr-2' /> View Invoices
+            </LinkTo>
+          </li>
+          <li>
+            <LinkTo @route='estimates' @query={{hash clientId=model.id client_id=model.id}} class='inline-flex items-center tw-link'>
+              <Icons::Eye class='mr-2' /> View Estimates
+            </LinkTo>
+          </li>
+          {{/unless}}
+          <li>
+            <LinkTo @route='contacts.new' @model={{model}} class='inline-flex items-center tw-link'>
+              <Icons::Plus class='mr-2' /> Add Client Contact
+            </LinkTo>
+          </li>
+          <li>
+            <LinkTo @route='clients.edit' @model={{model}} class='inline-flex items-center tw-link'>
+              <Icons::Edit class='mr-2' /> Edit Client Details
+            </LinkTo>
+          </li>
+          <li>
+            <LinkTo @route='clients.preferences' @model={{model}} class='inline-flex items-center tw-link'>
+              <Icons::Edit class='mr-2' /> Edit Preferences
+            </LinkTo>
+          </li>
+          {{#if model.archivedAt}}
+          <li>
+            <a href='#' class='inline-flex items-center tw-link' {{action 'unarchive'}}>
+              <Icons::ExclamationTriangle class='mr-2' /> Unarchive Client
+            </a>
+          </li>
+          {{else}}
+          <li>
+            <a href='#' class='inline-flex items-center tw-link' {{action 'archive'}}>
+              <Icons::ExclamationTriangle class='mr-2' /> Archive Client
+            </a>
+          </li>
+          {{/if}}
+          <li>
+            <a href='#' class='inline-flex items-center tw-link' {{action 'delete'}}>
+              <Icons::Trash class='mr-2' /> Delete Client
+            </a>
+          </li>
+        </ul>
+      </div>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

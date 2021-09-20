@@ -1,0 +1,24 @@
+<FormElements::TextInput
+  ...attributes
+  @type={{type}}
+  @label={{label}}
+  @value={{value}}
+  @hint={{hint}}
+  @allowClear={{false}}
+  @leadingIcon={{leadingIcon}}
+  @trailingIcon={{trailingIcon}}
+  @showErrors={{showErrors}}
+  @errorMessage={{errorMessage}}
+  @onTrailingIconClick={{action 'changeColor'}}
+  as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+>
+  <FormElements::InputLeadingIcon>
+    <span class='text-gray-500 sm:text-sm'>{{leadingIcon}}</span>
+  </FormElements::InputLeadingIcon>
+  <FormElements::InputTrailingIcon @showClear={{false}} @showErrors={{false}}>
+    <Icons::Adjustments/>
+    <div class='picker'>
+      <input type='color' class='tw-color' value={{value}} onchange={{action 'changeColor'}} oninput={{action 'changeColor'}}>
+    </div>
+  </FormElements::InputTrailingIcon>
+</FormElements::TextInput>

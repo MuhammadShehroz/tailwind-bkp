@@ -1,0 +1,220 @@
+<Forms::GroupedGrid
+  @title='Estimate Info'
+  @description='Basic information about the estimate.'
+  class='md:grid md:grid-cols-3'
+>
+  {{#if model.isOpen}}
+    <div class='col-span-6'>
+      <label class='tw-label'>Client</label>
+      <div class='text-sm font-medium sm:leading-10'>{{model.client.name}}</div>
+    </div>
+  {{else}}
+    <div class='col-span-6 sm:col-span-4'>
+      <FormElements::PowerSelectMenu
+        @label='Client Name'
+        @options={{clients}}
+        @optionKey='id'
+        @optionLabel='name'
+        @searchEnabled={{true}}
+        @selected={{client}}
+        @showErrors={{validations.client.isInvalid}}
+        @errorMessage={{validations.client.message}}
+        @onChange={{action 'onClientChange'}}
+      />
+    </div>
+    <div class='col-span-6 sm:col-span-2 sm:pt-8'>
+      <button type='submit' class='tw-button' {{action 'newClient'}}>
+        <Icons::Plus/>
+        <span>New Client</span>
+      </button>
+    </div>
+  {{/if}}
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::DateInput
+      @value={{model.issuedOn}}
+      @label='Estimate Date'
+      @showErrors={{validations.issuedOn.isInvalid}}
+      @errorMessage={{validations.issuedOn.message}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::TextInput
+      @value={{model.prefix}}
+      @label='Prefix'
+      @allowClear={{true}}
+      @showErrors={{validations.prefix.isInvalid}}
+      @errorMessage={{validations.prefix.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::NumberInput
+      @value={{model.number}}
+      @label='Estimate Number'
+      @allowClear={{true}}
+      @showErrors={{validations.number.isInvalid}}
+      @errorMessage={{validations.number.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::NumberInput>
+  </div>
+</Forms::GroupedGrid>
+
+
+{{#if hasLineItems}}
+  <div class='tw-table-wrapper'>
+    <table>
+      <thead>
+        <tr>
+          <th scope='col' class='w-12'></th>
+          <th scope='col' class='w-48'>Item Type</th>
+          <th scope='col'>Description</th>
+          <th scope='col' class='w-32'>Quantity</th>
+          <th scope='col' class='w-48'>Unit Price</th>
+          {{#if model.isTaxDistributionLineItem}}
+            <th scope='col' class='w-32'>Tax</th>
+          {{/if}}
+          <th scope='col' class='w-24'>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each sortedLineItems as |lineItem|}}
+          <Documents::LineItemForm
+            @model={{lineItem}}
+            @isDraggable={{isDraggable}}
+            @id={{lineItem.domId}}
+            @document={{model}}
+            @isoCode={{model.currency}}
+            @move={{action 'move'}}
+            @fromPosition={{action 'fromPosition'}}
+            @toPosition={{action 'toPosition'}}
+            @remove={{action 'removeLineItem'}}
+          />
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{/if}}
+
+<div class='flex justify-start flex-wrap gap-3 mt-6 mb-6'>
+  <button type='submit' class='tw-button white' {{action 'addLineItem'}}>
+    <Icons::Plus/>
+    <span>Add Item</span>
+  </button>
+  {{#if itemsPresentOnLibrary}}
+    <button type='button' class='tw-button secondary' {{action 'openItemLibrary'}}>Add line item from library</button>
+  {{/if}}
+  <span class='text-sm sm:pt-2'>
+    <a href='#' class='tw-link' {{action (mut isDraggable) (not isDraggable)}}>
+      {{#if isDraggable}}Done Re-ordering{{else}}Re-order Rows{{/if}}
+    </a>
+  </span>
+  <span class='text-sm sm:pt-2'><a href='#' class='tw-link' {{action 'openUnitOfMeasurementManager'}}>Manage Units</a></span>
+</div>
+
+<div class='grid grid-cols-2 gap-y-2 gap-x-4 sm:grid-cols-12 sm:border-t sm:border-gray-200 mt-6 sm:pt-5'>
+  <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+    <span class='text-sm'>Subtotal</span>
+  </div>
+  <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+    <span class='text-sm'><FormatCurrency @value={{model.subtotal}} @isoCode={{model.currency}} /></span>
+  </div>
+  <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+    <span class='text-sm font-medium'>Estimate Total</span>
+  </div>
+  <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+    <span class='text-sm font-medium'><FormatCurrency @value={{model.total}} @isoCode={{model.currency}} /></span>
+  </div>
+</div>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Estimate Tax and Currency'
+  @description='Tax and currency of the estimate.'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Currency'
+      @options={{currencies}}
+      @optionKey='code'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{currency}}
+      @showErrors={{validations.currency.isInvalid}}
+      @errorMessage={{validations.currency.message}}
+      @onChange={{action 'onCurrencyChange'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::CurrencyInput
+      @value={{model.shipping}}
+      @label='Shipping'
+      @decimals={{currentOrganization.decimals}}
+      @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+      @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+      @leadingIcon={{currencySymbol}}
+      @allowClear={{true}}
+      @showErrors={{validations.shipping.isInvalid}}
+      @errorMessage={{validations.shipping.message}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </div>
+
+  <div class='col-span-6 grid grid-cols-3 gap-6'>
+    <TaxInputGroup
+      @model={{model}}
+      @createTax={{createTax}}
+      @onChange={{action 'lock' 'tax'}}
+      @beforeChange={{action 'storeTaxesBasedOnTaxDistribution'}}
+      @onStoredTaxChange={{action 'onStoredTaxChange'}}
+      @onStoredLineItemTaxesChange={{action 'onStoredLineItemTaxesChange'}}
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<Forms::GroupedGrid
+  @title='Estimate Subject and Notes'
+  @description='Subject and notes of the estimate.'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6'>
+    <FormElements::TextInput
+      @value={{model.estimateSubject}}
+      @label='Subject'
+      @allowClear={{true}}
+      @showErrors={{validations.estimateSubject.isInvalid}}
+      @errorMessage={{validations.estimateSubject.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+  <div class='col-span-6'>
+    <FormElements::TextArea
+      rows='3'
+      @value={{model.notes}}
+      @label='Notes (optional, displayed on Estimate)'
+      @showErrors={{validations.notes.isInvalid}}
+      @errorMessage={{validations.notes.message}}
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <LinkTo @route='estimates' class='tw-button white'>Cancel</LinkTo>
+    <button {{action 'save'}} type='button' class='tw-button secondary' disabled={{or saveTask.isRunning model.isSaving}}>Save{{#if model.isDraft}} as Draft{{/if}}</button>
+    <button type='submit' class='tw-button' disabled={{or saveTask.isRunning model.isSaving}}>Preview and Send</button>
+  </div>
+</div>

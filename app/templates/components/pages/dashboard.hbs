@@ -1,0 +1,19 @@
+<div>
+  <section class='max-w-7xl mx-auto sm:px-6 lg:px-8'>
+    <Dashboard::ReminderCard />
+  </section>
+
+  <section class='max-w-7xl mx-auto sm:px-6 lg:px-8 sm:py-6 lg:py-8'>
+    <AmountStats
+      @header='Overview'
+      @showPlaceholderStats={{true}}
+      @model={{organizationStat}}
+    />
+  </section>
+
+  <section>
+    <div class='max-w-2xl mx-auto px-4 py-4 md:py-8 sm:py-6 lg:py-8'>
+      <Dashboard::BlankSlate />
+    </div>
+  </section>
+</div>

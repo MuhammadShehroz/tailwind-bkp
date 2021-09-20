@@ -1,0 +1,17 @@
+<BsModal
+  @name='add-edit-contact'
+  @accept={{action 'save'}}
+  @acceptLabel='Save'
+  @dismissLabel='Cancel'
+  @dismiss={{action 'cancel'}}
+  @supraTitle='Create'
+  @title='New Contact'
+  @closeOnAccept={{false}}
+>
+  <Contacts::Form
+    @model={{contact}}
+    @onSubmit={{action 'save'}}
+    @inModal={{true}}
+    @validationsEnabled={{validationsEnabled}}
+  />
+</BsModal>

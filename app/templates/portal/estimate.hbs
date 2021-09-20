@@ -1,0 +1,35 @@
+<div class='bg-gray-50'>
+  <div class='text-sm py-2 text-gray-600 text-center'>
+    <a href='#' class='mr-2 hover:underline' {{action 'print'}}>Print</a>
+    <span class='mr-2'>&middot;</span>
+    <a href='#' class='mr-2 hover:underline' {{action 'showCommentForm'}}>Comment</a>
+    <span class='mr-2 hover:underline'>&middot;</span>
+    <a href='#' class='' {{action 'download'}}>Save as PDF</a>
+  </div>
+
+  <div class='flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8'>
+    {{#if documentOrganization.hasLogo}}
+      <div class='bg-cover bg-no-repeat bg-center w-24 h-24 md:w-48 md:h-48' style={{html-safe (concat 'background-image: url(' documentOrganization.logoUrl ')')}} />
+    {{/if}}
+  </div>
+
+  <Portal::DocumentView
+    @model={{model}}
+    @isEstimate={{true}}
+    @events={{historyEvents}}
+    @approve={{action 'approve'}}
+    @decline={{action 'decline'}}
+    @changeStatus={{action 'changeStatus'}}
+  />
+
+  <div class='max-w-3xl mx-auto pt-4 px-4 sm:px-6 lg:px-8'>
+    <HistoryEvents
+      @class='history card'
+      @id='history'
+      @events={{historyEvents}}
+      @model={{model}}
+      @newComment={{action 'newComment'}}
+      @reloadEvents={{action 'reloadEvents'}}
+    />
+  </div>
+</div>

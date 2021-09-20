@@ -1,0 +1,126 @@
+& {
+  align-items: center;
+  display: inline-flex;
+  text-align: left;
+
+  .toggle-switch-container {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+
+    .toggle-switch-label-container {
+      color: $slate;
+      flex-grow: 1;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 1.25;
+      margin-left: rem(16);
+      order: 2;
+      text-transform: uppercase;
+    }
+
+    .toggle-switch-toggle-container {
+      order: 1;
+      position: relative;
+      width: rem(48);
+
+      input {
+        display: none;
+      }
+
+      input:checked + .switch-container {
+        .switch {
+          &::before {
+            left: 0;
+          }
+
+          &::after {
+            left: 100%;
+          }
+
+          .slider {
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+            left: rem(24);
+          }
+        }
+      }
+
+      input:disabled + .switch-container {
+        .switch {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
+
+      .switch-container {
+        border-radius: rem(68);
+        height: rem(24);
+        overflow: hidden;
+        position: relative;
+        width: rem(48);
+
+        .switch {
+          height: 100%;
+          position: absolute;
+          width: 100%;
+
+          &::before,
+          &::after {
+            background-repeat: no-repeat;
+            border-radius: rem(68);
+            color: #fff;
+            display: block;
+            height: 100%;
+            position: absolute;
+            text-align: center;
+            transition: left 0.15s ease;
+            width: 100%;
+            z-index: 1;
+          }
+
+          &::before {
+            background-color: $cyan;
+            background-image: url(check-icon(#fff, 10, 10));
+            background-position: 25% center;
+            content: '';
+            left: -100%;
+            padding-right: rem(35);
+            top: 0;
+          }
+
+          &::after {
+            background-color: $slate-50;
+            background-image: url(close-icon(#fff, 8, 8));
+            background-position: 75% center;
+            content: '';
+            left: 0;
+            padding-left: rem(35);
+            top: 0;
+          }
+
+          .slider {
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+            height: rem(24);
+            position: absolute;
+            width: rem(24);
+            z-index: 2;
+          }
+        }
+      }
+    }
+  }
+
+  &.right-aligned-switch {
+    .toggle-switch-label-container {
+      margin-right: 0;
+      order: 1;
+    }
+
+    .toggle-switch-toggle-container {
+      margin-left: 0;
+      order: 2;
+    }
+  }
+}

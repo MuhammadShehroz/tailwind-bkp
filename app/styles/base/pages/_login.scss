@@ -1,0 +1,82 @@
+#login {
+  color: $slate;
+  padding: rem(32) rem(16);
+  text-align: center;
+
+  h1 {
+    font-size: rem(24);
+    line-height: rem(30);
+    margin-bottom: rem(32);
+  }
+
+  fieldset {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    margin: 0 auto rem(32);
+    max-width: rem(350);
+    padding: rem(24);
+  }
+
+  .forgot-password {
+    font-size: rem(14);
+    line-height: rem(22);
+
+    span {
+      text-decoration: underline;
+    }
+  }
+
+  .btn {
+    margin: 0 auto rem(24);
+    width: rem(300);
+  }
+
+  .cta {
+    font-size: rem(14);
+    line-height: rem(22);
+
+    span {
+      display: block;
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (min-width: $bp-768px) {
+  #login {
+    padding: rem(80) rem(16) rem(32);
+  }
+}
+
+@media (min-width: $bp-1280px) {
+  #login {
+    background-image: url(/assets/images/auth-invoice.png), url(/assets/images/auth-client.png);
+    background-position: left 10% top rem(300), right 5% top rem(60);
+    background-repeat: no-repeat;
+    background-size: rem(170) rem(170), rem(230) rem(230);
+    position: relative;
+
+    &::before,
+    &::after {
+      background: transparent url(/assets/images/dot.png) repeat right top;
+      content: '';
+      display: block;
+      height: rem(273);
+      position: absolute;
+    }
+
+    &::before {
+      left: 0;
+      top: rem(130);
+      width: 12%;
+    }
+
+    &::after {
+      background-position: left top;
+      right: 0;
+      top: rem(236);
+      width: 17%;
+    }
+  }
+}

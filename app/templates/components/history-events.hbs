@@ -1,0 +1,43 @@
+{{#if header}}
+  <div class='text-lg font-bold pb-4'>{{header}}</div>
+{{/if}}
+
+{{#if (or isCommentFormExpanded isPortal)}}
+  <AddCommentForm
+    @document={{model}}
+    @newComment={{newComment}}
+    @afterSave={{action 'updateViewAfterComment'}}
+    @close={{action 'hideCommentForm'}}
+    @isPortal={{isPortal}}
+  />
+{{else}}
+  <button type='button' class='tw-button' {{action 'showCommentForm'}}>
+    <Icons::Plus />
+    Add Comment
+  </button>
+{{/if}}
+
+{{#if hasEvents}}
+  <ul class='divide-y divide-gray-200 pt-4'>
+    {{#each events as |event|}}
+      <li class='py-4 {{event.class}}'>
+        <div class='flex space-x-3'>
+          {{#unless isPortal}}
+          <div class='flex-shrink-0'>
+            <a href='#' class='tw-button square white' {{action 'remove' event model}}><Icons::Times /></a>
+          </div>
+          {{/unless}}
+          <div class='flex-1 space-y-1'>
+            <h3 class='text-sm font-medium'>{{event.title}}{{#if event.by}} by {{event.by}}{{/if}}{{#if event.hasRecipients}} to {{event.recipientsNames}}{{/if}}</h3>
+            <p class='text-sm text-gray-500 inline-flex'>
+              <Icons::Calendar class='mr-1' />
+              <FormatDate @date={{event.generatedAt}} class='whitespace-nowrap' />
+            </p>
+            <p class='mt-2 text-sm text-gray-700 leading-7'>{{simple-format event.body}}</p>
+          </div>
+        </div>
+      </li>
+
+    {{/each}}
+  </ul>
+{{/if}}

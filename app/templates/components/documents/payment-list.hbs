@@ -1,0 +1,20 @@
+<section class='payment-section'>
+  <div class='px-4 py-2 font-bold text-lg'>Payment History</div>
+  <table>
+    <thead>
+      <tr class='item-header'>
+        <th class='date'>Date</th>
+        <th class='desc'>Description</th>
+        <th class='amount'>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{yield}}
+      <tr>
+        <td colspan='3' class='md:text-right'>
+          <div class='font-bold md:text-right'>Payment Total: <FormatCurrency @class='summary-total' @value={{model.cachedTotalPaid}} @isoCode={{model.currency}} /></div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

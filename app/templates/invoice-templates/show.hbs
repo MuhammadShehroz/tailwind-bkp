@@ -1,0 +1,44 @@
+<div class='sm:bg-gray-50'>
+  <Layouts::PageHeader @resourceType='recurring-invoice' @pageType='detail'>
+    <Breadcrumbs @segments={{routeSegments}} />
+    <Layouts::ColumnsGrid class='md:grid-cols-10'>
+      <Layouts::GridColumn class='md:col-span-8'>
+        <h2>Recurring Invoice {{model.identifier}}</h2>
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='md:col-span-2 hidden sm:visible'>
+        Accessory
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  </Layouts::PageHeader>
+
+  <Layouts::PageBody>
+    <Layouts::ColumnsGrid class='sm:grid-cols-6'>
+      <Layouts::GridColumn class='sm:col-span-4 bg-white sm:shadow-sm sm:mb-16'>
+        <InvoiceTemplateShow @model={{model}} />
+      </Layouts::GridColumn>
+      <Layouts::GridColumn class='sm:col-span-2 sm:self-start pt-4 sm:pt-0'>
+        <Documents::Totals @model={{model}} @currency={{currency}}>
+          <div class='sm:px-4 py-4'>
+            <ul class='flex flex-col space-y-4'>
+              <li>
+                <LinkTo @route='invoice-templates.edit' @model={{model}} class='inline-flex items-center tw-link'>
+                  <Icons::Edit class='mr-2' /> Edit
+                </LinkTo>
+              </li>
+              <li>
+                <a href='#' class='inline-flex items-center tw-link' {{action 'destroy'}}>
+                  <Icons::Trash class='mr-2' /> Delete
+                </a>
+              </li>
+              <li>
+                <a href='#' class='inline-flex items-center tw-link' {{action 'convertToInvoice'}}>
+                  <Icons::Plus class='mr-2' /> New one-time invoice
+                </a>
+              </li>
+            </ul>
+          </div>
+        </Documents::Totals>
+      </Layouts::GridColumn>
+    </Layouts::ColumnsGrid>
+  </Layouts::PageBody>
+</div>

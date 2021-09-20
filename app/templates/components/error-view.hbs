@@ -1,0 +1,27 @@
+<Layouts::PageHeader @resourceType='error' @pageType='list'>
+  <Layouts::ColumnsGrid class='md:grid-cols-10'>
+    <Layouts::GridColumn class='md:col-span-10'>
+      <h2>{{title}}</h2>
+      <p class='text-blue-gray-500'>{{description}}</p>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageHeader>
+
+<Layouts::PageBody>
+  <Layouts::ColumnsGrid class='md:grid-cols-10'>
+    <Layouts::GridColumn class='md:col-span-10'>
+      <p>
+        {{message}}
+        {{#if route}}
+          <LinkTo @route={{route}} class='tw-link'>
+            {{linkText}}
+          </LinkTo>
+        {{else if href}}
+          <a href={{href}} class='tw-link' target='_blank' rel='noopener noreferrer'>
+            {{linkText}}
+          </a>
+        {{/if}}
+      </p>
+    </Layouts::GridColumn>
+  </Layouts::ColumnsGrid>
+</Layouts::PageBody>

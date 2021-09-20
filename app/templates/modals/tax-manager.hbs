@@ -1,0 +1,6 @@
+{{#bs-modal 'tax-modal'
+  title='Manage Taxes'
+  as |modal|
+}}
+  <Modals::TaxManager @model={{taxes}} @createTax={{createTax}} @close={{action 'close'}} />
+{{/bs-modal}}

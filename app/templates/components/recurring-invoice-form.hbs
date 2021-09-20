@@ -1,0 +1,402 @@
+<Forms::GroupedGrid
+  @title='Invoice Info'
+  @description='Basic information about the invoice.'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='Template Name'
+      @value={{model.templateName}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      @showErrors={{validations.templateName.isInvalid}}
+      @errorMessage={{validations.templateName.message}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Currency'
+      @options={{currencies}}
+      @optionKey='code'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{currency}}
+      @showErrors={{validations.currency.isInvalid}}
+      @errorMessage={{validations.currency.message}}
+      @onChange={{action 'onCurrencyChange'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Payment Due'
+      @options={{recurringPaymentTerms}}
+      @optionKey='value'
+      @optionLabel='dropdownLabel'
+      @value={{model.netTerms}}
+      @showErrors={{validations.netTerms.isInvalid}}
+      @errorMessage={{validations.netTerms.message}}
+    />
+  </div>
+
+  {{#if model.otherNetTerms}}
+    <div class='col-span-6 sm:col-span-3'>
+      <FormElements::NumberInput
+        min='0'
+        @value={{model.netTermsDays}}
+        @label='Days until due'
+        @showErrors={{validations.netTermsDays.isInvalid}}
+        @errorMessage={{validations.netTermsDays.message}}
+      />
+    </div>
+  {{/if}}
+
+  <LateFeeGroup
+    @model={{model}}
+    @validations={{validations}}
+    @currencySymbol={{currencySymbol}}
+    @validationsEnabled={{validationsEnabled}}
+  />
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::CurrencyInput
+    min='0.00'
+      @value={{model.shipping}}
+      @label='Shipping (Optional)'
+      @decimals={{currentOrganization.decimals}}
+      @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+      @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+      @leadingIcon={{currencySymbol}}
+      @allowClear={{true}}
+      @showErrors={{validations.shipping.isInvalid}}
+      @errorMessage={{validations.shipping.message}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </div>
+
+  <div class='col-span-6 grid grid-cols-3 gap-6'>
+    <TaxInputGroup
+      @model={{model}}
+      @createTax={{createTax}}
+      @onChange={{action 'lock' 'tax'}}
+      @beforeChange={{action 'storeTaxesBasedOnTaxDistribution'}}
+      @onStoredTaxChange={{action 'onStoredTaxChange'}}
+      @onStoredLineItemTaxesChange={{action 'onStoredLineItemTaxesChange'}}
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Invoice Delivery'
+  @description='Invoice delivery options.'
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-6'>
+    <ToggleSwitch
+      @value={{model.singleSchedule}}
+      @toggleOnLabel='Send to all Clients on same date'
+      @hint='Turn this ON to start sending invoices to all clients on the same date, or turn OFF to set different start dates for each client'
+      @change={{action 'toggleSingleSchedule'}}
+    />
+  </div>
+
+  {{#if model.singleSchedule}}
+    <div class='col-span-6 sm:col-span-3'>
+      <FormElements::DateInput
+        @label='Start sending invoices on'
+        @value={{model.startSendingOn}}
+        @showErrors={{validations.startSendingOn.isInvalid}}
+        @errorMessage={{validations.startSendingOn.message}}
+      />
+    </div>
+  {{/if}}
+
+  <div class='col-span-6 sm:col-span-3'>
+    <BsTimeSelect
+      @label='Send Invoices At'
+      @hour={{model.hour}}
+      @minute={{model.minute}}
+      @meridian={{model.meridian}}
+      @value={{model.sendInvoicesAt}}
+      @hint={{timezoneMessage}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Invoicing Frequency'
+      @options={{frequencyTypeLabels.invoicingFrequencies}}
+      @optionKey='value'
+      @optionLabel='name'
+      @value={{model.frequencyType}}
+      @showErrors={{validations.frequencyType.isInvalid}}
+      @errorMessage={{validations.frequencyType.message}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    {{#if isDailyFrequencyType}}
+      <FormElements::NumberInput
+        @value={{model.frequencyQuantity}}
+        @label='Number of days'
+        @allowClear={{true}}
+        @showErrors={{validations.frequencyQuantity.isInvalid}}
+        @errorMessage={{validations.frequencyQuantity.message}}
+      />
+    {{/if}}
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <ToggleSwitch
+      @value={{model.pdfAttached}}
+      @toggleOnLabel='Send as PDF'
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    {{#if isOrganizationStripeConnected}}
+      <ToggleSwitch
+        @value={{model.includeStripe}}
+        @toggleOnLabel='Enable payment by Stripe'
+      />
+    {{/if}}
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    {{#if isOrganizationPaypalConnected}}
+      <ToggleSwitch
+        @value={{model.includePaypal}}
+        @toggleOnLabel='Enable payment by Paypal'
+      />
+    {{/if}}
+  </div>
+
+  <div class='col-span-6 sm:col-span-6'>
+    <FormElements::TextArea
+      rows='10'
+      @value={{model.message}}
+      @label='Your message'
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Invoice Send to'
+  @description='Information about clients and recipients.'
+  class='md:grid md:grid-cols-3'
+>
+  {{#each model.recurringSchedules as |recurringSchedule|}}
+    <div class='col-span-2 sm:col-span-1'>
+      <button type='button' class='tw-button secondary' {{action 'removeClient' recurringSchedule}}>
+        <Icons::Times/>Remove
+      </button>
+    </div>
+    <div class='col-span-4 sm:col-span-5'>
+      <div class='text-sm font-medium mt-2'>{{recurringSchedule.client.name}}</div>
+    </div>
+
+    {{#if (or recurringSchedule.client.email recurringSchedule.client.contacts.length)}}
+      <div class='col-span-6'>
+        <FormElements::EmailSelect
+          @label='Send a copy of each invoice to'
+          @placeholder='Select recipient'
+          @options={{recurringSchedule.contactOptions}}
+          @optionKey='id'
+          @optionLabel='name'
+          @displayField='contact.name'
+          @searchEnabled={{true}}
+          @value={{recurringSchedule.scheduleContacts}}
+          @showErrors={{this.delivery.validations.attrs.toRecipients.isInvalid}}
+          @errorMessage={{this.delivery.validations.attrs.toRecipients.message}}
+          @onChange={{fn this.addRecipient recurringSchedule}}
+          @onRemove={{fn this.removeRecipient recurringSchedule}}
+          @filter={{scheduleContactsFilter}}
+        />
+      </div>
+    {{/if}}
+  {{/each}}
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Client Name'
+      @options={{filteredClients}}
+      @optionKey='id'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @showErrors={{validations.client.isInvalid}}
+      @errorMessage={{validations.client.message}}
+      @onChange={{action 'selectClient'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <button type='button' class='tw-button mt-8' {{action 'newClient'}}>New Client</button>
+  </div>
+</Forms::GroupedGrid>
+
+{{#if hasLineItems}}
+  <div class='tw-table-wrapper'>
+    <table>
+      <thead>
+        <tr>
+          <th scope='col' class='w-12'></th>
+          <th scope='col' class='w-48'>Item Type</th>
+          <th scope='col'>Description</th>
+          <th scope='col' class='w-32'>Quantity</th>
+          <th scope='col' class='w-48'>Unit Price</th>
+          {{#if model.isTaxDistributionLineItem}}
+            <th scope='col' class='w-32'>Tax</th>
+          {{/if}}
+          <th scope='col' class='w-24'>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each sortedLineItems as |lineItem|}}
+          <Documents::LineItemForm
+            @model={{lineItem}}
+            @isDraggable={{isDraggable}}
+            @document={{model}}
+            @isoCode={{model.currency}}
+            @remove={{action 'removeLineItem'}}
+          />
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{/if}}
+
+<div class='flex justify-start flex-wrap gap-3 mt-6'>
+  <button type='submit' class='tw-button white' {{action 'addLineItem'}}>
+    <Icons::Plus/>
+    <span>Add new line item</span>
+  </button>
+  {{#if itemsPresentOnLibrary}}
+    <button type='button' class='tw-button secondary' {{action 'openItemLibrary'}}>Add line item from library</button>
+  {{/if}}
+  <span class='text-sm sm:pt-2'>
+    <a href='#' class='tw-link' {{action (mut isDraggable) (not isDraggable)}}>
+      {{#if isDraggable}}Done Re-ordering{{else}}Re-order Rows{{/if}}
+    </a>
+  </span>
+  <span class='text-sm sm:pt-2'><a href='#' class='tw-link' {{action 'openUnitOfMeasurementManager'}}>Manage Units</a></span>
+</div>
+
+<div class='grid grid-cols-2 gap-y-6 gap-x-4 sm:grid-cols-12 sm:border-t sm:border-gray-200 mt-6 sm:pt-5'>
+  <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+    <span class='text-sm'>Subtotal</span>
+  </div>
+  <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+    <span class='text-sm'><FormatCurrency @value={{model.subtotal}} @isoCode={{model.currency}} /></span>
+  </div>
+
+  <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+    <span class='text-sm'>Shipping</span>
+  </div>
+  <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+    <span class='text-sm'><FormatCurrency @value={{model.shipping}} @isoCode={{model.currency}} /></span>
+  </div>
+
+  {{#if model.hasDocumentTax}}
+    <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+      <span class='text-sm'>{{model.calculatedTax.nameAndPercent}}:</span>
+    </div>
+    <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+      <span class='text-sm'><FormatCurrency @value={{model.totalTaxAmount}} @isoCode={{model.currency}} /></span>
+    </div>
+  {{else}}
+    {{#if isLineTaxSingle}}
+      <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+        <span class='text-sm'>{{lineTaxes.0.name}} ({{lineTaxes.0.percent}}%):</span>
+      </div>
+      <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+        <span class='text-sm'><FormatCurrency @value={{lineTaxes.0.amount}} @isoCode={{model.currency}} /></span>
+      </div>
+    {{else}}
+      {{#each lineTaxes as |tax|}}
+        <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+          <span class='text-sm'>({{tax.count}}) {{tax.name}} ({{tax.percent}}%):</span>
+        </div>
+        <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+          <span class='text-sm'><FormatCurrency @value={{tax.amount}} @isoCode={{model.currency}} /></span>
+        </div>
+      {{/each}}
+
+      {{#if model.totalTaxAmount}}
+        <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+          <span class='text-sm'>Taxes:</span>
+        </div>
+        <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+          <span class='text-sm'><FormatCurrency @value={{model.totalTaxAmount}} @isoCode={{model.currency}} /></span>
+        </div>
+      {{/if}}
+    {{/if}}
+  {{/if}}
+
+  {{#if model.discount}}
+    {{#if model.multipleDiscounts}}
+      {{#each model.discounts as |discount|}}
+        <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+          <span class='text-sm'><Documents::DiscountLabel @model={{model}} @discount={{discount}} /></span>
+        </div>
+        <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+          <span class='text-sm'><FormatCurrency @value={{discount.total}} @isoCode={{model.currency}} /></span>
+        </div>
+      {{/each}}
+      <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+        <span class='text-sm'>Discounts:</span>
+      </div>
+      <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+        <span class='text-sm'><FormatCurrency @value={{model.discount}} @isoCode={{model.currency}} /></span>
+      </div>
+    {{else}}
+      <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+        <span class='text-sm'><Documents::DiscountLabel @model={{model}} @discount={{model.discounts.firstObject}} /></span>
+      </div>
+      <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+        <span class='text-sm'><FormatCurrency @value={{model.discount}} @isoCode={{model.currency}} /></span>
+      </div>
+    {{/if}}
+  {{/if}}
+
+  <div class='col-start-1 col-span-1 sm:col-start-8 sm:col-span-3 sm:pt-1.5 text-right'>
+    <span class='text-sm'>Total:</span>
+  </div>
+  <div class='col-start-2 col-span-1 sm:col-start-11 sm:col-span-2 sm:pt-1.5 text-right'>
+    <span class='text-sm'><FormatCurrency @value={{model.total}} @isoCode={{model.currency}} /></span>
+  </div>
+</div>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Invoice Message'
+  @description=''
+  class='md:grid md:grid-cols-3'
+>
+  <div class='col-span-6 sm:col-span-6'>
+    <FormElements::TextArea
+      rows='3'
+      @value={{model.notes}}
+      @label='Add a message to your invoice (this will be visible to the client)'
+      @showErrors={{validations.notes.isInvalid}}
+      @errorMessage={{validations.notes.message}}
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<div class='pt-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <LinkTo @route='invoice-templates' class='tw-button white'>Cancel</LinkTo>
+    <button type='button' {{action 'preview'}} class='tw-button secondary'>Preview</button>
+    <button type='submit' class='tw-button' disabled={{saveTask.isRunning}}>Save</button>
+  </div>
+</div>

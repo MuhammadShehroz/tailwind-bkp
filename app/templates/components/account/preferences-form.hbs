@@ -1,0 +1,273 @@
+<Forms::GroupedGrid
+  @title='Date and Time'
+  @description='Date and time format'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Timezone'
+      @placeholder='Select Timezone'
+      @options={{timezones}}
+      @optionKey='key'
+      @optionLabel='label'
+      @searchEnabled={{true}}
+      @selected={{timezone}}
+      @onChange={{action 'onSelect' 'key' 'timezone'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Date Format'
+      @placeholder='Select Date Format'
+      @options={{dateFormats}}
+      @optionKey='key'
+      @optionLabel='label'
+      @selected={{dateFormat}}
+      @onChange={{action 'onSelect' 'key' 'dateFormat'}}
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Amounts'
+  @description='Amounts'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Currency'
+      @placeholder='Select Currency'
+      @options={{currencies}}
+      @optionKey='code'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{currency}}
+      @onChange={{action 'onSelect' 'code' 'currency'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Currency Format'
+      @placeholder='Select Currency Format'
+      @options={{currencyFormats}}
+      @optionKey='key'
+      @optionLabel='label'
+      @searchEnabled={{true}}
+      @selected={{currencyFormat}}
+      @onChange={{action 'onSelect' 'key' 'currencyFormat'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Separate Thousands With'
+      @placeholder='Select Separate Thousands With'
+      @options={{thousandsSeparators}}
+      @optionKey='key'
+      @optionLabel='label'
+      @selected={{thousandsSeparator}}
+      @onChange={{action 'onSelect' 'key' 'thousandsSeparator'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Decimal Places for QTY'
+      @placeholder='Select Decimal Places for QTY'
+      @options={{decimals}}
+      @optionKey='key'
+      @optionLabel='label'
+      @selected={{quantityDecimal}}
+      @onChange={{action 'onSelect' 'key' 'quantityDecimals'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Separate Decimal Places with'
+      @placeholder='Select Separate Decimal Places with'
+      @options={{decimalsSeparators}}
+      @optionKey='key'
+      @optionLabel='label'
+      @selected={{decimalsSeparator}}
+      @onChange={{action 'onSelect' 'key' 'decimalsSeparator'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Decimal Places for Currency'
+      @placeholder='Select Places for Currency'
+      @options={{decimals}}
+      @optionKey='key'
+      @optionLabel='label'
+      @selected={{decimal}}
+      @onChange={{action 'onSelect' 'key' 'decimals'}}
+    />
+  </div>
+</Forms::GroupedGrid>
+
+<Forms::Divider />
+
+<Forms::GroupedGrid
+  @title='Defaults'
+  @description='Defaults'
+  class='md:grid md:grid-cols-1'
+>
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Default Unit'
+      @placeholder='Select Default for Unit'
+      @options={{units}}
+      @optionKey='id'
+      @optionLabel='name'
+      @value={{model.unitOfMeasurement}}
+      @selected={{model.unitOfMeasurement}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::CurrencyInput
+      @label='Default Unit Price'
+      @value={{model.unitPrice}}
+      @decimals={{currentOrganization.decimals}}
+      @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+      @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+      @leadingIcon={{currencySymbol}}
+      @allowClear={{true}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::SelectMenu
+      @label='Payment Due Date'
+      @placeholder='Select Payment Due Date'
+      @options={{paymentTerms}}
+      @optionKey='value'
+      @optionLabel='dropdownLabel'
+      @selected={{dueDate}}
+      @onChange={{action 'onSelect' 'value' 'netTerms'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::CurrencyInput
+      @label='Shipping'
+      @value={{model.shipping}}
+      @decimals={{currentOrganization.decimals}}
+      @decimalsSeparator={{currentOrganization.decimalsSeparator}}
+      @thousandsSeparator={{currentOrganization.thousandsSeparator}}
+      @leadingIcon={{currencySymbol}}
+      @allowClear={{true}}
+      as |leadingIcon|
+    >
+      <FormElements::InputLeadingIcon>{{leadingIcon}}</FormElements::InputLeadingIcon>
+    </FormElements::CurrencyInput>
+  </div>
+
+  <LateFeeGroup
+    @label='Late Fee'
+    @model={{model}}
+    @currencySymbol={{currencySymbol}}
+  />
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::SelectMenu
+      @label='Tax Distribution'
+      @placeholder='Select Tax Distribution'
+      @options={{taxDistributionOptions}}
+      @optionKey='value'
+      @optionLabel='label'
+      @selected={{selectedTaxDistribution}}
+      @onChange={{action 'onSelect' 'value' 'taxDistribution'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <FormElements::SelectMenu
+      @label='Default Tax'
+      @placeholder='Select Default Tax'
+      @options={{taxes}}
+      @selected={{model.tax}}
+      @value={{model.tax}}
+      @optionKey='id'
+      @optionLabel='nameAndPercent'
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-2'>
+    <div class='col-span-3 sm:col-span-1 sm:pt-8'>
+      <button type='button' class='tw-button' {{action 'addTax'}}>Add or edit a tax</button>
+    </div>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <ToggleSwitch
+      @value={{model.pdfAttached}}
+      @toggleOnLabel='Attach invoices and estimates as PDFs to emails'
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <ToggleSwitch
+      @value={{model.locationDefaults}}
+      @toggleOnLabel='Use Default Location Info'
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='Default Invoice Country'
+      @placeholder='Select Country'
+      @options={{countries}}
+      @optionKey='code'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{country}}
+      @onChange={{action 'onCountryChange'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::PowerSelectMenu
+      @label='State'
+      @placeholder='Select State'
+      @options={{subregions}}
+      @optionKey='id'
+      @optionLabel='name'
+      @searchEnabled={{true}}
+      @selected={{subregion}}
+      @onChange={{action 'onSubregionChange'}}
+    />
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+    <FormElements::TextInput
+      @label='Default Invoice City'
+      @value={{model.billingAddress.city}}
+      @allowClear={{true}}
+      @trailingIcon={{true}}
+      as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+    >
+      <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+    </FormElements::TextInput>
+  </div>
+
+  <div class='col-span-6 sm:col-span-3'>
+
+  </div>
+</Forms::GroupedGrid>
+
+<div class='py-5'>
+  <div class='flex justify-end flex-wrap gap-3'>
+    <button type='button' class='tw-button white' {{action 'cancel'}}>Reset</button>
+    <button type='submit' class='tw-button'>Save Changes</button>
+  </div>
+</div>

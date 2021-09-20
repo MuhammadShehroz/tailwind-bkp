@@ -1,0 +1,56 @@
+<Layouts::ColumnsGrid class='sm:grid-cols-6 sm:pt-0'>
+  <Layouts::GridColumn class='sm:col-span-6'>
+    <button type='button' {{action 'addTax'}} class='tw-button' disabled={{tax.hasDirtyAttributes}}>
+      <Icons::Plus/>
+      Add New Tax
+    </button>
+    {{#if taxPresent}}
+      <div class='tw-table-wrapper bordered'>
+        <table>
+          <thead>
+            <tr>
+              <th scope='col' class='w-full'>Name</th>
+              <th scope='col' class='w-full'>Percent</th>
+              <th scope='col' class='w-auto'>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each model as |tax|}}
+            <tr>
+              <td>
+                <div class='tw-label'>Name</div>
+                {{tax.name}}
+              </td>
+              <td>
+                <div class='tw-label'>Percent</div>
+                {{tax.percent}}%
+              </td>
+              <td>
+                <div class='tw-label'>Actions</div>
+                <button type='button' class='tw-link' {{action 'editTax' tax}}>
+                  Edit
+                </button>
+                <button type='button' class='tw-link' {{action 'delete' tax}} disabled={{delete.isRunning}}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    {{/if}}
+    {{#unless tax}}
+      <div class='pt-5'>
+        <div class='flex justify-end flex-wrap gap-3'>
+          <button type='button' class='tw-button white' {{action 'cancel'}}>
+            Close
+          </button>
+        </div>
+      </div>
+    {{/unless}}
+  </Layouts::GridColumn>
+  {{#if tax}}
+    <TaxForm @model={{tax}} @close={{close}} class='sm:col-span-6' />
+  {{/if}}
+</Layouts::ColumnsGrid>

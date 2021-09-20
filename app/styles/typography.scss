@@ -1,0 +1,63 @@
+@layer components {
+  h1,
+  h2,
+  h3 {
+    @apply text-gray-900 tracking-tight;
+  }
+
+  h1 {
+    @apply font-extrabold text-center text-2xl sm:text-3xl;
+  }
+
+  h2 {
+    @apply font-bold text-2xl sm:text-3xl sm:truncate;
+  }
+
+  h3 {
+    @apply font-medium text-lg leading-6 text-gray-900;
+  }
+
+  dd {
+    @apply mt-1 text-sm text-gray-900;
+  }
+
+  dt {
+    @apply text-sm font-medium text-gray-500 truncate;
+  }
+
+  .tw-link {
+    @apply text-indigo-600 font-medium;
+
+    &:hover {
+      @apply text-indigo-500;
+    }
+  }
+
+  .tw-icon {
+    @apply absolute z-10 inset-y-0  flex items-center text-gray-400 pointer-events-none;
+
+    &:focus {
+      @apply outline-none;
+    }
+
+    &.left {
+      @apply left-0 pl-2;
+    }
+
+    &.right {
+      @apply right-0 pr-2;
+    }
+
+    &.active {
+      @apply pointer-events-auto;
+    }
+
+    &.error {
+      @apply text-red-500;
+    }
+
+    &.clear {
+      @apply hidden;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{{#if label}}
+  <label for={{fieldId}} class='tw-label'>{{label}}</label>
+{{/if}}
+<div class='tw-textarea-wrapper'>
+  <Textarea ...attributes
+    id={{fieldId}}
+    @value={{value}}
+    @showErrors={{showErrors}}
+    @classNameBindings={{_classNameBindings}}
+    @classNames={{_classNames}}
+  />
+</div>
+
+{{#if showErrors}}
+  <p class='validation-message error'>{{errorMessage}}</p>
+{{/if}}
+
+{{#if hint}}
+  <p class='validation-message hint'>{{hint}}</p>
+{{/if}}

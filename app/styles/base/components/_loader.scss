@@ -1,0 +1,96 @@
+.loading-slider {
+  background-color: #fff;
+  bottom: 0;
+  box-shadow: 0 -10px 16px -10px rgba(0, 0, 0, 0.08);
+  height: rem(72);
+  position: fixed;
+  visibility: hidden;
+  width: 100%;
+  z-index: $modal-z-index;
+
+  &.visible {
+    visibility: visible;
+  }
+
+  .load-and-message {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%); /* stylelint-disable-line property-no-vendor-prefix */
+    transform: translate(-50%, -50%);
+
+    .message {
+      color: $slate;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      line-height: rem(32);
+      padding-left: rem(42);
+      text-transform: uppercase;
+    }
+  }
+
+  .spinner {
+    -webkit-animation: spin-it 1.4s infinite linear; /* stylelint-disable-line property-no-vendor-prefix */
+    animation: spin-it 1.4s infinite linear;
+    background: url(spinner-icon($cyan, 34, 34)) no-repeat center;
+    border-radius: 50%;
+    height: rem(32);
+    position: absolute;
+    -ms-transform: translateZ(0); /* stylelint-disable-line property-no-vendor-prefix */
+    -webkit-transform: translateZ(0); /* stylelint-disable-line property-no-vendor-prefix */
+    transform: translateZ(0);
+    width: rem(32);
+
+    &::after {
+      background: #fff;
+      border-radius: 50%;
+      bottom: 0;
+      content: '';
+      height: 50%;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 50%;
+    }
+  }
+
+  @-webkit-keyframes spin-it { /* stylelint-disable-line at-rule-no-vendor-prefix */
+    0% {
+      -webkit-transform: rotate(0deg); /* stylelint-disable-line property-no-vendor-prefix */
+      transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg); /* stylelint-disable-line property-no-vendor-prefix */
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin-it {
+    0% {
+      -webkit-transform: rotate(0deg); /* stylelint-disable-line property-no-vendor-prefix */
+      transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg); /* stylelint-disable-line property-no-vendor-prefix */
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.loader {
+  height: rem(120);
+  margin: 0 auto;
+  width: rem(120);
+
+  .spinner {
+    background: url(spinner(64, 64)) no-repeat center center;
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}

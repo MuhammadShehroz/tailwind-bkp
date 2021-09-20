@@ -1,0 +1,88 @@
+.organizations.listing {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  margin: 0 auto;
+  padding: rem(32) rem(16);
+  text-align: center;
+  width: 100%;
+
+  .account-items {
+    width: 100%;
+  }
+
+  .account-item.card {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: rem(281);
+    padding: rem(16);
+    width: 100%;
+
+    .logo,
+    .logo-placeholder {
+      border-radius: rem(8);
+      height: rem(120);
+      margin: 0 auto;
+      width: rem(120);
+    }
+
+    .logo {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .logo-placeholder {
+      align-items: center;
+      background-color: $slate-05;
+      border: rem(1) dashed $slate-20;
+      border-radius: 50%;
+      color: $slate-80;
+      display: flex;
+      font-size: rem(56);
+      justify-content: center;
+    }
+
+    .organization-name {
+      color: #000;
+      font-size: rem(20);
+      margin: rem(24) 0;
+    }
+
+    .expired {
+      color: $magenta;
+      font-size: rem(12);
+      font-style: italic;
+    }
+
+    &.new-account {
+      .logo-placeholder {
+        background: url(circle-plus-icon($cyan, transparent, $cyan, 120, 120)) left center no-repeat;
+        border: hidden;
+      }
+    }
+  }
+}
+
+@media (min-width: (rem(768))) {
+  .organizations.listing {
+    padding-left: 0;
+    padding-right: 0;
+
+    .account-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .account-item.card {
+      margin-left: rem(10);
+      margin-right: rem(10);
+      width: rem(343);
+    }
+  }
+}

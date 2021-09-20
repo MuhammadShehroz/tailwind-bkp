@@ -1,0 +1,10 @@
+<div
+  role='button'
+  ondrop={{action 'drop'}}
+  ondragover={{action 'preventEvent'}}
+  ondragleave={{action 'preventEvent'}}
+  ondragenter={{action 'preventEvent'}}
+  ...attributes
+>
+  {{yield}}
+</div>

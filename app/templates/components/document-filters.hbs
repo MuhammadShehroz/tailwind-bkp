@@ -1,0 +1,61 @@
+<div class='filter-bar'>
+  <a href='#' {{action 'showFilters'}} class='filter-link {{unless appliedFilterLength 'show-icon'}}'>
+    <span class='filter-count'>{{appliedFilterLength}}</span>
+    <span>Filter</span>
+  </a>
+  {{#if documentsPresent}}
+    <a href='#' {{action @exportXls}} class='export-link'><span>Export</span></a>
+  {{else}}
+    <span class='export-link disabled'><span>Export</span></span>
+  {{/if}}
+</div>
+<div class='filter-container'>
+  <div class='filter-summary'>
+    <div class='summary-item {{if (get filterApplied 'clientId') 'show'}}'>
+      <h6>{{clientFilterSummary.name}}</h6>
+      <a href='#' class='close-icon' {{action 'clearFilter' 'clientId'}} />
+    </div>
+    <div class='summary-item {{if (get filterApplied 'beforeOrAfter') 'show'}}'>
+      <h6>{{dateFilterSummary}}</h6>
+      <a href='#' class='close-icon' {{action (queue (action 'clearFilter' 'before') (action 'clearFilter' 'after'))}} />
+    </div>
+    <div class='summary-item {{if (get filterApplied 'status') 'show'}}'>
+      <h6>{{statusFilterSummary}}</h6>
+      <a href='#' class='close-icon' {{action 'clearFilter' 'status'}} />
+    </div>
+    <div class='summary-item {{if (get filterApplied 'currency') 'show'}}'>
+      <h6>{{currencyFilterSummary}}</h6>
+      <a href='#' class='close-icon' {{action 'clearFilter' 'currency'}} />
+    </div>
+  </div>
+  <ClickOutside @onClickOutside={{action 'closeFilters'}} @exceptSelector='.filter-link'>
+    <div class='form-board'>
+      <div class='input-group'>
+        <DateInput @model={{this}} @showToday={{true}} @valuePath='startDate' @label='Start Date' @class='form-input date-input dark-mode'
+@focusIn={{action 'focusIn'}}
+         />
+        <DateInput @model={{this}} @showToday={{true}} @valuePath='endDate' @label='End Date' @class='form-input date-input dark-mode' @focusIn={{action 'focusIn'}} />
+      </div>
+      <div class='input-group'>
+        <FormElements::ClientSelect
+          @label='Client'
+          @model={{this}}
+          @placeholder='Select'
+          @showPlaceholderOnBlank={{true}}
+          @valuePath='client'
+          @class='form-input dark-mode'
+          @allowClear={{true}}
+        />
+        <CurrencySelect @model={{this}} @valuePath='currency' @label='Currency' @allowClear={{true}} @placeholder='Select' @class='form-input dark-mode' />
+      </div>
+      <span class='group-header'>{{@documentType}} Status</span>
+      <div class='checkbox-group'>
+        {{#each (get documentStatusValues @documentType) as |status|}}
+          <CheckboxInput @model={{this}} @valuePath={{status.valuePath}} @label={{status.label}} @class='dark-mode' />
+        {{/each}}
+      </div>
+      <a href='#' class='btn btn-submit' {{action 'apply'}}>Apply Filters</a>
+      <a href='#' class='btn dark-mode btn-ghost btn-cancel' {{action 'reset'}}>Reset</a>
+    </div>
+  </ClickOutside>
+</div>

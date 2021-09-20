@@ -1,0 +1,15 @@
+<FormElements::TextInput
+  ...attributes
+  @type={{type}}
+  @label={{label}}
+  @value={{internalValue}}
+  @hint={{hint}}
+  @allowClear={{allowClear}}
+  @leadingIcon={{leadingIcon}}
+  @trailingIcon={{trailingIcon}}
+  @showErrors={{showErrors}}
+  @errorMessage={{errorMessage}}
+  as |leadingIcon trailingIcon showClear showErrors onTrailingIconClick|
+>
+  <FormElements::InputTrailingIcon @onTrailingIconClick={{onTrailingIconClick}} @showClear={{showClear}} @showErrors={{showErrors}}/>
+</FormElements::TextInput>

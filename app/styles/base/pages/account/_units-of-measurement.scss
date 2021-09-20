@@ -1,0 +1,52 @@
+.library {
+  display: flex;
+  flex-direction: column;
+
+  .info {
+    max-width: rem(327);
+    width: 100%;
+  }
+
+  .unit-of-measurement-manager {
+    flex: 1;
+    margin-top: rem(24);
+  }
+
+  .uom-card:first-of-type {
+    margin-top: 0;
+  }
+
+  h2 {
+    color: $slate;
+    font-size: rem(24);
+    font-weight: bold;
+    line-height: 125%;
+
+    &::before {
+      background-color: $slate-20;
+      content: '';
+      display: block;
+      height: rem(8);
+      margin-bottom: rem(32);
+      width: rem(40);
+    }
+  }
+
+  p {
+    color: $slate-80;
+    font-size: rem(16);
+    line-height: 150%;
+    margin-top: rem(16);
+  }
+}
+
+@media (min-width: $bp-768px) {
+  .library {
+    flex-direction: row;
+    justify-content: space-between;
+
+    .unit-of-measurement-manager {
+      margin-top: 0;
+    }
+  }
+}

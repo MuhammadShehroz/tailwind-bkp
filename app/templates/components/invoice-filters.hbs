@@ -1,0 +1,36 @@
+<div class='toggler {{if visibleFilters 'expanded'}}'>
+  <a href='#' {{action 'showFilters'}}>
+    <span class='client-summary'>{{clientFilterSummary.name}}</span>
+    <span class='date-summary'>{{dateFilterSummary}}</span>
+    <span class='status-summary'>{{statusFilterSummary}}</span>
+    <span class='currency-summary'>{{currencyFilterSummary}}</span>
+  </a>
+</div>
+
+{{#if visibleFilters}}
+  <h3>Filters</h3>
+
+  <form>
+    <DateInput @model={{this}} @valuePath='startDate' @label='Start Date' @class='not-floating start-date' />
+    <DateInput @model={{this}} @valuePath='endDate' @label='End Date' @class='end-date' />
+    <FormElements::ClientSelect
+      @label='Client'
+      @model={{this}}
+      @placeholder='All'
+      @showPlaceholderOnBlank={{true}}
+      @valuePath='client'
+    />
+    <CurrencySelect @model={{this}} @valuePath='currency' @label='Currency' @allowClear={{true}} />
+
+    <div class='fields-collection checkboxes-collection'>
+      <label>Invoice Types</label>
+      <CheckboxInput @model={{this}} @valuePath='statusDraft' @label='Draft' @class='dark-mode' />
+      <CheckboxInput @model={{this}} @valuePath='statusOpen' @label='Open' @class='dark-mode' />
+      <CheckboxInput @model={{this}} @valuePath='statusPastDue' @label='Past Due' @class='dark-mode' />
+      <CheckboxInput @model={{this}} @valuePath='statusClosed' @label='Closed' @class='dark-mode' />
+    </div>
+  </form>
+
+  <a href='#' class='apply' {{action 'apply'}}>Apply Filters</a>
+  <a href='#' class='reset' {{action 'reset'}}>Reset Filters</a>
+{{/if}}

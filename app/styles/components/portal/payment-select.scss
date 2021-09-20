@@ -1,0 +1,101 @@
+&:not(.bottom-select) {
+  margin-top: rem(32);
+}
+
+&.has-value {
+  .ember-power-select-trigger,
+  .payment-btn {
+    pointer-events: none;
+  }
+
+  .ember-power-select-selected-item,
+  .payment-btn {
+    color: #fff;
+  }
+
+  .ember-power-select-status-icon {
+    background-image: url(caret-icon(#fff, 15, 15));
+  }
+
+  .pay-view {
+    display: block;
+  }
+}
+
+.pay-view.credit-card-view .paypal-payment,
+.pay-view.paypal-view .card-payment {
+  display: none;
+}
+
+.ember-power-select-trigger,
+.payment-btn {
+  border: hidden;
+  display: block;
+  font-size: rem(16);
+  height: rem(56);
+  margin: 0 auto rem(32);
+  max-width: rem(295);
+  width: 100%;
+}
+
+.ember-power-select-trigger {
+  align-items: center;
+  background-color: $royal-blue;
+  border-radius: rem(6);
+  cursor: pointer;
+  display: flex;
+  padding-left: rem(16);
+}
+
+.ember-power-select-placeholder,
+.ember-power-select-selected-item {
+  font-size: rem(16);
+  font-weight: bold;
+  letter-spacing: rem(1);
+  text-transform: uppercase;
+}
+
+.ember-power-select-placeholder {
+  color: #fff;
+  font-style: normal;
+  margin-top: 0;
+}
+
+.ember-power-select-status-icon {
+  background-image: url(caret-icon(#fff, 15, 15));
+  background-position: left center;
+  background-size: rem(16);
+}
+
+.pay-view {
+  background-color: $slate-20;
+  display: none;
+  margin-left: rem(-40);
+  margin-right: rem(-40);
+  padding: rem(24) 0;
+}
+
+.client-payment.form {
+  max-width: rem(295);
+  padding: 0;
+}
+
+.payment.card {
+  margin-bottom: 0;
+}
+
+.action-buttons button {
+  max-width: unset;
+}
+
+.btn-cancel {
+  margin-top: 0;
+  padding-bottom: rem(18);
+}
+
+@media (min-width: $bp-768px) {
+  .pay-view {
+    margin-left: rem(-69);
+    margin-right: rem(-69);
+  }
+}

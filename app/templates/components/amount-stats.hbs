@@ -1,0 +1,34 @@
+{{#if (or model.length showPlaceholderStats)}}<h3>{{@header}}</h3>{{/if}}
+
+<dl class='mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4'>
+  {{#each (or model placeHolderStats) as |currencyStat|}}
+    <LinkTo @route='invoices' @query={{hash status=(array 'closed') currency=currencyStat.currency client_id=clientId}} @class='px-4 py-4 bg-white shadow rounded-lg overflow-hidden sm:p-6 truncate'>
+      <dt>Closed</dt>
+      <dd class='text-3xl font-semibold'>
+        <FormatCurrency @value={{currencyStat.closed}} @isoCode={{currencyStat.currency}} />
+      </dd>
+      {{#if clientId}}<span class='mt-2 text-sm font-medium text-gray-500'>View all closed invoices</span>{{/if}}
+    </LinkTo>
+    <LinkTo @route='invoices' @query={{hash status=(array 'open') currency=currencyStat.currency client_id=clientId}} @class='px-4 py-4 bg-white shadow rounded-lg overflow-hidden sm:p-6 truncate'>
+      <dt>Open</dt>
+      <dd class='text-3xl font-semibold'>
+        <FormatCurrency @value={{currencyStat.open}} @isoCode={{currencyStat.currency}} />
+      </dd>
+      {{#if clientId}}<span class='mt-2 text-sm font-medium text-gray-500'>View all open invoices</span>{{/if}}
+    </LinkTo>
+    <LinkTo @route='invoices' @query={{hash status=(array 'past_due') currency=currencyStat.currency client_id=clientId}} @class='px-4 py-4 bg-white shadow rounded-lg overflow-hidden sm:p-6 truncate'>
+      <dt>Past Due</dt>
+      <dd class='text-3xl font-semibold'>
+        <FormatCurrency @value={{currencyStat.pastDue}} @isoCode={{currencyStat.currency}} />
+      </dd>
+      {{#if clientId}}<span class='mt-2 text-sm font-medium text-gray-500'>View all past due invoices</span>{{/if}}
+    </LinkTo>
+    <LinkTo @route='invoices' @query={{hash status=(array 'draft') currency=currencyStat.currency client_id=clientId}} @class='px-4 py-4 bg-white shadow rounded-lg overflow-hidden sm:p-6 truncate'>
+      <dt>Draft</dt>
+      <dd class='text-3xl font-semibold'>
+        <FormatCurrency @value={{currencyStat.draft}} @isoCode={{currencyStat.currency}} />
+      </dd>
+      {{#if clientId}}<span class='mt-2 text-sm font-medium text-gray-500'>View all draft invoices</span>{{/if}}
+    </LinkTo>
+  {{/each}}
+</dl>

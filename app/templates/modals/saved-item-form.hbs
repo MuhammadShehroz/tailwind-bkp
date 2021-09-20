@@ -1,0 +1,13 @@
+{{#bs-modal 'saved-item-form'
+  class='modal-saved-item-form overflow-visible'
+  title='Saved Item Edit'
+  as |modal|
+}}
+  <Modals::SavedItemForm
+    @modal={{modal}}
+    @units={{units}}
+    @currencies={{currencies}}
+    @model={{model}}
+    @close={{action 'close'}}
+  />
+{{/bs-modal}}
